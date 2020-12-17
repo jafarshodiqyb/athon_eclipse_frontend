@@ -18,8 +18,10 @@ function addActivity(data) {
             .then(
                 data => { 
                     dispatch(success(data));
-                    history.push('/');
                     dispatch(alertActions.success('Add activity successful'));
+                    // history.push('/');
+                    window.location.reload()
+
                 },
                 error => {
                     dispatch(failure(error.toString()));
@@ -41,8 +43,10 @@ function deleteActivity(id) {
             .then(
                 id =>{ 
                     dispatch(success(id));
-                    history.push('/');
+                    // history.push('/');
                     dispatch(alertActions.success('Delete activity successful'));
+                    window.location.reload()
+
                 },
                 error => dispatch(failure(id, error.toString()))
             );

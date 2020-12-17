@@ -18,12 +18,14 @@ function checkin(user) {
             .then(
                 user => { 
                     dispatch(success(user));
-                    history.push('/home');
                     dispatch(alertActions.success('Checkin successful'));
+                    window.location.reload()
+
                 },
                 error => {
                     dispatch(failure(error.toString()));
                     dispatch(alertActions.error(error.toString()));
+                    window.location.reload()
                 }
             );
     };
@@ -57,12 +59,14 @@ function checkout(user) {
             .then(
                 user => { 
                     dispatch(success(user));
-                    history.push('/home');
                     dispatch(alertActions.success('Checkout successful'));
+                    // history.push('/home');
+                    window.location.reload()
                 },
                 error => {
                     dispatch(failure(error.toString()));
                     dispatch(alertActions.error(error.toString()));
+                    window.location.reload()
                 }
             );
     };
