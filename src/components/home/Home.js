@@ -5,6 +5,7 @@ import {
   IconButton,
   TextField,
   Modal,
+  Chip,
 } from "@material-ui/core";
 import React from "react";
 import List from "@material-ui/core/List";
@@ -33,15 +34,16 @@ import { connect } from "react-redux";
 import { userActions } from "./../../redux/user.actions";
 import { checkActions } from "../../redux/check.actions";
 import { activityActions } from "../../redux/activity.actions";
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import { compose } from "redux";
-import * as moment from "moment"
+import * as moment from "moment";
 
 import * as _ from "lodash";
+import ContentDummy from "./ContentDummy";
 
 const styles = (theme) => ({
   root: {
@@ -59,6 +61,14 @@ const styles = (theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
+  chips: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    "& > *": {
+      margin: theme.spacing(0.5),
+    },
+  },
 });
 class HomePage extends React.Component {
   constructor(props) {
@@ -66,12 +76,14 @@ class HomePage extends React.Component {
     const data = this.props;
     this.state = {
       username: data.authentication.user.username,
+      firstName: data.authentication.user.firstName,
+      lastName: data.authentication.user.lastName,
+
       modal: false,
       activity: "",
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this)
-
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     this.props.getCheckin(this.state.username);
@@ -83,19 +95,19 @@ class HomePage extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    const { activity,username,modal } = this.state;
+    const { activity, username, modal } = this.state;
     let body = {
-        username : username,
-        activities: {
-            activity:activity
-        }
-    } 
-    if(activity){
-        this.props.addActivity(body)
+      username: username,
+      activities: {
+        activity: activity,
+      },
+    };
+    if (activity) {
+      this.props.addActivity(body);
     }
-    if(modal){
-        this.handleModal();
-        window.location.reload();
+    if (modal) {
+      this.handleModal();
+      window.location.reload();
     }
   }
   handleChange(e) {
@@ -103,11 +115,11 @@ class HomePage extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleDelete(parentId,childId){
-    let body ={
-        parentId : parentId,
-        childId : childId,
-    }
+  handleDelete(parentId, childId) {
+    let body = {
+      parentId: parentId,
+      childId: childId,
+    };
     this.props.deleteActivity(body);
     window.location.reload();
   }
@@ -121,25 +133,27 @@ class HomePage extends React.Component {
 
   render() {
     const { check, classes } = this.props;
-    const { modal, activity } = this.state;
-    let  listActivities;
-      let title,date;
-      if (
-        check.item &&
-        check.item.lastCheckIn &&
-        check.item.lastCheckOut === null
-      ){
-        title = 'Last Check In';
-        date = moment(check.item.lastCheckIn).format('DD/MM/YYYY HH:mm')
-      } else if (check.item && check.item.lastCheckOut) {
-        title = 'Last Check Out';
-        date = moment(check.item.lastCheckOut).format('DD/MM/YYYY HH:mm')
-      }
-      else {title = '';date=''}
+    const { firstName, lastName, modal, activity } = this.state;
+    let listActivities;
+    let title, date;
+    if (
+      check.item &&
+      check.item.lastCheckIn &&
+      check.item.lastCheckOut === null
+    ) {
+      title = "Last Check In";
+      date = moment(check.item.lastCheckIn).format("DD/MM/YYYY HH:mm");
+    } else if (check.item && check.item.lastCheckOut) {
+      title = "Last Check Out";
+      date = moment(check.item.lastCheckOut).format("DD/MM/YYYY HH:mm");
+    } else {
+      title = "";
+      date = "";
+    }
     if (check.item) {
       listActivities = check.item.activities;
     }
-   
+
     return (
       <div>
         <TopBar />
@@ -150,11 +164,12 @@ class HomePage extends React.Component {
                 <CardHeader
                   avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                      R
+                      {firstName.charAt(0)}
                     </Avatar>
                   }
-                  title="Shrimp and Chorizo Paella"
-                  subheader="September 14, 2016"
+                  title={firstName}
+                  subheader={lastName}
+                  className="text-left"
                 />
                 <CardMedia
                   className={classes.media}
@@ -167,39 +182,41 @@ class HomePage extends React.Component {
                     color="textSecondary"
                     component="p"
                   >
-                    This impressive paella is a perfect party dish and a fun
-                    meal to cook together with your guests. Add 1 cup of frozen
-                    peas along with the mussels, if you like.
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s.
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <div className="row d-block">
-                    <div className="col">
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        //   className={classes.button}
-                        startIcon={<InputIcon />}
-                        onClick={
-                          _.isEmpty(check) ? this.checkin() : this.checkout()
-                        }
-                        disabled={
-                          check.item &&
-                          check.item.lastCheckIn &&
-                          check.item.lastCheckOut
-                        }
-                      >
-                        {_.isEmpty(check) ? "CHECKIN" : "CHECKOUT"}
-                        {/* {check && check.item['lastCheckOut'] ?'CHECKIN':'CHECKOUT'} */}
-                      </Button>
-                    </div>
-                    <div className="col mt-4">
-                      <div className="row ">
-                        <div className="col-12 align-middle">
-                          <span>{title}</span>
-                        </div>
-                        <div className="col-12">
-                          <small className="">{date}</small>
+                  <div className="container">
+                    <div className="row d-block">
+                      <div className="col-12">
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          //   className={classes.button}
+                          startIcon={<InputIcon />}
+                          onClick={
+                            _.isEmpty(check) ? this.checkin() : this.checkout()
+                          }
+                          disabled={
+                            check.item &&
+                            check.item.lastCheckIn &&
+                            check.item.lastCheckOut
+                          }
+                        >
+                          {_.isEmpty(check) ? "CHECKIN" : "CHECKOUT"}
+                          {/* {check && check.item['lastCheckOut'] ?'CHECKIN':'CHECKOUT'} */}
+                        </Button>
+                      </div>
+                      <div className="col mt-4">
+                        <div className="row ">
+                          <div className="col-12 align-middle">
+                            <span>{title}</span>
+                          </div>
+                          <div className="col-12">
+                            <small className="">{date}</small>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -298,85 +315,115 @@ class HomePage extends React.Component {
               </Dialog>
             </div>
             <div className="col-md-6 mt-4">
-              <List className={classes.root}>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/1.jpg"
+              <ContentDummy />
+            </div>
+            <div className="col-md-3 mt-4">
+              <Card className={classes.root + "d-flex"} variant="outlined">
+                <CardHeader title="Trending #Hashtags" />
+                <CardMedia />
+                <CardContent>
+                  <div className={classes.chips}>
+                    <Chip
+                      color="primary"
+                      label="#TelkomAthon"
+                      component="a"
+                      href="telkomathon.com"
+                      clickable
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Brunch this weekend?"
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          Ali Connors
-                        </Typography>
-                        {" — I'll be in your neighborhood doing errands this…"}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar
-                      alt="Travis Howard"
-                      src="/static/images/avatar/2.jpg"
+                    <Chip
+                      color="primary"
+                      label="#Programmers"
+                      component="a"
+                      href="telkomathon.com"
+                      clickable
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Summer BBQ"
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          to Scott, Alex, Jennifer
-                        </Typography>
-                        {" — Wish I could come, but I'm out of town this…"}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar
-                      alt="Cindy Baker"
-                      src="/static/images/avatar/3.jpg"
+                    <Chip
+                      color="primary"
+                      label="#TimEclipseJuara"
+                      component="a"
+                      href="telkomathon.com"
+                      clickable
                     />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Oui Oui"
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          Sandra Adams
-                        </Typography>
-                        {" — Do you have Paris recommendations? Have you ever…"}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-              </List>
+                    <Chip
+                      color="primary"
+                      label="#AkuKuduPiye"
+                      component="a"
+                      href="telkomathon.com"
+                      clickable
+                    />
+                    <Chip
+                      color="primary"
+                      label="#TetepSemangat"
+                      component="a"
+                      href="telkomathon.com"
+                      clickable
+                    />
+                  </div>
+                </CardContent>
+                <CardActions></CardActions>
+              </Card>
+              <Card className={classes.root + "d-flex mt-4"} variant="outlined">
+                <CardHeader title="You May like" />
+                <CardMedia />
+                <CardContent>
+                  <List className={classes.root}>
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src="/static/images/avatar/1.jpg"
+                        />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Amoeba"
+                        secondary={
+                          <React.Fragment>
+                            <Typography
+                              component="span"
+                              variant="body2"
+                              className={classes.inline}
+                              color="textPrimary"
+                            >
+                            </Typography>
+                            {
+                              "12034 Likes"
+                            }
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar
+                          alt="Travis Howard"
+                          src="/static/images/avatar/2.jpg"
+                        />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Telkom Athon"
+                        secondary={
+                          <React.Fragment>
+                            <Typography
+                              component="span"
+                              variant="body2"
+                              className={classes.inline}
+                              color="textPrimary"
+                            >
+                              
+                            </Typography>
+                            {"12334 Likes"}
+                          </React.Fragment>
+                        }
+                      />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </List>
+                </CardContent>
+                <CardActions></CardActions>
+              </Card>
             </div>
           </div>
-          <div className="col-md-3 mt-4"></div>
         </div>
       </div>
     );
@@ -396,7 +443,6 @@ const actionCreators = {
   checkout: checkActions.checkout,
   addActivity: activityActions.addActivity,
   deleteActivity: activityActions.deleteActivity,
-
 };
 
 // const connectedHomePage = connect(mapState, actionCreators)(HomePage);
