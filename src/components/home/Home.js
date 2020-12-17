@@ -107,7 +107,7 @@ class HomePage extends React.Component {
     }
     if (modal) {
       this.handleModal();
-      window.location.reload();
+      // window.location.reload();
     }
   }
   handleChange(e) {
@@ -121,7 +121,7 @@ class HomePage extends React.Component {
       childId: childId,
     };
     this.props.deleteActivity(body);
-    window.location.reload();
+    // window.location.reload();
   }
 
   checkin() {
@@ -160,7 +160,7 @@ class HomePage extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-3 mt-4">
-              <Card className={classes.root}>
+              <Card className={classes.root} variant="outlined">
                 <CardHeader
                   avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
