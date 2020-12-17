@@ -2,6 +2,7 @@ import { userTypes } from './user.type';
 import { userService } from './../services/user.service';
 import { alertActions } from './alert.actions';
 import { history } from './../helpers/history';
+import { checkServices } from './../services/check.service';
 
 export const userActions = {
     login,

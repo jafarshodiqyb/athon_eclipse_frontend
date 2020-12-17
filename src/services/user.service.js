@@ -21,7 +21,6 @@ function login(username, password) {
     return fetch(`${baseUrl}/users/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
-            console.log(user)
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
 
@@ -40,7 +39,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${baseUrl}/users`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/check/checkin/jafar`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
