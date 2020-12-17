@@ -32,10 +32,11 @@ function updateActivity(user) {
 function deleteActivity(id) {
     const requestOptions = {
         method: 'DELETE',
-        headers: authHeader()
+        headers: {...authHeader(),'Content-Type': 'application/json'},
+        body: JSON.stringify(id)
     };
 
-    return fetch(`${baseUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/check/activity`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

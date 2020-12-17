@@ -5,7 +5,8 @@ import { activityService } from '../services/activity.service';
 import { activityTypes } from './activity.type';
 
 export const activityActions= {
-    addActivity
+    addActivity,
+    deleteActivity
 };
 
 
@@ -32,3 +33,22 @@ function addActivity(data) {
     function failure(error) { return { type: activityTypes.ACTIVITY_FAILURE, error } }
 }
 
+function deleteActivity(id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        activityService.deleteActivity(id)
+            .then(
+                id =>{ 
+                    dispatch(success(id));
+                    history.push('/');
+                    dispatch(alertActions.success('Delete activity successful'));
+                },
+                error => dispatch(failure(id, error.toString()))
+            );
+    };
+
+    function request(id) { return { type: activityTypes.DEL_ACTIVITY_REQUEST, id } }
+    function success(id) { return { type: activityTypes.DEL_ACTIVITY_SUCCESS, id } }
+    function failure(id, error) { return { type: activityTypes.DEL_ACTIVITY_FAILURE, id, error } }
+}
