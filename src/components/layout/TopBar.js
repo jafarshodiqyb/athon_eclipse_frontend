@@ -16,6 +16,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { deepOrange } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -78,6 +79,11 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
+  },
+  square: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: '#D4232C',
+    margin: "0 auto",
   },
 }));
 
