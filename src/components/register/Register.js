@@ -23,9 +23,17 @@ const styles = (theme) => ({
       margin: theme.spacing(1),
     },
   },
+  image: {
+    backgroundImage: 'url(https://tlt.co.id/assets/images/upload/20181018_151829.jpg)',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
   square: {
     color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
+    backgroundColor: '#D4232C',
     margin: "0 auto",
   },
   rounded: {
@@ -101,7 +109,7 @@ class RegisterPage extends React.Component {
             className="row h-100"
             style={{ display: "flex", "flex-wrap": "wrap" }}
           >
-            <div className="col-md-6 bg"></div>
+            <div className={classes.image + " d-none d-sm-block col-sm-6 "}></div>
             <div className="col-md-6 my-auto text-center">
               <div className="container">
 
@@ -231,7 +239,7 @@ class RegisterPage extends React.Component {
                     color="primary"
                     className={classes.submit}
                   >
-                    Sign Up
+                    Register
                   </Button>
                   <div className="col-12">
                   <Grid container justify="flex-end">
