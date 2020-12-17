@@ -14,7 +14,7 @@ const styles = (theme) => ({
         height: '100vh',
       },
       image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundImage: 'url(https://tlt.co.id/assets/images/upload/20181018_151829.jpg)',
         backgroundRepeat: 'no-repeat',
         backgroundColor:
           theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -23,7 +23,7 @@ const styles = (theme) => ({
       },
       square: {
         color: theme.palette.getContrastText(deepOrange[500]),
-        backgroundColor: deepOrange[500],
+        backgroundColor: '#D4232C',
         margin: "0 auto",
       },
       paper: {
@@ -108,7 +108,7 @@ class LoginPage extends React.Component {
             className="row h-100"
             style={{ display: "flex", "flex-wrap": "wrap" }}
           >
-            <div className="d-none d-sm-block col-sm-6 bg"></div>
+            <div className={classes.image + " d-none d-sm-block col-sm-6 "}></div>
             <div className="col-sm-6 col-xs-12  my-auto justify-content-center">
               <Avatar variant="square" className={classes.square}>
                 D
