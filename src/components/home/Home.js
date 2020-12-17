@@ -39,6 +39,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { compose } from "redux";
+import * as moment from "moment"
 
 import * as _ from "lodash";
 
@@ -81,14 +82,8 @@ class HomePage extends React.Component {
     this.setState({ modal: !this.state.modal });
   }
   handleSubmit(e) {
-    // e.preventDefault();
-
-    // this.setState({ submitted: true });
+    e.preventDefault();
     const { activity,username,modal } = this.state;
-    // if (username && password) {
-    //   this.props.login(username, password);
-    // }
-    // alert(activity)
     let body = {
         username : username,
         activities: {
@@ -108,6 +103,15 @@ class HomePage extends React.Component {
     this.setState({ [name]: value });
   }
 
+  handleDelete(parentId,childId){
+    let body ={
+        parentId : parentId,
+        childId : childId,
+    }
+    this.props.deleteActivity(body);
+    window.location.reload();
+  }
+
   checkin() {
     return (e) => this.props.checkin(this.state.username);
   }
@@ -118,16 +122,20 @@ class HomePage extends React.Component {
   render() {
     const { check, classes } = this.props;
     const { modal, activity } = this.state;
-    let checkStatus, listActivities;
-    if (
-      check.item &&
-      check.item.lastCheckIn &&
-      check.item.lastCheckOut === null
-    ) {
-      checkStatus = "Last Check In : " + check.item.lastCheckIn;
-    } else if (check.item && check.item.lastCheckOut) {
-      checkStatus = "Last Check Out : " + check.item.lastCheckOut;
-    } else checkStatus = "";
+    let  listActivities;
+      let title,date;
+      if (
+        check.item &&
+        check.item.lastCheckIn &&
+        check.item.lastCheckOut === null
+      ){
+        title = 'Last Check In';
+        date = moment(check.item.lastCheckIn).format('DD/MM/YYYY HH:mm')
+      } else if (check.item && check.item.lastCheckOut) {
+        title = 'Last Check Out';
+        date = moment(check.item.lastCheckOut).format('DD/MM/YYYY HH:mm')
+      }
+      else {title = '';date=''}
     if (check.item) {
       listActivities = check.item.activities;
     }
@@ -185,8 +193,15 @@ class HomePage extends React.Component {
                         {/* {check && check.item['lastCheckOut'] ?'CHECKIN':'CHECKOUT'} */}
                       </Button>
                     </div>
-                    <div className="col">
-                      <span>{checkStatus}</span>
+                    <div className="col mt-4">
+                      <div className="row ">
+                        <div className="col-12 align-middle">
+                          <span>{title}</span>
+                        </div>
+                        <div className="col-12">
+                          <small className="">{date}</small>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className={classes.demo}></div>
@@ -206,11 +221,21 @@ class HomePage extends React.Component {
                           <ListItemText
                             primary={value.activity}
                             secondary={
-                              value.description ? value.description : "-"
+                              value.createdDate
+                                ? moment(value.createdDate).format(
+                                    "DD/MM/YYYY HH:mm"
+                                  )
+                                : "-"
                             }
                           />
                           <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton
+                              edge="end"
+                              aria-label="delete"
+                              onClick={(e) =>
+                                this.handleDelete(check.item._id, value._id)
+                              }
+                            >
                               <DeleteIcon />
                             </IconButton>
                           </ListItemSecondaryAction>
@@ -228,38 +253,49 @@ class HomePage extends React.Component {
               >
                 Add Activity
               </Button>
-              <Dialog open={modal} onClose={this.handleModal.bind(this)} aria-labelledby="form-dialog-title" form="my-form-id">
-        <DialogTitle id="form-dialog-title">Add Activity</DialogTitle>
-          <form id="my-form-id" onSubmit={this.handleSubmit}>
-        <DialogContent>
-          {/* <DialogContentText>
+              <Dialog
+                open={modal}
+                onClose={this.handleModal.bind(this)}
+                aria-labelledby="form-dialog-title"
+                form="my-form-id"
+              >
+                <DialogTitle id="form-dialog-title">Add Activity</DialogTitle>
+                <form id="my-form-id" onSubmit={this.handleSubmit}>
+                  <DialogContent>
+                    {/* <DialogContentText>
             To subscribe to this website, please enter your activity address here. We will send updates
             occasionally.
           </DialogContentText> */}
 
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Activity"
-            type="activity"
-            name="activity"
-            value={activity}
-            onChange={this.handleChange}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleModal.bind(this)} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={this.handleSubmit} variant="contained" color="primary">
-            Add
-          </Button>
-        </DialogActions>
-        </form>
-
-      </Dialog>
+                    <TextField
+                      autoFocus
+                      margin="dense"
+                      id="name"
+                      label="Activity"
+                      type="activity"
+                      name="activity"
+                      value={activity}
+                      onChange={this.handleChange}
+                      fullWidth
+                    />
+                  </DialogContent>
+                  <DialogActions>
+                    <Button
+                      onClick={this.handleModal.bind(this)}
+                      color="primary"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      onClick={this.handleSubmit}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Add
+                    </Button>
+                  </DialogActions>
+                </form>
+              </Dialog>
             </div>
             <div className="col-md-6 mt-4">
               <List className={classes.root}>
@@ -359,6 +395,8 @@ const actionCreators = {
   checkin: checkActions.checkin,
   checkout: checkActions.checkout,
   addActivity: activityActions.addActivity,
+  deleteActivity: activityActions.deleteActivity,
+
 };
 
 // const connectedHomePage = connect(mapState, actionCreators)(HomePage);
