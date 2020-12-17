@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { userActions } from "../../redux/user.actions";
-import { Avatar, IconButton, InputAdornment, TextField, Typography, withStyles } from "@material-ui/core";
+import { Avatar, IconButton, InputAdornment, TextField, Typography, withStyles, Grid, Button } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import "./login.css";
 import { compose } from "redux";
@@ -41,6 +41,12 @@ const styles = (theme) => ({
       },
       submit: {
         margin: theme.spacing(3, 0, 2),
+        width: '50%',
+      },
+      textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: '50%',
       },
   });
 class LoginPage extends React.Component {
@@ -101,18 +107,19 @@ class LoginPage extends React.Component {
             className="row h-100"
             style={{ display: "flex", "flex-wrap": "wrap" }}
           >
-            <div className="col-md-6 bg"></div>
-            <div className="col-md-6 my-auto justify-content-center">
-            <Avatar variant="square" className={classes.square}>
+            <div className="d-none d-sm-block col-sm-6 bg"></div>
+            <div className="col-sm-6 col-xs-12  my-auto justify-content-center">
+              <Avatar variant="square" className={classes.square}>
                 D
               </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
+              <Typography component="h1" variant="h5" className="mt-2">
+                Log in
+              </Typography>
               <form name="form" onSubmit={this.handleSubmit}>
                 <div
                   className={
-                    "form-group" + (submitted && !username ? " has-error" : "")
+                    "form-group w-100" +
+                    (submitted && !username ? " has-error" : "")
                   }
                 >
                   {/* <label htmlFor="username">Username</label>
@@ -128,6 +135,7 @@ class LoginPage extends React.Component {
                   )}
                   <TextField
                     //   variant="outlined"
+                    className={classes.textField}
                     margin="normal"
                     required
                     // fullWidth
@@ -160,7 +168,7 @@ class LoginPage extends React.Component {
                     margin="normal"
                     required
                     // fullWidth
-                    
+                    className={classes.textField}
                     label="Password"
                     type={showPassword ? "text" : "password"}
                     name="password"
@@ -185,13 +193,36 @@ class LoginPage extends React.Component {
                   />
                 </div>
                 <div className="form-group">
-                  <button className="btn btn-primary">Login</button>
+                  <Button
+                    type="submit"
+                    // fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                  >
+                    Log In
+                  </Button>
+                  {/* <button className="btn btn-primary">Login</button>
                   {loggingIn && (
                     <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                   )}
                   <Link to="/register" className="btn btn-link">
                     Register
-                  </Link>
+                  </Link> */}
+                  <div className="container">
+                  <div className="row">
+                    <div className="col-md-3 offset-md-3 mt-2 ">
+                      <Link to="#" variant="body2">
+                        Forgot password?
+                      </Link>
+                    </div>
+                    <div className="col-md-3 mt-2">
+                      <Link to="/register" variant="body2" className="text-center">
+                        {"Register"}
+                      </Link>
+                    </div>
+                  </div>
+                  </div>
                 </div>
               </form>
             </div>
