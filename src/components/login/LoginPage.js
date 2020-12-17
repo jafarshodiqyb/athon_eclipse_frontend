@@ -82,7 +82,6 @@ class LoginPage extends React.Component {
     this.setState({
       showPassword: !this.state.showPassword,
     });
-    console.log(this.state.showPassword);
     // setValues({ ...values, showPassword: !values.showPassword });
   }
 
@@ -213,7 +212,7 @@ const actionCreators = {
   logout: userActions.logout,
 };
 
-const connectedLoginPage = connect(mapState, actionCreators)(LoginPage);
+// const connectedLoginPage = connect(mapState, actionCreators)(LoginPage);
 // export { connectedLoginPage as LoginPage };
 export default compose(
     connect(
