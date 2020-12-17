@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { userActions } from "../../redux/user.actions";
-import { Avatar, IconButton, InputAdornment, TextField, Typography, withStyles, Grid, Button } from "@material-ui/core";
+import { Avatar, IconButton, InputAdornment, TextField, Typography, withStyles, Grid, Button, Box } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import "./login.css";
 import { compose } from "redux";
 import { deepOrange } from "@material-ui/core/colors";
+import Copyright from "../layout/Copyright";
 const styles = (theme) => ({
     root: {
         height: '100vh',
@@ -223,6 +224,9 @@ class LoginPage extends React.Component {
                     </div>
                   </div>
                   </div>
+                  <Box mt={5}>
+              <Copyright />
+            </Box>
                 </div>
               </form>
             </div>
