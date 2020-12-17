@@ -25,6 +25,9 @@ function login(username, password) {
                 error => {
                     dispatch(failure(error.toString()));
                     dispatch(alertActions.error(error.toString()));
+                    // history.push('/login');
+                    window.location.reload()
+
                 }
             );
     };
@@ -53,6 +56,7 @@ function register(user) {
                 error => {
                     dispatch(failure(error.toString()));
                     dispatch(alertActions.error(error.toString()));
+                    window.location.reload()
                 }
             );
     };
