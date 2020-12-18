@@ -42,6 +42,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import {DialogAddEdit} from "./../layout/DialogAddEdit"
 import { compose } from "redux";
 import * as moment from "moment";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -85,7 +86,7 @@ class HomePage extends React.Component {
       modal: false,
       vertButton:false,
       anchorEl : null,
-      activity: "",
+      activity: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -95,8 +96,13 @@ class HomePage extends React.Component {
     // this.props.getUsers()
   }
 
-  handleModal() {
-    this.setState({ modal: !this.state.modal });
+  handleModal(activity) {
+    console.log(activity)
+    // if(activity =='close')
+    this.setState({ 
+      modal: !this.state.modal,
+      activity : activity
+    });
   }
   handleVertButton() {
     this.setState({ vertButton: !this.state.vertButton });
@@ -136,6 +142,9 @@ class HomePage extends React.Component {
       childId: childId,
     };
     this.props.deleteActivity(body);
+    if(this.state.vertButton){
+      this.handleVertButton()
+    }
   }
 
   checkin() {
@@ -147,7 +156,7 @@ class HomePage extends React.Component {
 
   render() {
     const { check, classes } = this.props;
-    const { firstName, lastName, modal, activity,vertButton,anchorEl } = this.state;
+    const { username,firstName, lastName, modal, activity,vertButton,anchorEl } = this.state;
     let listActivities;
     let title, date;
     if (
@@ -283,16 +292,25 @@ class HomePage extends React.Component {
                               // }}
                             >
                               <MenuItem
-                                onClick={this.handleVertButton.bind(this)}
+                                onClick={(e) =>
+                                  this.handleModal(value.activity)
+                                }
                               >
-                                 <EditIcon/> Edit 
+                                <EditIcon /> Edit
+                                <DialogAddEdit
+                                  open={modal}
+                                  onClose={(e) => this.handleChange}
+                                  activity={activity}
+                                  modal={modal}
+                                  username={username}
+                                />
                               </MenuItem>
                               <MenuItem
                                 onClick={(e) =>
                                   this.handleDelete(check.item._id, value._id)
                                 }
                               >
-                                <DeleteIcon/> Delete 
+                                <DeleteIcon /> Delete
                               </MenuItem>
                             </Menu>
                           </ListItemSecondaryAction>
@@ -306,23 +324,25 @@ class HomePage extends React.Component {
                 color="secondary"
                 className={classes.button}
                 startIcon={<AddIcon />}
-                onClick={this.handleModal.bind(this)}
+                onClick={(e) =>
+                  this.handleModal(null)
+                }
               >
                 Add Activity
               </Button>
-              <Dialog
+              {/* <DialogAddEdit open={modal} onClose={this.handleModal.bind(this)} activity={activity}/> */}
+              {/* <Dialog
                 open={modal}
                 onClose={this.handleModal.bind(this)}
                 aria-labelledby="form-dialog-title"
                 form="my-form-id"
               >
-                <DialogTitle id="form-dialog-title">Add Activity</DialogTitle>
+                <DialogTitle id="form-dialog-title">Add Activity{activity}</DialogTitle>
                 <form id="my-form-id" onSubmit={this.handleSubmit}>
                   <DialogContent>
-                    {/* <DialogContentText>
-            To subscribe to this website, please enter your activity address here. We will send updates
-            occasionally.
-          </DialogContentText> */}
+                    <DialogContentText>
+            Add your Daily activity here!
+          </DialogContentText>
 
                     <TextField
                       autoFocus
@@ -352,7 +372,7 @@ class HomePage extends React.Component {
                     </Button>
                   </DialogActions>
                 </form>
-              </Dialog>
+              </Dialog> */}
             </div>
             <div className="col-md-6 mt-4">
               <ContentDummy />
