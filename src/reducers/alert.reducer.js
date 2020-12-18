@@ -4,12 +4,12 @@ export function alert(state = {}, action) {
   switch (action.type) {
     case alertTypes.SUCCESS:
       return {
-        type: 'alert-success',
+        type: 'success',
         message: action.message
       };
     case alertTypes.ERROR:
       return {
-        type: 'alert-danger',
+        type: 'error',
         message: action.message
       };
     case alertTypes.CLEAR:

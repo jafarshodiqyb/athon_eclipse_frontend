@@ -8,34 +8,73 @@ import { ProtectedRoute } from './router/ProtectedRoute';
 import  HomePage from '../components/home/Home';
 import LoginPage  from '../components/login/LoginPage';
 import RegisterPage  from './../components/register/Register';
+import { Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+// import Alert from '@material-ui/lab/Alert';
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 class Main extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: true,
+    };
+    history.listen((location, action) => {
+      // clear alert on location change
+      this.props.clearAlerts();
+    });
+    this.handleSnackBar = this.handleSnackBar.bind(this);
+  }
 
-        history.listen((location, action) => {
-            // clear alert on location change
-            this.props.clearAlerts();
-        });
+  handleSnackBar(event, reason) {
+    if (reason === "clickaway") {
+      return;
     }
 
-    render() {
-        const { alert } = this.props;
-        return (<div>
-                        {alert.message &&
-                            <div className={`alert ${alert.type}`}>{alert.message}</div>
-                        }
-                        <Router history={history}>
-                            <Switch>
-                                <ProtectedRoute exact path="/" component={HomePage} />
-                                <Route path="/login" component={LoginPage} />
-                                <Route path="/register" component={RegisterPage} />
-                                <Redirect from="*" to="/" />
-                            </Switch>
-                        </Router>
-            </div>
-        );
+    // this.setState({open:false})
+    this.setState({ open: false });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.alert);
+    if(nextProps.alert.type && nextProps.alert.type == 'error' ||nextProps.alert.type == 'success')
+    {
+      this.setState({
+        open: true,
+      });
     }
+  }
+  render() {
+    const { alert } = this.props;
+    const { open } = this.state;
+    return (
+      <div>
+        {alert.message && (
+          <Snackbar
+            open={alert.message && open}
+            autoHideDuration={1500}
+            onClose={this.handleSnackBar}
+          >
+            <Alert onClose={this.handleSnackBar} severity={alert.type}>
+              {alert.message}
+            </Alert>
+            {/* {alert.message} */}
+          </Snackbar>
+          //   <div className={`alert ${alert.type}`}>{alert.message}</div>
+        )}
+        <Router history={history}>
+          <Switch>
+            <ProtectedRoute exact path="/" component={HomePage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
+            <Redirect from="*" to="/" />
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
 }
 
 function mapState(state) {

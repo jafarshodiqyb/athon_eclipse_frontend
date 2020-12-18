@@ -20,7 +20,7 @@ function addActivity(data) {
                     dispatch(success(data));
                     dispatch(alertActions.success('Add activity successful'));
                     // history.push('/');
-                    window.location.reload()
+                    //window.location.reload()
 
                 },
                 error => {

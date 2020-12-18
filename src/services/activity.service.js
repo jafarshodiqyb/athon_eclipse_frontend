@@ -46,7 +46,7 @@ function handleResponse(response) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
                 userService.logout();
-                window.location.reload();
+                //window.location.reload();
 
             }
 

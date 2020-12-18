@@ -107,7 +107,7 @@ class HomePage extends React.Component {
     }
     if (modal) {
       this.handleModal();
-      // window.location.reload();
+      window.location.reload();
     }
   }
   handleChange(e) {
@@ -121,7 +121,6 @@ class HomePage extends React.Component {
       childId: childId,
     };
     this.props.deleteActivity(body);
-    // window.location.reload();
   }
 
   checkin() {
