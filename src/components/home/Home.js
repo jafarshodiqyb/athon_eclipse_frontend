@@ -297,13 +297,13 @@ class HomePage extends React.Component {
                                 }
                               >
                                 <EditIcon /> Edit
-                                <DialogAddEdit
+                                {/* <DialogAddEdit
                                   open={modal}
-                                  onClose={(e) => this.handleChange}
+                                  onClose={(e) => this.handleModal}
                                   activity={activity}
-                                  modal={modal}
+                                  // modal={modal}
                                   username={username}
-                                />
+                                /> */}
                               </MenuItem>
                               <MenuItem
                                 onClick={(e) =>
@@ -330,7 +330,7 @@ class HomePage extends React.Component {
               >
                 Add Activity
               </Button>
-              {/* <DialogAddEdit open={modal} onClose={this.handleModal.bind(this)} activity={activity}/> */}
+              <DialogAddEdit open={modal} onClose={this.handleModal.bind(this)} activity={activity} username={username}/>
               {/* <Dialog
                 open={modal}
                 onClose={this.handleModal.bind(this)}

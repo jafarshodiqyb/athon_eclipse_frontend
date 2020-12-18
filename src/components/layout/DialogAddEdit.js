@@ -6,18 +6,21 @@ import { connect } from "react-redux";
 
 function DialogAddEdit(props) {
     console.log(props)
-    const [modal, setModal] = React.useState(false);
+    const [modal, setModal] = React.useState(props.modal);
+    const [activityTemp, setActivityTemp] = React.useState(props.activity);
+
     const handleSubmit = (e) => {
       e.preventDefault();
-      const { activity, username, modal } = props;
+      const { username, modal } = props;
       let body = {
         username: username,
         activities: {
-          activity: activity,
+          activity: activityTemp,
         },
       };
-      if (activity) {
-        this.props.addActivity(body);
+    console.log(body)
+      if (activityTemp) {
+        props.addActivity(body);
       }
       // if (modal) {
       //   handleClose();
@@ -28,10 +31,10 @@ function DialogAddEdit(props) {
     const handleClose = () => {
       setModal(false);
     };
-    const handleChange = (e) =>{
-      // const { name, value } = e.target;
-      // this.setState({ [name]: value });
+    const handleChange = (e) =>{      
+      setActivityTemp(e.target.value);
     }
+    
     return <Dialog {...props}>
           <DialogTitle id="form-dialog-title">{props.activity!=null?'Edit Activity':'Add Activity'}</DialogTitle>
     { /* Please mock your content */ }
@@ -48,14 +51,14 @@ function DialogAddEdit(props) {
                       label="Activity"
                       type="activity"
                       name="activity"
-                      value={props.activity}
+                      value={activityTemp}
                       onChange={handleChange}
                       fullWidth
                     />
                   </DialogContent>
                   <DialogActions>
                     <Button
-                      onClick={handleClose}
+                      onClick={props.onClose}
                       color="primary"
                     >
                       Cancel
