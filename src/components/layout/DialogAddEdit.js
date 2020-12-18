@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
 import { activityActions } from "../../redux/activity.actions";
-import { compose } from "redux";
 import { connect } from "react-redux";
 
 function DialogAddEdit(props) {
     console.log(props)
-    const [modal, setModal] = React.useState(props.modal);
-    const [activityTemp, setActivityTemp] = React.useState(props.activity);
+    const [activityTemp, setActivityTemp] = React.useState(null);
+    // useEffect(() => {
+    //   setActivityTemp(props.activity)
+    // });
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -18,9 +19,12 @@ function DialogAddEdit(props) {
           activity: activityTemp,
         },
       };
-    console.log(body)
-      if (activityTemp) {
+      if (props.activity == null || props.activity =="" ) {
         props.addActivity(body);
+      } else if(props.activity){
+        body.parentId = props.ids.parentId
+        body.childId = props.ids.childId
+        props.updateActivity(body)
       }
       if (props.open) {
         handleClose();
@@ -31,10 +35,10 @@ function DialogAddEdit(props) {
     const handleClose = () => {
       // setModal(false);
     };
-    const handleChange = (e) =>{      
+    const handleChange = (e) =>{    
+      e.preventDefault()  
       setActivityTemp(e.target.value);
     }
-    console.log(activityTemp)
     return <Dialog {...props}>
           <DialogTitle id="form-dialog-title">{props.activity!=null?'Edit Activity':'Add Activity'}</DialogTitle>
     { /* Please mock your content */ }
@@ -47,7 +51,7 @@ function DialogAddEdit(props) {
                     <TextField
                       autoFocus
                       margin="dense"
-                      id="name"
+                      id="activityTemp"
                       label="Activity"
                       type="activityTemp"
                       name="activityTemp"
@@ -117,6 +121,7 @@ function mapState(state) {
 const actionCreators = {
 
   addActivity: activityActions.addActivity,
+  updateActivity : activityActions.updateActivity,
   deleteActivity: activityActions.deleteActivity,
 };
 

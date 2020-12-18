@@ -29,7 +29,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import InputIcon from "@material-ui/icons/Input";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from "@material-ui/icons/Edit";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
@@ -42,10 +42,10 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import {DialogAddEdit} from "./../layout/DialogAddEdit"
+import { DialogAddEdit } from "./../layout/DialogAddEdit";
 import { compose } from "redux";
 import * as moment from "moment";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 import * as _ from "lodash";
 import ContentDummy from "./ContentDummy";
 
@@ -85,6 +85,10 @@ class HomePage extends React.Component {
 
       modal: false,
       activity: null,
+      ids : {
+        parentId :'',
+        childId :'',
+      }
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -94,19 +98,25 @@ class HomePage extends React.Component {
     // this.props.getUsers()
   }
 
-  handleModal(activity) {
-    console.log(activity)
+  handleModal(activity,parentId, childId) {
+    console.log(activity);
     // if(activity =='close')
-    this.setState({ 
+    if (parentId && childId){
+      this.setState({
+        ids : {
+          parentId : parentId,
+          childId : childId,
+        }
+      })
+    }
+    this.setState({
+      activity: activity,
       modal: !this.state.modal,
-      activity : activity
     });
   }
 
-
-  
-  handleClose(){
-    this.setState({anchorEl : null});
+  handleClose() {
+    this.setState({ anchorEl: null });
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -150,7 +160,7 @@ class HomePage extends React.Component {
 
   render() {
     const { check, classes } = this.props;
-    const { username,firstName, lastName, modal, activity } = this.state;
+    const { username, firstName, lastName, modal, activity,ids } = this.state;
     let listActivities;
     let title, date;
     if (
@@ -242,12 +252,14 @@ class HomePage extends React.Component {
                 </CardActions>
               </Card>
               <List>
-                
                 {check.item &&
                   listActivities.map((value, i) => {
                     return (
                       <div>
-                        <ListItem button   onClick={() => this.handleModal(value.activity)}>
+                        <ListItem
+                          button
+                          onClick={() => this.handleModal(value.activity,check.item._id, value._id)}
+                        >
                           <ListItemAvatar>
                             <Avatar>
                               <AssignmentIcon />
@@ -264,13 +276,13 @@ class HomePage extends React.Component {
                             }
                           />
                           <ListItemSecondaryAction>
-                              <IconButton
-                                onClick={(e) =>
-                                  this.handleDelete(check.item._id, value._id)
-                                }
-                              >
-                                <DeleteIcon /> 
-                              </IconButton>
+                            <IconButton
+                              onClick={(e) =>
+                                this.handleDelete(check.item._id, value._id)
+                              }
+                            >
+                              <DeleteIcon />
+                            </IconButton>
                             {/* </Menu> */}
                           </ListItemSecondaryAction>
                         </ListItem>
@@ -283,13 +295,17 @@ class HomePage extends React.Component {
                 color="secondary"
                 className={classes.button}
                 startIcon={<AddIcon />}
-                onClick={(e) =>
-                  this.handleModal(null)
-                }
+                onClick={(e) => this.handleModal(null)}
               >
                 Add Activity
               </Button>
-              <DialogAddEdit open={modal} onClose={this.handleModal.bind(this)} activity={activity} username={username}/>
+              <DialogAddEdit
+                open={modal}
+                onClose={this.handleModal.bind(this)}
+                activity={activity}
+                username={username}
+                ids={ids}
+              />
               {/* <Dialog
                 open={modal}
                 onClose={this.handleModal.bind(this)}
@@ -402,11 +418,8 @@ class HomePage extends React.Component {
                               variant="body2"
                               className={classes.inline}
                               color="textPrimary"
-                            >
-                            </Typography>
-                            {
-                              "12034 Likes"
-                            }
+                            ></Typography>
+                            {"12034 Likes"}
                           </React.Fragment>
                         }
                       />
@@ -428,9 +441,7 @@ class HomePage extends React.Component {
                               variant="body2"
                               className={classes.inline}
                               color="textPrimary"
-                            >
-                              
-                            </Typography>
+                            ></Typography>
                             {"12334 Likes"}
                           </React.Fragment>
                         }

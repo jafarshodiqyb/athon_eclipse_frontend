@@ -25,7 +25,7 @@ function updateActivity(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${baseUrl}/users/${user.id}`, requestOptions).then(handleResponse);;
+    return fetch(`${baseUrl}/check/activity`, requestOptions).then(handleResponse);;
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

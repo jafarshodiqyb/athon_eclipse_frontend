@@ -46,6 +46,36 @@ export function check(state = {}, action) {
         //   return user;
         // })
       };
+      case activityTypes.UPDATE_ACTIVITY_REQUEST:
+      // add 'UPDATEeting:true' property to user being UPDATEeted
+      return {
+        // ...state,
+        // items: state.items.map(user =>
+        //   user.id === action.id
+        //     ? { ...user, UPDATEeting: true }
+        //     : user
+        // )
+      };
+    case activityTypes.UPDATE_ACTIVITY_SUCCESS:
+      // remove UPDATEeted user from state
+      return {
+        // items: state.items.filter(user => user.id !== action.id)
+      };
+    case activityTypes.UPDATE_ACTIVITY_FAILURE:
+      // remove 'UPDATEeting:true' property and add 'UPDATEeteError:[error]' property to user 
+      return {
+        // ...state,
+        // items: state.items.map(user => {
+        //   if (user.id === action.id) {
+        //     // make copy of user without 'UPDATEeting:true' property
+        //     const { deleting, ...userCopy } = user;
+        //     // return copy of user with 'deleteError:[error]' property
+        //     return { ...userCopy, deleteError: action.error };
+        //   }
+
+        //   return user;
+        // })
+      };
     default:
       return state;
   }

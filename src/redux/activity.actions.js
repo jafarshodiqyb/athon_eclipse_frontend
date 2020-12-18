@@ -6,7 +6,8 @@ import { activityTypes } from './activity.type';
 
 export const activityActions= {
     addActivity,
-    deleteActivity
+    deleteActivity,
+    updateActivity
 };
 
 
@@ -35,6 +36,30 @@ function addActivity(data) {
     function failure(error) { return { type: activityTypes.ACTIVITY_FAILURE, error } }
 }
 
+function updateActivity(data) {
+    return dispatch => {
+        dispatch(request(data));
+
+        activityService.updateActivity(data)
+            .then(
+                data => { 
+                    dispatch(success(data));
+                    dispatch(alertActions.success('Edit activity successful'));
+                    // history.push('/');
+                    //window.location.reload()
+
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(user) { return { type: activityTypes.ACTIVITY_REQUEST, user } }
+    function success(user) { return { type: activityTypes.ACTIVITY_SUCCESS, user } }
+    function failure(error) { return { type: activityTypes.ACTIVITY_FAILURE, error } }
+}
 function deleteActivity(id) {
     return dispatch => {
         dispatch(request(id));
