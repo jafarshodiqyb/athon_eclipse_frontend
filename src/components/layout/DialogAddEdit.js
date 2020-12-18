@@ -22,19 +22,19 @@ function DialogAddEdit(props) {
       if (activityTemp) {
         props.addActivity(body);
       }
-      // if (modal) {
-      //   handleClose();
-      //   window.location.reload();
-      // }
+      if (props.open) {
+        handleClose();
+        window.location.reload();
+      }
     }
  
     const handleClose = () => {
-      setModal(false);
+      // setModal(false);
     };
     const handleChange = (e) =>{      
       setActivityTemp(e.target.value);
     }
-    
+    console.log(activityTemp)
     return <Dialog {...props}>
           <DialogTitle id="form-dialog-title">{props.activity!=null?'Edit Activity':'Add Activity'}</DialogTitle>
     { /* Please mock your content */ }
@@ -49,8 +49,8 @@ function DialogAddEdit(props) {
                       margin="dense"
                       id="name"
                       label="Activity"
-                      type="activity"
-                      name="activity"
+                      type="activityTemp"
+                      name="activityTemp"
                       value={activityTemp}
                       onChange={handleChange}
                       fullWidth

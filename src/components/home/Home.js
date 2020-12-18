@@ -84,8 +84,6 @@ class HomePage extends React.Component {
       lastName: data.authentication.user.lastName,
 
       modal: false,
-      vertButton:false,
-      anchorEl : null,
       activity: null,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -104,15 +102,11 @@ class HomePage extends React.Component {
       activity : activity
     });
   }
-  handleVertButton() {
-    this.setState({ vertButton: !this.state.vertButton });
-    // this.setState({anchorEl : event.currentTarget});
-  }
 
-  handleAnchor(event) {
-    
-    this.setState({anchorEl : event.currentTarget});
-    this.handleVertButton() 
+
+  
+  handleClose(){
+    this.setState({anchorEl : null});
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -142,9 +136,9 @@ class HomePage extends React.Component {
       childId: childId,
     };
     this.props.deleteActivity(body);
-    if(this.state.vertButton){
-      this.handleVertButton()
-    }
+    // if(this.state.vertButton){
+    //   this.handleVertButton()
+    // }
   }
 
   checkin() {
@@ -156,7 +150,7 @@ class HomePage extends React.Component {
 
   render() {
     const { check, classes } = this.props;
-    const { username,firstName, lastName, modal, activity,vertButton,anchorEl } = this.state;
+    const { username,firstName, lastName, modal, activity } = this.state;
     let listActivities;
     let title, date;
     if (
@@ -253,7 +247,7 @@ class HomePage extends React.Component {
                   listActivities.map((value, i) => {
                     return (
                       <div>
-                        <ListItem>
+                        <ListItem button   onClick={() => this.handleModal(value.activity)}>
                           <ListItemAvatar>
                             <Avatar>
                               <AssignmentIcon />
@@ -270,49 +264,14 @@ class HomePage extends React.Component {
                             }
                           />
                           <ListItemSecondaryAction>
-                            <IconButton
-                              aria-controls="simple-menu"
-                              aria-haspopup="true"
-                              onClick={this.handleAnchor.bind(this)}
-                            >
-                              {/* <DeleteIcon /> */}
-                              <MoreVertIcon />
-                            </IconButton>
-                            <Menu
-                              id="simple-menu"
-                              anchorEl={anchorEl}
-                              keepMounted
-                              open={vertButton}
-                              onClose={this.handleVertButton.bind(this)}
-                              // PaperProps={{
-                              //   style: {
-                              //     maxHeight: ITEM_HEIGHT * 4.5,
-                              //     width: "20ch",
-                              //   },
-                              // }}
-                            >
-                              <MenuItem
-                                onClick={(e) =>
-                                  this.handleModal(value.activity)
-                                }
-                              >
-                                <EditIcon /> Edit
-                                {/* <DialogAddEdit
-                                  open={modal}
-                                  onClose={(e) => this.handleModal}
-                                  activity={activity}
-                                  // modal={modal}
-                                  username={username}
-                                /> */}
-                              </MenuItem>
-                              <MenuItem
+                              <IconButton
                                 onClick={(e) =>
                                   this.handleDelete(check.item._id, value._id)
                                 }
                               >
-                                <DeleteIcon /> Delete
-                              </MenuItem>
-                            </Menu>
+                                <DeleteIcon /> 
+                              </IconButton>
+                            {/* </Menu> */}
                           </ListItemSecondaryAction>
                         </ListItem>
                       </div>
