@@ -6,6 +6,8 @@ import {
   TextField,
   Modal,
   Chip,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 import React from "react";
 import List from "@material-ui/core/List";
@@ -27,6 +29,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import InputIcon from "@material-ui/icons/Input";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from '@material-ui/icons/Edit';
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import AddIcon from "@material-ui/icons/Add";
 import { Link } from "react-router-dom";
@@ -41,7 +44,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { compose } from "redux";
 import * as moment from "moment";
-
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import * as _ from "lodash";
 import ContentDummy from "./ContentDummy";
 
@@ -80,6 +83,8 @@ class HomePage extends React.Component {
       lastName: data.authentication.user.lastName,
 
       modal: false,
+      vertButton:false,
+      anchorEl : null,
       activity: "",
     };
     this.handleChange = this.handleChange.bind(this);
@@ -92,6 +97,16 @@ class HomePage extends React.Component {
 
   handleModal() {
     this.setState({ modal: !this.state.modal });
+  }
+  handleVertButton() {
+    this.setState({ vertButton: !this.state.vertButton });
+    // this.setState({anchorEl : event.currentTarget});
+  }
+
+  handleAnchor(event) {
+    
+    this.setState({anchorEl : event.currentTarget});
+    this.handleVertButton() 
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -132,7 +147,7 @@ class HomePage extends React.Component {
 
   render() {
     const { check, classes } = this.props;
-    const { firstName, lastName, modal, activity } = this.state;
+    const { firstName, lastName, modal, activity,vertButton,anchorEl } = this.state;
     let listActivities;
     let title, date;
     if (
@@ -224,6 +239,7 @@ class HomePage extends React.Component {
                 </CardActions>
               </Card>
               <List>
+                
                 {check.item &&
                   listActivities.map((value, i) => {
                     return (
@@ -246,14 +262,39 @@ class HomePage extends React.Component {
                           />
                           <ListItemSecondaryAction>
                             <IconButton
-                              edge="end"
-                              aria-label="delete"
-                              onClick={(e) =>
-                                this.handleDelete(check.item._id, value._id)
-                              }
+                              aria-controls="simple-menu"
+                              aria-haspopup="true"
+                              onClick={this.handleAnchor.bind(this)}
                             >
-                              <DeleteIcon />
+                              {/* <DeleteIcon /> */}
+                              <MoreVertIcon />
                             </IconButton>
+                            <Menu
+                              id="simple-menu"
+                              anchorEl={anchorEl}
+                              keepMounted
+                              open={vertButton}
+                              onClose={this.handleVertButton.bind(this)}
+                              // PaperProps={{
+                              //   style: {
+                              //     maxHeight: ITEM_HEIGHT * 4.5,
+                              //     width: "20ch",
+                              //   },
+                              // }}
+                            >
+                              <MenuItem
+                                onClick={this.handleVertButton.bind(this)}
+                              >
+                                 <EditIcon/> Edit 
+                              </MenuItem>
+                              <MenuItem
+                                onClick={(e) =>
+                                  this.handleDelete(check.item._id, value._id)
+                                }
+                              >
+                                <DeleteIcon/> Delete 
+                              </MenuItem>
+                            </Menu>
                           </ListItemSecondaryAction>
                         </ListItem>
                       </div>

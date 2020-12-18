@@ -167,6 +167,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      <MenuItem  component={Link} to="/login">Log Out</MenuItem>
     </Menu>
   );
 
