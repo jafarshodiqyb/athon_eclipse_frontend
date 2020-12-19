@@ -133,13 +133,12 @@ class HomePage extends React.Component {
     let listActivities;
     let title, date;
     if (
-      check.item &&
-      check.item.lastCheckIn &&
-      check.item.lastCheckOut === null
+      (check.item &&
+        (check.item.lastCheckOut===null||(!moment(check.item.lastCheckOut).isSame(moment(), 'day')) && moment(check.item.lastCheckIn).isSame(moment(), 'day')))
     ) {
       title = "Last Check In";
       date = moment(check.item.lastCheckIn).format("DD/MM/YYYY HH:mm");
-    } else if (check.item && check.item.lastCheckOut) {
+    } else if (check.item && (check.item.lastCheckOut||!moment(check.item.lastCheckIn).isSame(moment(), 'day') && !moment(check.item.lastCheckOut).isSame(moment(), 'day') )) {
       title = "Last Check Out";
       date = moment(check.item.lastCheckOut).format("DD/MM/YYYY HH:mm");
     } else {
@@ -150,17 +149,17 @@ class HomePage extends React.Component {
       listActivities = check.item.activities;
     }
 
-    
+    console.log((_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day'))))
     return (
       <div>
-        {_.isEmpty(this.props.check) && (
+        {(_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day'))) && (
           <Snackbar
-            open={_.isEmpty(this.props.check)}
+            open={(_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day')))}
             autoHideDuration={1500}
             // onClose={this.handleSnackBar}
           >
             <Alert onClose={this.handleSnackBar} severity="error">
-              Anda Belum Check In. Silahkan Check In Terlebih Dahulu!
+              Hari ini anda Belum Check In. Silahkan Check In Terlebih Dahulu!
             </Alert>
             {/* {alert.message} */}
           </Snackbar>
@@ -207,15 +206,15 @@ class HomePage extends React.Component {
                             className={classes.button}
                           startIcon={<InputIcon />}
                           onClick={
-                            _.isEmpty(check) ? this.checkin() : this.checkout()
+                            (_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day'))) ? this.checkin() : this.checkout()
                           }
                           disabled={
-                            check.item &&
-                            check.item.lastCheckIn &&
-                            check.item.lastCheckOut
+                            (check.item &&(
+                            (moment(check.item.lastCheckIn).isSame(moment(), 'day') &&
+                            moment(check.item.lastCheckOut).isSame(moment(), 'day'))))
                           }
                         >
-                          {_.isEmpty(check) ? "CHECKIN" : "CHECKOUT"}
+                          {(_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day')))  ? "CHECKIN" : "CHECKOUT"}
                         </Button>
                       </div>
                       <div className="col mt-4">
