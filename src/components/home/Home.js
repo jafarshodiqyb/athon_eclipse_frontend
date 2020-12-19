@@ -177,7 +177,7 @@ class HomePage extends React.Component {
                     </Avatar>
                   }
                   title={firstName}
-                  subheader={lastName}
+                  subheader={username}
                   className="text-left"
                 />
                 <CardMedia
