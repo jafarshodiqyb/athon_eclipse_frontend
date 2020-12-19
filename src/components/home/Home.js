@@ -1,13 +1,8 @@
 import {
-  makeStyles,
   Button,
   withStyles,
   IconButton,
-  TextField,
-  Modal,
   Chip,
-  Menu,
-  MenuItem,
   Paper,
 } from "@material-ui/core";
 import React from "react";
@@ -18,39 +13,28 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import logo from "../../logo.svg";
 import TopBar from "../layout/TopBar";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import InputIcon from "@material-ui/icons/Input";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import AddIcon from "@material-ui/icons/Add";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { userActions } from "./../../redux/user.actions";
 import { checkActions } from "../../redux/check.actions";
 import { activityActions } from "../../redux/activity.actions";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { DialogAddEdit } from "./../layout/DialogAddEdit";
 import { compose } from "redux";
 import * as moment from "moment";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import * as _ from "lodash";
 import ContentDummy from "./ContentDummy";
-import { FixedSizeList } from "react-window";
-
+import Copyright from "./../layout/Copyright"
+import ChatBar from "./ChatBar";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -93,10 +77,10 @@ class HomePage extends React.Component {
       }
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     this.props.getCheckin(this.state.username);
+      window.scrollTo(0, 0)
     // this.props.getUsers()
   }
 
@@ -120,23 +104,7 @@ class HomePage extends React.Component {
   handleClose() {
     this.setState({ anchorEl: null });
   }
-  handleSubmit(e) {
-    e.preventDefault();
-    const { activity, username, modal } = this.state;
-    let body = {
-      username: username,
-      activities: {
-        activity: activity,
-      },
-    };
-    if (activity) {
-      this.props.addActivity(body);
-    }
-    if (modal) {
-      this.handleModal();
-      window.location.reload();
-    }
-  }
+  
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -148,9 +116,7 @@ class HomePage extends React.Component {
       childId: childId,
     };
     this.props.deleteActivity(body);
-    // if(this.state.vertButton){
-    //   this.handleVertButton()
-    // }
+
   }
 
   checkin() {
@@ -223,7 +189,7 @@ class HomePage extends React.Component {
                         <Button
                           variant="contained"
                           color="secondary"
-                          //   className={classes.button}
+                            className={classes.button}
                           startIcon={<InputIcon />}
                           onClick={
                             _.isEmpty(check) ? this.checkin() : this.checkout()
@@ -235,7 +201,6 @@ class HomePage extends React.Component {
                           }
                         >
                           {_.isEmpty(check) ? "CHECKIN" : "CHECKOUT"}
-                          {/* {check && check.item['lastCheckOut'] ?'CHECKIN':'CHECKOUT'} */}
                         </Button>
                       </div>
                       <div className="col mt-4">
@@ -312,50 +277,7 @@ class HomePage extends React.Component {
                 ids={ids}
               />
               </Paper >
-
               </Card>
-              {/* <Dialog
-                open={modal}
-                onClose={this.handleModal.bind(this)}
-                aria-labelledby="form-dialog-title"
-                form="my-form-id"
-              >
-                <DialogTitle id="form-dialog-title">Add Activity{activity}</DialogTitle>
-                <form id="my-form-id" onSubmit={this.handleSubmit}>
-                  <DialogContent>
-                    <DialogContentText>
-            Add your Daily activity here!
-          </DialogContentText>
-
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="name"
-                      label="Activity"
-                      type="activity"
-                      name="activity"
-                      value={activity}
-                      onChange={this.handleChange}
-                      fullWidth
-                    />
-                  </DialogContent>
-                  <DialogActions>
-                    <Button
-                      onClick={this.handleModal.bind(this)}
-                      color="primary"
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      onClick={this.handleSubmit}
-                      variant="contained"
-                      color="primary"
-                    >
-                      Add
-                    </Button>
-                  </DialogActions>
-                </form>
-              </Dialog> */}
             </div>
             <div className="col-md-6 mt-4">
               <ContentDummy />
@@ -463,6 +385,8 @@ class HomePage extends React.Component {
             </div>
           </div>
         </div>
+        <ChatBar/>
+        <Copyright/>
       </div>
     );
   }
