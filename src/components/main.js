@@ -38,7 +38,6 @@ class Main extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.alert);
     if(nextProps.alert.type && nextProps.alert.type == 'error' ||nextProps.alert.type == 'success')
     {
       this.setState({
@@ -49,6 +48,7 @@ class Main extends React.Component {
   render() {
     const { alert } = this.props;
     const { open } = this.state;
+    console.log(this.props)
     return (
       <div>
         {alert.message && (
