@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function ChatBar() {
-  const [expanded, setExpanded] = React.useState("panel1");
+  const [expanded, setExpanded] = React.useState("");
   const classes = useStyles();
 
   const handleChange = (panel) => (event, newExpanded) => {

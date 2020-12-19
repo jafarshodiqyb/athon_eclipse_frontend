@@ -57,7 +57,7 @@ export default function ContentDummy() {
             fullWidth
           />
         </CardContent>
-        <CardActions className="float-right">
+        <CardActions className="float-right mb-2">
         <FormControl className={classes.formControl}>
           {/* <InputLabel shrink id="demo-simple-select-placeholder-label-label">
             Age
