@@ -155,7 +155,7 @@ class HomePage extends React.Component {
       <div>
         {_.isEmpty(this.props.check) && (
           <Snackbar
-            open={true}
+            open={_.isEmpty(this.props.check)}
             autoHideDuration={1500}
             // onClose={this.handleSnackBar}
           >
