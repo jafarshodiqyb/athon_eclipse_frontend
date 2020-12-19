@@ -8,6 +8,7 @@ import {
   Chip,
   Menu,
   MenuItem,
+  Paper,
 } from "@material-ui/core";
 import React from "react";
 import List from "@material-ui/core/List";
@@ -48,6 +49,7 @@ import * as moment from "moment";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import * as _ from "lodash";
 import ContentDummy from "./ContentDummy";
+import { FixedSizeList } from "react-window";
 
 const styles = (theme) => ({
   root: {
@@ -251,6 +253,9 @@ class HomePage extends React.Component {
                   <div className={classes.demo}></div>
                 </CardActions>
               </Card>
+              <Card className={classes.root + " mt-4"} variant="outlined">
+              <CardHeader title="Activity" />
+              <Paper  style={{maxHeight: 300, overflow: 'auto'}} elevation={0}>
               <List>
                 {check.item &&
                   listActivities.map((value, i) => {
@@ -293,7 +298,7 @@ class HomePage extends React.Component {
               <Button
                 variant="contained"
                 color="secondary"
-                className={classes.button}
+                className={classes.button + " mb-4"}
                 startIcon={<AddIcon />}
                 onClick={(e) => this.handleModal(null)}
               >
@@ -306,6 +311,9 @@ class HomePage extends React.Component {
                 username={username}
                 ids={ids}
               />
+              </Paper >
+
+              </Card>
               {/* <Dialog
                 open={modal}
                 onClose={this.handleModal.bind(this)}
