@@ -159,7 +159,7 @@ class HomePage extends React.Component {
             // onClose={this.handleSnackBar}
           >
             <Alert onClose={this.handleSnackBar} severity="error">
-              Hari ini anda Belum Check In. Silahkan Check In Terlebih Dahulu!
+              Hari ini anda belum Check In. Silahkan Check In terlebih dahulu!
             </Alert>
             {/* {alert.message} */}
           </Snackbar>
@@ -258,6 +258,7 @@ class HomePage extends React.Component {
                                   )
                                 : "-"
                             }
+                            style={{'overflowWrap':'anywhere'}}
                           />
                           <ListItemSecondaryAction>
                             <IconButton
