@@ -48,8 +48,9 @@ function handleResponse(response) {
                 //window.location.reload();
                 // location.reload(true);
             }
-
-            const error = (data && data.message) || response.statusText;
+            
+            const error = (data &&  data.message) || data.err.message || response.statusText;
+            console.log(error)
             return Promise.reject(error);
         }
 
