@@ -4,6 +4,7 @@ import {
   IconButton,
   Chip,
   Paper,
+  Snackbar,
 } from "@material-ui/core";
 import React from "react";
 import List from "@material-ui/core/List";
@@ -35,6 +36,7 @@ import * as _ from "lodash";
 import ContentDummy from "./ContentDummy";
 import Copyright from "./../layout/Copyright"
 import ChatBar from "./ChatBar";
+import Alert from "@material-ui/lab/Alert";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -80,6 +82,9 @@ class HomePage extends React.Component {
   }
   componentDidMount() {
     this.props.getCheckin(this.state.username);
+    // if(_.isEmpty(this.props.check)){
+    //   console.log(_.isEmpty(this.props.check));
+    // }
       window.scrollTo(0, 0)
     // this.props.getUsers()
   }
@@ -101,10 +106,6 @@ class HomePage extends React.Component {
     });
   }
 
-  handleClose() {
-    this.setState({ anchorEl: null });
-  }
-  
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -149,8 +150,22 @@ class HomePage extends React.Component {
       listActivities = check.item.activities;
     }
 
+    
     return (
       <div>
+        {_.isEmpty(this.props.check) && (
+          <Snackbar
+            open={true}
+            autoHideDuration={1500}
+            // onClose={this.handleSnackBar}
+          >
+            <Alert onClose={this.handleSnackBar} severity="error">
+              Anda Belum Check In. Silahkan Check In Terlebih Dahulu!
+            </Alert>
+            {/* {alert.message} */}
+          </Snackbar>
+          //   <div className={`alert ${alert.type}`}>{alert.message}</div>
+        )}
         <TopBar />
         <div className="container">
           <div className="row">
