@@ -2,7 +2,6 @@ import { userTypes } from './user.type';
 import { userService } from './../services/user.service';
 import { alertActions } from './alert.actions';
 import { history } from './../helpers/history';
-import { checkServices } from './../services/check.service';
 
 export const userActions = {
     login,
@@ -22,7 +21,7 @@ function login(username, password) {
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    dispatch(alertActions.error('Wrong username/password '));
                     // history.push('/login');
                     //window.location.reload()
 
