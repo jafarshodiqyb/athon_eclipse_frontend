@@ -45,7 +45,7 @@ function DialogAddEdit(props) {
     <form id="my-form-id" onSubmit={handleSubmit}>
                   <DialogContent>
                     <DialogContentText>
-                    {props.activity!=null?'Edit':'Add'} your Daily activity here!
+                    {props.activity!=null?`Recent Activity: ${props.activity}`:'Add your Daily activity here'}
           </DialogContentText>
 
                     <TextField
