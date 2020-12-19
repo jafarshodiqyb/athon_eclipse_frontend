@@ -91,8 +91,8 @@ export default function ChatBar() {
         <AccordionDetails>
           {people.map((value, i) => {
             return (
-              <List>
-                <ListItem alignItems="flex-start">
+              <List >
+                <ListItem button alignItems="flex-start">
                   <ListItemAvatar>
                   <Avatar >
                       {value.name.charAt(0)}
