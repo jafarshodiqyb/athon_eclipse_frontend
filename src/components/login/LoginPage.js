@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { userActions } from "../../redux/user.actions";
-import { Avatar, IconButton, InputAdornment, TextField, Typography, withStyles, Grid, Button, Box } from "@material-ui/core";
+import { Avatar, IconButton, InputAdornment, TextField, Typography, withStyles, Grid, Button, Box, Icon } from "@material-ui/core";
+import SvgIcon from '@material-ui/core/SvgIcon';
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import "./login.css";
 import { compose } from "redux";
@@ -128,13 +129,15 @@ class LoginPage extends React.Component {
             className="row h-100"
             style={{ display: "flex", "flex-wrap": "wrap" }}
           >
-            <div className={classes.image + " d-none d-sm-block col-sm-6 "}></div>
+            <div
+              className={classes.image + " d-none d-sm-block col-sm-6 "}
+            ></div>
             <div className="col-sm-6 col-xs-12  my-auto justify-content-center">
               <Avatar variant="square" className={classes.square}>
                 D
               </Avatar>
               <Typography component="h1" variant="h5" className="mt-2">
-                Log in
+                Login
               </Typography>
               <form name="form" onSubmit={this.handleSubmit}>
                 <div
@@ -221,7 +224,7 @@ class LoginPage extends React.Component {
                     color="primary"
                     className={classes.submit}
                   >
-                    Log In
+                    LogIn
                   </Button>
                   {/* <button className="btn btn-primary">Login</button>
                   {loggingIn && (
@@ -231,25 +234,39 @@ class LoginPage extends React.Component {
                     Register
                   </Link> */}
                   <div className="container">
-                  <div className="row">
-                    <div className="col-md-3 offset-md-3 mt-2 ">
-                      <Link to="#" variant="body2">
-                        Forgot password?
-                      </Link>
+                    <div className="row">
+                      <div className="col-md-3 offset-md-3 mt-2 ">
+                        <Link to="#" variant="body2">
+                          Forgot password?
+                        </Link>
+                      </div>
+                      <div className="col-md-3 mt-2">
+                        <Link
+                          to="/register"
+                          variant="body2"
+                          className="text-center"
+                        >
+                          {"Register"}
+                        </Link>
+                      </div>
                     </div>
-                    <div className="col-md-3 mt-2">
-                      <Link to="/register" variant="body2" className="text-center">
-                        {"Register"}
-                      </Link>
-                    </div>
-                    <Button variant="text" color="default" onClick={this.googleLogIn}>
-                      Google
+                  </div>
+                  <div className="container mt-4">
+                    <Button
+                      variant="contained"
+                      size="small"
+                      color="default"
+                      onClick={this.googleLogIn}
+                      startIcon={ <Avatar src="google.png"/>}
+                      className="mt-4"
+                    >
+
+                      Login with Google
                     </Button>
                   </div>
-                  </div>
                   <Box mt={5}>
-              <Copyright />
-            </Box>
+                    <Copyright />
+                  </Box>
                 </div>
               </form>
             </div>
