@@ -9,6 +9,8 @@ import "./login.css";
 import { compose } from "redux";
 import { deepOrange } from "@material-ui/core/colors";
 import Copyright from "../layout/Copyright";
+import queryString from 'query-string';
+ import jwt from 'jsonwebtoken'
 const styles = (theme) => ({
     root: {
         height: '100vh',
@@ -56,7 +58,6 @@ class LoginPage extends React.Component {
 
     // reset login status
     this.props.logout();
-
     this.state = {
       username: "",
       password: "",
@@ -83,6 +84,25 @@ class LoginPage extends React.Component {
     if (username && password) {
       this.props.login(username, password);
     }
+  }
+  googleLogIn(){
+    window.open("http://localhost:3000/users/auth/google","_self");
+  }
+  componentDidMount(){
+    if(this.props.location.pathname.length>7){
+      let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
+      if(params.token){
+        jwt.verify(params.token, '12345-67890-09876-54321', function(err, decoded) {
+          if (err) {
+            window.open("/login","_self")            
+          } else if (decoded) {
+          localStorage.setItem('user', JSON.stringify(params));
+          window.open("/","_self")
+        }
+        });
+      
+      }     
+      }
   }
 
   handleClickShowPassword(e) {
@@ -222,6 +242,9 @@ class LoginPage extends React.Component {
                         {"Register"}
                       </Link>
                     </div>
+                    <Button variant="text" color="default" onClick={this.googleLogIn}>
+                      Google
+                    </Button>
                   </div>
                   </div>
                   <Box mt={5}>
