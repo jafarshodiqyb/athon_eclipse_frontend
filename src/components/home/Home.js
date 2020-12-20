@@ -177,12 +177,13 @@ class HomePage extends React.Component {
                   title={firstName}
                   subheader={username}
                   className="text-left"
+                  style={{'overflowWrap':'anywhere'}}
                 />
-                <CardMedia
+                {/* <CardMedia
                   className={classes.media}
                   image="/static/images/cards/paella.jpg"
                   title="Paella dish"
-                />
+                /> */}
                 <CardContent>
                   <Typography
                     variant="body2"
@@ -279,6 +280,7 @@ class HomePage extends React.Component {
                 className={classes.button + " mb-4"}
                 startIcon={<AddIcon />}
                 onClick={(e) => this.handleModal(null)}
+                disabled={!check.item}
               >
                 Add Activity
               </Button>
