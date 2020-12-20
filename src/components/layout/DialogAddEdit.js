@@ -4,7 +4,6 @@ import { activityActions } from "../../redux/activity.actions";
 import { connect } from "react-redux";
 
 function DialogAddEdit(props) {
-    console.log(props)
     const [activityTemp, setActivityTemp] = React.useState(null);
     // useEffect(() => {
     //   setActivityTemp(props.activity)
@@ -115,7 +114,6 @@ function DialogAddEdit(props) {
 //   </Dialog>;
 }
 function mapState(state) {
-  console.log(state);
   return state;
 }
 const actionCreators = {

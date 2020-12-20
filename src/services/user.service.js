@@ -50,7 +50,6 @@ function handleResponse(response) {
             }
             
             const error = (data &&  data.message) || data.err.message || response.statusText;
-            console.log(error)
             return Promise.reject(error);
         }
 

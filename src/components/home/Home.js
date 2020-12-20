@@ -90,7 +90,6 @@ class HomePage extends React.Component {
   }
 
   handleModal(activity,parentId, childId) {
-    console.log(activity);
     // if(activity =='close')
     if (parentId && childId){
       this.setState({
@@ -149,7 +148,6 @@ class HomePage extends React.Component {
       listActivities = check.item.activities;
     }
 
-    console.log((_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day'))))
     return (
       <div>
         {(_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day'))) && (
@@ -408,7 +406,6 @@ class HomePage extends React.Component {
 }
 
 function mapState(state) {
-  console.log(state);
   return state;
 }
 

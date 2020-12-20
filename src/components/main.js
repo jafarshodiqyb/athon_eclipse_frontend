@@ -48,7 +48,6 @@ class Main extends React.Component {
   render() {
     const { alert } = this.props;
     const { open } = this.state;
-    console.log(this.props)
     return (
       <div>
         {alert.message && (
