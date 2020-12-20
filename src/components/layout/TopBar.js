@@ -17,7 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { deepOrange } from '@material-ui/core/colors';
-
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -167,7 +167,17 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-      <MenuItem  component={Link} to="/login">Log Out</MenuItem>
+      <MenuItem component={Link} to="/login">
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <LockOpenIcon />
+        </IconButton>
+        <p>Logout</p>
+      </MenuItem>
     </Menu>
   );
 
@@ -186,7 +196,7 @@ export default function PrimarySearchAppBar() {
           {/* <Typography className={classes.title} variant="h6" noWrap>
             mini-Diarium
           </Typography> */}
-          <Avatar variant="square" className={classes.square}>
+          <Avatar variant="square" className={classes.square + " mr-2"}>
             D
           </Avatar>
           <div className={classes.search}>

@@ -11,7 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-
+import { Hidden } from '@material-ui/core';
 const Accordion = withStyles({
   root: {
     border: "1px solid rgba(0, 0, 0, .125)",
@@ -76,6 +76,7 @@ export default function ChatBar() {
 
   return (
     <div>
+      <Hidden xsDown>
       <Accordion
         className={classes.root}
         square
@@ -120,6 +121,7 @@ export default function ChatBar() {
           })}
         </AccordionDetails>
       </Accordion>
+      </Hidden>
     </div>
   );
 }
