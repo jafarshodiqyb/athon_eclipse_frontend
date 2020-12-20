@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 import { userActions } from "../../redux/user.actions";
 import { Avatar, IconButton, InputAdornment, TextField, Typography, withStyles, Grid, Button, Box, Icon } from "@material-ui/core";
-import SvgIcon from '@material-ui/core/SvgIcon';
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import "./login.css";
 import { compose } from "redux";
@@ -257,7 +256,7 @@ class LoginPage extends React.Component {
                       size="small"
                       color="default"
                       onClick={this.googleLogIn}
-                      startIcon={ <Avatar src="google.png"/>}
+                      startIcon={ <Avatar sizes="small" src="google.png"/>}
                       className="mt-4"
                     >
 
