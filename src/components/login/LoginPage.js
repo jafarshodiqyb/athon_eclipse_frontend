@@ -96,7 +96,7 @@ class LoginPage extends React.Component {
           if (err) {
             window.open("/login","_self")            
           } else if (decoded) {
-          localStorage.setItem('user', JSON.stringify(params));
+          localStorage.setItem('token', JSON.stringify(params.token));
           window.open("/","_self")
         }
         });
