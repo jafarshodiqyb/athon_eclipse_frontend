@@ -29,7 +29,7 @@ import { connect } from "react-redux";
 import { userActions } from "./../../redux/user.actions";
 import { checkActions } from "../../redux/check.actions";
 import { activityActions } from "../../redux/activity.actions";
-import { DialogAddEdit } from "./../layout/DialogAddEdit";
+import { DialogLayout } from "./../layout/DialogLayout";
 import { compose } from "redux";
 import * as moment from "moment";
 import * as _ from "lodash";
@@ -72,6 +72,7 @@ class HomePage extends React.Component {
       lastName: data.authentication.user.lastName,
 
       modal: false,
+      modalType:'',
       activity: null,
       ids : {
         parentId :'',
@@ -89,7 +90,7 @@ class HomePage extends React.Component {
     // this.props.getUsers()
   }
 
-  handleModal(activity,parentId, childId) {
+  handleModal(type,activity,parentId, childId) {
     // if(activity =='close')
     if (parentId && childId){
       this.setState({
@@ -102,6 +103,7 @@ class HomePage extends React.Component {
     this.setState({
       activity: activity,
       modal: !this.state.modal,
+      modalType : type
     });
   }
 
@@ -115,7 +117,14 @@ class HomePage extends React.Component {
       parentId: parentId,
       childId: childId,
     };
-    this.props.deleteActivity(body);
+    this.setState({
+      ids : {
+        parentId : parentId,
+        childId : childId,
+      },
+      modalDelete: !this.state.modalDelete,
+    });
+    // this.props.deleteActivity(body);
 
   }
 
@@ -128,7 +137,7 @@ class HomePage extends React.Component {
 
   render() {
     const { check, classes } = this.props;
-    const { username, firstName, lastName, modal, activity,ids } = this.state;
+    const { username, firstName, lastName, modal, activity,ids,modalType } = this.state;
     let listActivities;
     let title, date;
     if (
@@ -150,9 +159,17 @@ class HomePage extends React.Component {
 
     return (
       <div>
-        {(_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day'))) && (
+        {(_.isEmpty(check) ||
+          (check &&
+            check.item &&
+            !moment(check.item.lastCheckIn).isSame(moment(), "day"))) && (
           <Snackbar
-            open={(_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day')))}
+            open={
+              _.isEmpty(check) ||
+              (check &&
+                check.item &&
+                !moment(check.item.lastCheckIn).isSame(moment(), "day"))
+            }
             autoHideDuration={1500}
             // onClose={this.handleSnackBar}
           >
@@ -177,7 +194,7 @@ class HomePage extends React.Component {
                   title={firstName}
                   subheader={username}
                   className="text-left"
-                  style={{'overflowWrap':'anywhere'}}
+                  style={{ overflowWrap: "anywhere" }}
                 />
                 {/* <CardMedia
                   className={classes.media}
@@ -202,18 +219,40 @@ class HomePage extends React.Component {
                         <Button
                           variant="contained"
                           color="secondary"
-                            className={classes.button}
+                          className={classes.button}
                           startIcon={<InputIcon />}
                           onClick={
-                            (_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day'))) ? this.checkin() : this.checkout()
+                            _.isEmpty(check) ||
+                            (check &&
+                              check.item &&
+                              !moment(check.item.lastCheckIn).isSame(
+                                moment(),
+                                "day"
+                              ))
+                              ? this.checkin()
+                              : this.checkout()
                           }
                           disabled={
-                            (check.item &&(
-                            (moment(check.item.lastCheckIn).isSame(moment(), 'day') &&
-                            moment(check.item.lastCheckOut).isSame(moment(), 'day'))))
+                            check.item &&
+                            moment(check.item.lastCheckIn).isSame(
+                              moment(),
+                              "day"
+                            ) &&
+                            moment(check.item.lastCheckOut).isSame(
+                              moment(),
+                              "day"
+                            )
                           }
                         >
-                          {(_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), 'day')))  ? "CHECKIN" : "CHECKOUT"}
+                          {_.isEmpty(check) ||
+                          (check &&
+                            check.item &&
+                            !moment(check.item.lastCheckIn).isSame(
+                              moment(),
+                              "day"
+                            ))
+                            ? "CHECKIN"
+                            : "CHECKOUT"}
                         </Button>
                       </div>
                       <div className="col mt-4">
@@ -232,66 +271,83 @@ class HomePage extends React.Component {
                 </CardActions>
               </Card>
               <Card className={classes.root + " mt-4"} variant="outlined">
-              <CardHeader title="Activity" />
-              <Paper  style={{maxHeight: 300, overflow: 'auto'}} elevation={0}>
-              <List>
-                {check.item &&
-                  listActivities.map((value, i) => {
-                    return (
-                      <div>
-                        <ListItem
-                          button
-                          onClick={() => this.handleModal(value.activity,check.item._id, value._id)}
-                        >
-                          <ListItemAvatar>
-                            <Avatar>
-                              <AssignmentIcon />
-                            </Avatar>
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={value.activity}
-                            secondary={
-                              value.createdDate
-                                ? moment(value.createdDate).format(
-                                    "DD/MM/YYYY HH:mm"
-                                  )
-                                : "-"
-                            }
-                            style={{'overflowWrap':'anywhere'}}
-                          />
-                          <ListItemSecondaryAction>
-                            <IconButton
-                              onClick={(e) =>
-                                this.handleDelete(check.item._id, value._id)
+                <CardHeader title="Activity" />
+                <Paper
+                  style={{ maxHeight: 300, overflow: "auto" }}
+                  elevation={0}
+                >
+                  <List>
+                    {check.item &&
+                      listActivities.map((value, i) => {
+                        return (
+                          <div>
+                            <ListItem
+                              button
+                              onClick={() =>
+                                this.handleModal(
+                                  "edit",
+                                  value.activity,
+                                  check.item._id,
+                                  value._id
+                                )
                               }
                             >
-                              <DeleteIcon />
-                            </IconButton>
-                            {/* </Menu> */}
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      </div>
-                    );
-                  })}
-              </List>
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button + " mb-4"}
-                startIcon={<AddIcon />}
-                onClick={(e) => this.handleModal(null)}
-                disabled={!check.item}
-              >
-                Add Activity
-              </Button>
-              <DialogAddEdit
-                open={modal}
-                onClose={this.handleModal.bind(this)}
-                activity={activity}
-                username={username}
-                ids={ids}
-              />
-              </Paper >
+                              <ListItemAvatar>
+                                <Avatar>
+                                  <AssignmentIcon />
+                                </Avatar>
+                              </ListItemAvatar>
+                              <ListItemText
+                                primary={value.activity}
+                                secondary={
+                                  value.createdDate
+                                    ? moment(value.createdDate).format(
+                                        "DD/MM/YYYY HH:mm"
+                                      )
+                                    : "-"
+                                }
+                                style={{ overflowWrap: "anywhere" }}
+                              />
+                              <ListItemSecondaryAction>
+                                <IconButton
+                                  onClick={(e) =>
+                                    this.handleModal(
+                                      "delete",
+                                      "",
+                                      check.item._id,
+                                      value._id
+                                    )
+                                  }
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+
+                                {/* </Menu> */}
+                              </ListItemSecondaryAction>
+                            </ListItem>
+                          </div>
+                        );
+                      })}
+                  </List>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.button + " mb-4"}
+                    startIcon={<AddIcon />}
+                    onClick={(e) => this.handleModal("add")}
+                    disabled={!check.item}
+                  >
+                    Add Activity
+                  </Button>
+                  <DialogLayout
+                    open={modal}
+                    onClose={this.handleModal.bind(this)}
+                    type={modalType}
+                    activity={activity}
+                    username={username}
+                    ids={ids}
+                  />
+                </Paper>
               </Card>
             </div>
             <div className="col-md-6 mt-4">
@@ -400,8 +456,8 @@ class HomePage extends React.Component {
             </div>
           </div>
         </div>
-        <ChatBar/>
-        <Copyright/>
+        <ChatBar />
+        <Copyright />
       </div>
     );
   }
