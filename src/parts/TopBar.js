@@ -124,7 +124,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem component={Link} to="/profile">Profile</MenuItem>
       <MenuItem  component={Link} to="/login">Log Out</MenuItem>
     </Menu>
   );
@@ -156,7 +156,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem component={Link} to="/profile">
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
