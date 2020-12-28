@@ -209,7 +209,7 @@ function FormRegister(props) {
               <Grid container justify="flex-end">
                 <Grid item>
                   <Link to="/login" variant="body2">
-                    Already have an account? Sign in
+                    Already have an account? Login
                   </Link>
                 </Grid>
               </Grid>
