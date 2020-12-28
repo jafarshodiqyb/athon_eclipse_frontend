@@ -1,4 +1,4 @@
-import { alertTypes } from './../redux/alert.type';
+import { alertTypes } from './../type/alert.type';
 
 export function alert(state = {}, action) {
   switch (action.type) {

@@ -1,4 +1,4 @@
-import { alertTypes } from './alert.type';
+import { alertTypes } from './../type/alert.type';
 
 export const alertActions = {
     success,

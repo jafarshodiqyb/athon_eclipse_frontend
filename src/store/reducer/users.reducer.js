@@ -1,4 +1,4 @@
-import { userTypes } from '../redux/user.type'
+import { userTypes } from '../type/user.type'
 
 export function users(state = {}, action) {
   switch (action.type) {

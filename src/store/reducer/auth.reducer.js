@@ -1,4 +1,4 @@
-import { userTypes } from './../redux/user.type';
+import { userTypes } from './../type/user.type';
 import jwt from 'jsonwebtoken'
 let userData = JSON.parse(localStorage.getItem('token'))
 

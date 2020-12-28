@@ -2,12 +2,12 @@ import React from 'react';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { history } from '../helpers/history';
-import { alertActions } from '../redux/alert.actions';
+import { history } from '../utils/history';
+import { alertActions } from '../store/action/alert.actions';
 import { ProtectedRoute } from './router/ProtectedRoute';
-import  HomePage from '../components/home/Home';
-import LoginPage  from '../components/login/LoginPage';
-import RegisterPage  from './../components/register/Register';
+import  HomePage from './home/Home';
+import LoginPage  from './login/LoginPage';
+import RegisterPage  from './register/Register';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 // import Alert from '@material-ui/lab/Alert';

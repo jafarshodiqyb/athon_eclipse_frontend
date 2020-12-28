@@ -14,7 +14,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
-import TopBar from "../layout/TopBar";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -26,16 +25,17 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import AddIcon from "@material-ui/icons/Add";
 import { connect } from "react-redux";
-import { userActions } from "./../../redux/user.actions";
-import { checkActions } from "../../redux/check.actions";
-import { activityActions } from "../../redux/activity.actions";
-import { DialogLayout } from "./../layout/DialogLayout";
+import { userActions } from "./../../store/action/user.actions";
+import { checkActions } from "./../../store/action/check.actions";
+import { activityActions } from "./../../store/action/activity.actions";
+import TopBar from "../../parts/TopBar";
+import { DialogLayout } from "./../../parts/DialogLayout";
 import { compose } from "redux";
 import * as moment from "moment";
 import * as _ from "lodash";
-import ContentDummy from "./ContentDummy";
-import Copyright from "./../layout/Copyright"
-import ChatBar from "./ChatBar";
+import ContentDummy from "./../../components/ContentDummy";
+import Copyright from "./../../parts/Copyright"
+import ChatBar from "./../../parts/ChatBar";
 import Alert from "@material-ui/lab/Alert";
 const styles = (theme) => ({
   root: {

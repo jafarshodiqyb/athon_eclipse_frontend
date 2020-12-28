@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
-import {Main} from './components/main';
+import {Main} from './pages/main';
 import { Provider } from 'react-redux';
-import { store } from './redux/configureStore';
+import { store } from './store/configureStore';
 
 // const store = store();
 

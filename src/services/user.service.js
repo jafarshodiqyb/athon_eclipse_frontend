@@ -1,4 +1,4 @@
-import {baseUrl} from '../helpers/baseURL'
+import {baseUrl} from '../utils/baseURL'
 
 export const userService = {
     login,

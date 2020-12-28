@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { userActions } from "../../redux/user.actions";
+import { userActions } from "../../store/action/user.actions";
 import { Avatar, IconButton, InputAdornment, TextField, Typography, withStyles, Grid, Button, Box, Icon } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import "./login.css";
 import { compose } from "redux";
 import { deepOrange } from "@material-ui/core/colors";
-import Copyright from "../layout/Copyright";
+import Copyright from "../../parts/Copyright";
 import queryString from 'query-string';
  import jwt from 'jsonwebtoken'
 const styles = (theme) => ({

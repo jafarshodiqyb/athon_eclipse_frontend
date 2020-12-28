@@ -1,7 +1,7 @@
-import { userTypes } from './user.type';
-import { userService } from './../services/user.service';
+import { userTypes } from './../type/user.type';
+import { userService } from './../../services/user.service';
 import { alertActions } from './alert.actions';
-import { history } from './../helpers/history';
+import { history } from './../../utils/history';
 
 export const userActions = {
     login,

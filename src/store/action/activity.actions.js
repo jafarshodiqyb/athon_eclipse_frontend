@@ -1,8 +1,8 @@
-import { checkTypes } from './check.type';
+import { checkTypes } from './../type/check.type';
 import { alertActions } from './alert.actions';
-import { history } from '../helpers/history';
-import { activityService } from '../services/activity.service';
-import { activityTypes } from './activity.type';
+import { history } from '../../utils/history';
+import { activityService } from '../../services/activity.service';
+import { activityTypes } from './../type/activity.type';
 
 export const activityActions= {
     addActivity,

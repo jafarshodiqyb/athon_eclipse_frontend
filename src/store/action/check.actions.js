@@ -1,7 +1,7 @@
-import { checkTypes } from './check.type';
-import { checkServices } from '../services/check.service';
+import { checkTypes } from './../type/check.type';
+import { checkServices } from '../../services/check.service';
 import { alertActions } from './alert.actions';
-import { history } from '../helpers/history';
+import { history } from '../../utils/history';
 
 export const checkActions = {
     checkin,

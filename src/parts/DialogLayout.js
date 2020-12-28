@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
-import { activityActions } from "../../redux/activity.actions";
+import { activityActions } from "../store/action/activity.actions";
 import { connect } from "react-redux";
 
 function DialogLayout(props) {

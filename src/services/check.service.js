@@ -1,5 +1,5 @@
-import {baseUrl} from '../helpers/baseURL'
-import { authHeader } from '../helpers/auth-header';
+import {baseUrl} from '../utils/baseURL'
+import { authHeader } from '../utils/auth-header';
 import {userService} from './user.service'
 export const checkServices = {
     checkin,

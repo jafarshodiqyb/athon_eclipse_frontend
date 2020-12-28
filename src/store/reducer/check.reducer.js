@@ -1,4 +1,4 @@
-import { checkTypes } from "../redux/check.type";
+import { checkTypes } from "../type/check.type";
 
 export function check(state = {}, action) {
   switch (action.type) {
