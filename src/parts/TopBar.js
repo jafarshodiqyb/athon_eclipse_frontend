@@ -18,6 +18,7 @@ import { Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { deepOrange } from '@material-ui/core/colors';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import { Button} from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -196,9 +197,11 @@ export default function PrimarySearchAppBar() {
           {/* <Typography className={classes.title} variant="h6" noWrap>
             mini-Diarium
           </Typography> */}
+          <Button variant="text" color="default" component={Link} to="/">            
           <Avatar variant="square" className={classes.square + " mr-2"}>
             D
           </Avatar>
+          </Button>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
