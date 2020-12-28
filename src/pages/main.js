@@ -10,6 +10,7 @@ import LoginPage  from './login/LoginPage';
 import RegisterPage  from './register/Register';
 import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
+import Profile from './profile/Profile'
 // import Alert from '@material-ui/lab/Alert';
 
 function Alert(props) {
@@ -66,6 +67,7 @@ class Main extends React.Component {
         <Router history={history}>
           <Switch>
             <ProtectedRoute exact path="/" component={HomePage} />
+            <ProtectedRoute exact path="/profile" component={Profile} />
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegisterPage} />
             <Redirect from="*" to="/" />
