@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -55,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
+    marginRight: 0,
+    marginLeft: 0,
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -63,31 +65,61 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function FormRegister(props) {
+    console.log(props)
   const classes = useStyles();
   const [user, setUser] = React.useState({
-      firstName: "",
-      lastName: "",
-      username: "",
-      password: "",
+    firstName: "",
+    lastName: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+    address:"",
+    motto:"",
   });
   const [submitted, setSubmitted] = React.useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser(prevState => ({
+  useEffect(() => {
+    // Update the document title using the browser API
+    if (props.hide) {
+      setUser((prevState) => ({
         ...prevState,
-        [name]: value
+        firstName: props.authentication.user.firstName,
+        lastName: props.authentication.user.lastName,
+        username: props.authentication.user.username,
+        address: props.authentication.user.address,
+        motto: props.authentication.user.motto,
+
+      }));
+    }
+  }, []);
+
+  const handleChange = (e) => {
+      console.log(user)
+    const { name, value } = e.target;
+    setUser((prevState) => ({
+      ...prevState,
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setSubmitted(value => true);
-    if (user.firstName && user.lastName && user.username && user.password) {
+    setSubmitted((value) => true);
+    if (
+      !props.hide &&
+      user.firstName &&
+      user.lastName &&
+      user.username &&
+      user.password
+    ) {
       props.register(user);
+    } else {
+      console.log(user);
+      // putregister
     }
   };
+
   return (
     <div>
       <form
@@ -95,12 +127,7 @@ function FormRegister(props) {
         className={classes.form + " row"}
         onSubmit={handleSubmit}
       >
-        <div
-          className={
-            "form-group col-sm-6 col-xs-12" +
-            (submitted && !user.firstName ? " has-error" : "")
-          }
-        >
+        <div className={"form-group col-sm-6 col-xs-12"}>
           <Grid item xs={12} sm={6} className="name">
             <TextField
               autoComplete="fname"
@@ -113,18 +140,13 @@ function FormRegister(props) {
               label="First Name"
               onChange={handleChange}
               autoFocus
+              helperText={props.hide && !user.firstName && "required"}
+              error={props.hide && user.firstName===""}
+            //   defaultValue="tes"
             />
           </Grid>
-          {submitted && !user.firstName && (
-            <div className="help-block">First Name is required</div>
-          )}
         </div>
-        <div
-          className={
-            "form-group col-sm-6 col-xs-12 " +
-            (submitted && !user.lastName ? " has-error" : "")
-          }
-        >
+        <div className={"form-group col-sm-6 col-xs-12 "}>
           <Grid item xs={12} sm={6} className="name">
             <TextField
               variant="outlined"
@@ -136,18 +158,42 @@ function FormRegister(props) {
               value={user.lastName}
               onChange={handleChange}
               autoComplete="lname"
+              helperText={props.hide && !user.lastName && "required"}
+              error={props.hide && user.lastName===""}
             />
           </Grid>
-          {submitted && !user.lastName && (
-            <div className="help-block">Last Name is required</div>
-          )}
         </div>
-        <div
-          className={
-            "form-group col-12" +
-            (submitted && !user.username ? " has-error" : "")
-          }
-        >
+        <div className={"form-group col-12"}>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required={!props.hide}
+              fullWidth
+              name="address"
+              label="Address"
+              type="text"
+              id="address"
+              value={user.address}
+              onChange={handleChange}
+            />
+          </Grid>
+        </div>
+        <div className={"form-group col-12"} hidden={!props.hide}>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required={!props.hide}
+              fullWidth
+              name="motto"
+              label="Motto"
+              type="text"
+              id="motto"
+              value={user.motto}
+              onChange={handleChange}
+            />
+          </Grid>
+        </div>
+        <div className={"form-group col-12"} hidden={!props.hide}>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
@@ -160,11 +206,10 @@ function FormRegister(props) {
               label="Username "
               name="username"
               autoComplete="username"
+              helperText={props.hide && !user.username && "required"}
+              error={props.hide && user.username===""}
             />
           </Grid>
-          {submitted && !user.username && (
-            <div className="help-block">Username is required</div>
-          )}
         </div>
         <div
           className={
@@ -175,7 +220,7 @@ function FormRegister(props) {
           <Grid item xs={12}>
             <TextField
               variant="outlined"
-              required
+              required={!props.hide}
               fullWidth
               name="password"
               label="Password"
@@ -187,15 +232,44 @@ function FormRegister(props) {
               autoComplete="current-password"
             />
           </Grid>
-          {submitted && !user.password && (
-            <div className="help-block">Password is required</div>
-          )}
         </div>
+        <div className={"form-group col-12"}>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required={!props.hide}
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              id="confirmPassword"
+              value={user.confirmPassword}
+              onChange={handleChange}
+              //   defaultValue={user.confirmPassword && (user.password!==user.confirmPassword)}
+              helperText={
+                user.confirmPassword &&
+                user.password !== user.confirmPassword &&
+                "Password mismatch"
+              }
+              error={
+                user.confirmPassword && user.password !== user.confirmPassword
+              }
+            />
+          </Grid>
+        </div>
+        
         <div className="form-group d-flex text-center justify-center col-12">
           {/* {registering && (
                     <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                   )} */}
           <div className="col-12">
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Typography variant="p" color="secondary">
+                  *Required
+                </Typography>
+              </Grid>
+            </Grid>
             <Button
               type="submit"
               fullWidth
@@ -203,20 +277,21 @@ function FormRegister(props) {
               color="primary"
               className={classes.submit}
             >
-              Register
+              {props.hide ? "Change" : "Register"}
             </Button>
-            <div className="col-12">
-              <Grid container justify="flex-end">
-                <Grid item>
-                  <Link to="/login" variant="body2">
-                    Already have an account? Login
-                  </Link>
-                </Grid>
-              </Grid>
-            </div>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
+
+                <div className="col-12" hidden={props.hide}>
+                  <Grid container justify="flex-end">
+                    <Grid item>
+                      <Link to="/login" variant="body2">
+                        Already have an account? Login
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </div>
+                <Box mt={5} hidden={props.hide}>
+                  <Copyright />
+                </Box>
           </div>
         </div>
       </form>
