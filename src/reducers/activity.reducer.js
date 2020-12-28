@@ -1,6 +1,6 @@
 import { activityTypes } from "../redux/activity.type";
 
-export function check(state = {}, action) {
+export function activities(state = {}, action) {
   switch (action.type) {
     case activityTypes.ACTIVITY_REQUEST:
       return {
@@ -9,11 +9,14 @@ export function check(state = {}, action) {
       };
     case activityTypes.ACTIVITY_SUCCESS:
       return {
+        loading:false,
         activity: action.users,
         // user: action.user
       };
     case activityTypes.ACTIVITY_FAILURE:
-      return {};
+      return {
+        loading:false,
+      };
     // case checkTypes.LOGOUT:
     //   return {};
     case activityTypes.DEL_ACTIVITY_REQUEST:
