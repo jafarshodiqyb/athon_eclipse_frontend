@@ -5,6 +5,7 @@ import {
   Chip,
   Paper,
   Snackbar,
+  Grid,
 } from "@material-ui/core";
 import React from "react";
 import List from "@material-ui/core/List";
@@ -34,10 +35,13 @@ import { compose } from "redux";
 import * as moment from "moment";
 import * as _ from "lodash";
 import ContentDummy from "./../../components/ContentDummy";
-import Copyright from "./../../parts/Copyright"
+import ContentDummy2 from "./../../components/ContentDummy2";
+import Copyright from "./../../parts/Copyright";
 import ChatBar from "./../../parts/ChatBar";
 import Alert from "@material-ui/lab/Alert";
-import {ProfileCard} from "./../../parts/ProfileCard"
+import { ProfileCard } from "./../../parts/ProfileCard";
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import { Info, ViewColumn } from "@material-ui/icons";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -47,6 +51,9 @@ const styles = (theme) => ({
   inline: {
     display: "inline",
   },
+  flex: {
+    display: "flex",
+  },
   paper: {
     position: "absolute",
     width: theme.spacing.unit * 50,
@@ -54,21 +61,21 @@ const styles = (theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
   },
-  chips: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(0.5),
-    },
-  },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-    borderRadius: '50%',
-    margin: '22%',
-    marginTop:'10%',
-    marginBottom:'10%',
+    width: 151,
+  },
+  controls: {
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  details: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  content: {
+    flex: "1 0 auto",
   },
 });
 class HomePage extends React.Component {
@@ -78,56 +85,40 @@ class HomePage extends React.Component {
     this.state = {
       user: data.authentication.user,
       modal: false,
-      modalType:'',
+      modalType: "",
       activity: null,
-      ids : {
-        parentId :'',
-        childId :'',
-      }
+      ids: {
+        parentId: "",
+        childId: "",
+      },
     };
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     this.props.getCheckin(this.state.user.username);
-      window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }
 
-  handleModal(type,activity,parentId, childId) {
+  handleModal(type, activity, parentId, childId) {
     // if(activity =='close')
-    if (parentId && childId){
+    if (parentId && childId) {
       this.setState({
-        ids : {
-          parentId : parentId,
-          childId : childId,
-        }
-      })
+        ids: {
+          parentId: parentId,
+          childId: childId,
+        },
+      });
     }
     this.setState({
       activity: activity,
       modal: !this.state.modal,
-      modalType : type
+      modalType: type,
     });
   }
 
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
-  }
-
-  handleDelete(parentId, childId) {
-    let body = {
-      parentId: parentId,
-      childId: childId,
-    };
-    this.setState({
-      ids : {
-        parentId : parentId,
-        childId : childId,
-      },
-      modalDelete: !this.state.modalDelete,
-    });
-    // this.props.deleteActivity(body);
-
   }
 
   checkin() {
@@ -139,16 +130,23 @@ class HomePage extends React.Component {
 
   render() {
     const { check, classes } = this.props;
-    const { user, modal, activity,ids,modalType } = this.state;
+    const { user, modal, activity, ids, modalType } = this.state;
     let listActivities;
     let title, date;
     if (
-      (check.item &&
-        (check.item.lastCheckOut===null||(!moment(check.item.lastCheckOut).isSame(moment(), 'day')) && moment(check.item.lastCheckIn).isSame(moment(), 'day')))
+      check.item &&
+      (check.item.lastCheckOut === null ||
+        (!moment(check.item.lastCheckOut).isSame(moment(), "day") &&
+          moment(check.item.lastCheckIn).isSame(moment(), "day")))
     ) {
       title = "Last Check In";
       date = moment(check.item.lastCheckIn).format("DD/MM/YYYY HH:mm");
-    } else if (check.item && (check.item.lastCheckOut||!moment(check.item.lastCheckIn).isSame(moment(), 'day') && !moment(check.item.lastCheckOut).isSame(moment(), 'day') )) {
+    } else if (
+      check.item &&
+      (check.item.lastCheckOut ||
+        (!moment(check.item.lastCheckIn).isSame(moment(), "day") &&
+          !moment(check.item.lastCheckOut).isSame(moment(), "day")))
+    ) {
       title = "Last Check Out";
       date = moment(check.item.lastCheckOut).format("DD/MM/YYYY HH:mm");
     } else {
@@ -186,67 +184,61 @@ class HomePage extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-3 mt-4">
-              <ProfileCard {...user} readOnly={true}/>
+              <ProfileCard {...user} readOnly={true} />
+              <Card className={ " mt-4"} variant="outlined">
+                <div className="pl-4 pt-2">
+                  <Typography component="h6" variant="h6" align="left" >
+                    {title}
+                    </Typography>
+                    <Typography variant="subtitle2" color="textSecondary" align="left" >
+                      {date}
+                    </Typography>
+                </div>
+                    {/* <InfoTitle>50 Days of Premium!</InfoTitle>
+                    <InfoSubtitle>Get it before 01.01.2020</InfoSubtitle> */}
+                    <div className="float-right pr-2 pb-2 mt-2">
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      className={classes.button}
+                      startIcon={<InputIcon />}
+                      size="small"
+                      onClick={
+                        _.isEmpty(check) ||
+                        (check &&
+                          check.item &&
+                          !moment(check.item.lastCheckIn).isSame(
+                            moment(),
+                            "day"
+                          ))
+                          ? this.checkin()
+                          : this.checkout()
+                      }
+                      disabled={
+                        check.item &&
+                        moment(check.item.lastCheckIn).isSame(
+                          moment(),
+                          "day"
+                        ) &&
+                        moment(check.item.lastCheckOut).isSame(moment(), "day")
+                      }
+                    >
+                      {_.isEmpty(check) ||
+                      (check &&
+                        check.item &&
+                        !moment(check.item.lastCheckIn).isSame(moment(), "day"))
+                        ? "CHECKIN"
+                        : "CHECKOUT"}
+                    </Button>
+                    </div>
+              </Card>
+
               <Card className={classes.root + " mt-4"} variant="outlined">
                 <CardHeader title="Activity" />
                 <Paper
                   style={{ maxHeight: 300, overflow: "auto" }}
                   elevation={0}
                 >
-                   <div className="container">
-                    <div className="row d-block">
-                      <div className="col-12">
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          className={classes.button}
-                          startIcon={<InputIcon />}
-                          onClick={
-                            _.isEmpty(check) ||
-                            (check &&
-                              check.item &&
-                              !moment(check.item.lastCheckIn).isSame(
-                                moment(),
-                                "day"
-                              ))
-                              ? this.checkin()
-                              : this.checkout()
-                          }
-                          disabled={
-                            check.item &&
-                            moment(check.item.lastCheckIn).isSame(
-                              moment(),
-                              "day"
-                            ) &&
-                            moment(check.item.lastCheckOut).isSame(
-                              moment(),
-                              "day"
-                            )
-                          }
-                        >
-                          {_.isEmpty(check) ||
-                          (check &&
-                            check.item &&
-                            !moment(check.item.lastCheckIn).isSame(
-                              moment(),
-                              "day"
-                            ))
-                            ? "CHECKIN"
-                            : "CHECKOUT"}
-                        </Button>
-                      </div>
-                      <div className="col mt-4">
-                        <div className="row ">
-                          <div className="col-12 align-middle">
-                            <span>{title}</span>
-                          </div>
-                          <div className="col-12">
-                            <small className="">{date}</small>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div className={classes.demo}></div>
                   <List>
                     {check.item &&
@@ -294,7 +286,6 @@ class HomePage extends React.Component {
                                   <DeleteIcon />
                                 </IconButton>
 
-                                {/* </Menu> */}
                               </ListItemSecondaryAction>
                             </ListItem>
                           </div>
@@ -326,105 +317,7 @@ class HomePage extends React.Component {
               <ContentDummy />
             </div>
             <div className="col-md-3 mt-4">
-              <Card className={classes.root + "d-flex"} variant="outlined">
-                <CardHeader title="Trending #Hashtags" />
-                <CardMedia />
-                <CardContent>
-                  <div className={classes.chips}>
-                    <Chip
-                      color="primary"
-                      label="#TelkomAthon"
-                      component="a"
-                      href="telkomathon.com"
-                      clickable
-                    />
-                    <Chip
-                      color="primary"
-                      label="#Programmers"
-                      component="a"
-                      href="telkomathon.com"
-                      clickable
-                    />
-                    <Chip
-                      color="primary"
-                      label="#TimEclipseJuara"
-                      component="a"
-                      href="telkomathon.com"
-                      clickable
-                    />
-                    <Chip
-                      color="primary"
-                      label="#AkuKuduPiye"
-                      component="a"
-                      href="telkomathon.com"
-                      clickable
-                    />
-                    <Chip
-                      color="primary"
-                      label="#TetepSemangat"
-                      component="a"
-                      href="telkomathon.com"
-                      clickable
-                    />
-                  </div>
-                </CardContent>
-                <CardActions></CardActions>
-              </Card>
-              <Card className={classes.root + "d-flex mt-4"} variant="outlined">
-                <CardHeader title="You May like" />
-                <CardMedia />
-                <CardContent>
-                  <List className={classes.root}>
-                    <ListItem alignItems="flex-start">
-                      <ListItemAvatar>
-                        <Avatar
-                          alt="Remy Sharp"
-                          src="/static/images/avatar/1.jpg"
-                        />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary="Amoeba"
-                        secondary={
-                          <React.Fragment>
-                            <Typography
-                              component="span"
-                              variant="body2"
-                              className={classes.inline}
-                              color="textPrimary"
-                            ></Typography>
-                            {"12034 Likes"}
-                          </React.Fragment>
-                        }
-                      />
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                    <ListItem alignItems="flex-start">
-                      <ListItemAvatar>
-                        <Avatar
-                          alt="Travis Howard"
-                          src="/static/images/avatar/2.jpg"
-                        />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary="Telkom Athon"
-                        secondary={
-                          <React.Fragment>
-                            <Typography
-                              component="span"
-                              variant="body2"
-                              className={classes.inline}
-                              color="textPrimary"
-                            ></Typography>
-                            {"12334 Likes"}
-                          </React.Fragment>
-                        }
-                      />
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                  </List>
-                </CardContent>
-                <CardActions></CardActions>
-              </Card>
+              <ContentDummy2/>
             </div>
           </div>
         </div>
