@@ -61,15 +61,24 @@ const styles = (theme) => ({
       margin: theme.spacing(0.5),
     },
   },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+    borderRadius: '50%',
+    margin: '22%',
+    marginTop:'10%',
+    marginBottom:'10%',
+  },
 });
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     const data = this.props;
     this.state = {
-      username: data.authentication.user.username,
-      firstName: data.authentication.user.firstName,
-      lastName: data.authentication.user.lastName,
+      user: data.authentication.user,
+      // user.firstName: data.authentication.user.user.firstName,
+      // user.lastName: data.authentication.user.user.lastName,
+      
 
       modal: false,
       modalType:'',
@@ -82,7 +91,7 @@ class HomePage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    this.props.getCheckin(this.state.username);
+    this.props.getCheckin(this.state.user.username);
     // if(_.isEmpty(this.props.check)){
     //   console.log(_.isEmpty(this.props.check));
     // }
@@ -129,15 +138,15 @@ class HomePage extends React.Component {
   }
 
   checkin() {
-    return (e) => this.props.checkin(this.state.username);
+    return (e) => this.props.checkin(this.state.user.username);
   }
   checkout() {
-    return (e) => this.props.checkout(this.state.username);
+    return (e) => this.props.checkout(this.state.user.username);
   }
 
   render() {
     const { check, classes } = this.props;
-    const { username, firstName, lastName, modal, activity,ids,modalType } = this.state;
+    const { user, modal, activity,ids,modalType } = this.state;
     let listActivities;
     let title, date;
     if (
@@ -185,31 +194,25 @@ class HomePage extends React.Component {
           <div className="row">
             <div className="col-md-3 mt-4">
               <Card className={classes.root} variant="outlined">
-                <CardHeader
-                  avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                      {firstName.charAt(0)}
-                    </Avatar>
-                  }
-                  title={firstName}
-                  subheader={username}
-                  className="text-left"
-                  style={{ overflowWrap: "anywhere" }}
-                />
-                {/* <CardMedia
+                 <CardMedia
                   className={classes.media}
-                  image="/static/images/cards/paella.jpg"
-                  title="Paella dish"
-                /> */}
+                  image={user.image?user.image:"person.jpg"}
+                  title={user.firstName}
+                />
                 <CardContent>
+                <Typography
+                    variant="h5"
+                    color="textPrimary"
+                    component="span"
+                  >
+                   {user.firstName}
+                  </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
                   >
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry's
-                    standard dummy text ever since the 1500s.
+                   {user.motto}
                   </Typography>
                 </CardContent>
                 <CardActions>
@@ -344,7 +347,7 @@ class HomePage extends React.Component {
                     onClose={this.handleModal.bind(this)}
                     type={modalType}
                     activity={activity}
-                    username={username}
+                    username={user.username}
                     ids={ids}
                   />
                 </Paper>
