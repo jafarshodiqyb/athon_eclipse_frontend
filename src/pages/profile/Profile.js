@@ -40,41 +40,13 @@ import Alert from "@material-ui/lab/Alert";
 import {FormRegister} from "./../../components/FormRegister"
 import { baseUrl } from "./../../utils/baseURL";
 import { MoreVert as MoreVertIcon } from '@material-ui/icons'
+import {ProfileCard} from "../../parts/ProfileCard";
 const styles = (theme) => ({
   root: {
     width: "100%",
     //   maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
-  inline: {
-    display: "inline",
-  },
-  paper: {
-    position: "absolute",
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-  },
-  chips: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(0.5),
-    },
-  },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-      borderRadius: '50%',
-      margin: '22%',
-      marginTop:'10%',
-      marginBottom:'10%',
-    },
-    input:{
-      display : 'none'
-    }
 });
 class Profile extends React.Component {
   constructor(props) {
@@ -85,26 +57,11 @@ class Profile extends React.Component {
       username: data.authentication.user.username,
       firstName: data.authentication.user.firstName,
       lastName: data.authentication.user.lastName,
-      uploading: false,
       image:  data.authentication.user.image 
     };
 
   }
-  onChange = e => {
-    // const files = e.target.files
-    const files = e.target.files[0]
-    console.log(files)
-    // this.setState({ uploading: true })
-    const formData = new FormData()
-    // _.map(files,(i,file)=>{
-    //     formData.append(file, i)
-    // })
-    formData.append('file',files)
-    this.props.changeImage(formData)
-    
-  }
   componentWillReceiveProps(nextState){
-    console.log(nextState)
     if(nextState.users.items && nextState.users.items.url){
       let body = {
         username : this.state.username,
@@ -114,40 +71,14 @@ class Profile extends React.Component {
     }
   }
   render() {
-    const { check, classes } = this.props;
-    const { username, firstName, lastName,image } = this.state;
+    const {classes } = this.props;
     return (
       <div>
         <TopBar />
         <div className="container">
           <div className="row">
             <div className="col-md-4 mt-4">
-              <Card className={classes.root} variant="outlined">
-                <CardMedia
-                  className={classes.media}
-                  image={image?image:"person.jpg"}
-                  title={firstName}
-                />
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  // multiple
-                  type="file"
-                  onChange={this.onChange}
-                />
-                <label htmlFor="contained-button-file">
-                  <Button variant="contained" color="primary" component="span">
-                    Upload
-                  </Button>
-                </label>
-                <CardContent>
-                  <Typography variant="h4" color="textPrimary" component="p">
-                    {username}
-                  </Typography>
-                </CardContent>
-                <CardActions></CardActions>
-              </Card>
+              <ProfileCard {...this.state} readOnly={false}/>
             </div>
             <div className="col-md-8 mt-4">
               <Card className={classes.root} variant="outlined">
@@ -176,12 +107,9 @@ function mapState(state) {
 }
 
 const actionCreators = {
-  changeImage : userActions.changeImage,
   updateUser : userActions.updateUser
 };
 
-// const connectedHomePage = connect(mapState, actionCreators)(HomePage);
-// export { connectedHomePage as HomePage };
 export default compose(
   connect(
     mapState,

@@ -37,6 +37,7 @@ import ContentDummy from "./../../components/ContentDummy";
 import Copyright from "./../../parts/Copyright"
 import ChatBar from "./../../parts/ChatBar";
 import Alert from "@material-ui/lab/Alert";
+import {ProfileCard} from "./../../parts/ProfileCard"
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -76,10 +77,6 @@ class HomePage extends React.Component {
     const data = this.props;
     this.state = {
       user: data.authentication.user,
-      // user.firstName: data.authentication.user.user.firstName,
-      // user.lastName: data.authentication.user.user.lastName,
-      
-
       modal: false,
       modalType:'',
       activity: null,
@@ -92,11 +89,7 @@ class HomePage extends React.Component {
   }
   componentDidMount() {
     this.props.getCheckin(this.state.user.username);
-    // if(_.isEmpty(this.props.check)){
-    //   console.log(_.isEmpty(this.props.check));
-    // }
       window.scrollTo(0, 0)
-    // this.props.getUsers()
   }
 
   handleModal(type,activity,parentId, childId) {
@@ -193,30 +186,14 @@ class HomePage extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-3 mt-4">
-              <Card className={classes.root} variant="outlined">
-                 <CardMedia
-                  className={classes.media}
-                  image={user.image?user.image:"person.jpg"}
-                  title={user.firstName}
-                />
-                <CardContent>
-                <Typography
-                    variant="h5"
-                    color="textPrimary"
-                    component="span"
-                  >
-                   {user.firstName}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                   {user.motto}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <div className="container">
+              <ProfileCard {...user} readOnly={true}/>
+              <Card className={classes.root + " mt-4"} variant="outlined">
+                <CardHeader title="Activity" />
+                <Paper
+                  style={{ maxHeight: 300, overflow: "auto" }}
+                  elevation={0}
+                >
+                   <div className="container">
                     <div className="row d-block">
                       <div className="col-12">
                         <Button
@@ -271,14 +248,6 @@ class HomePage extends React.Component {
                     </div>
                   </div>
                   <div className={classes.demo}></div>
-                </CardActions>
-              </Card>
-              <Card className={classes.root + " mt-4"} variant="outlined">
-                <CardHeader title="Activity" />
-                <Paper
-                  style={{ maxHeight: 300, overflow: "auto" }}
-                  elevation={0}
-                >
                   <List>
                     {check.item &&
                       listActivities.map((value, i) => {
