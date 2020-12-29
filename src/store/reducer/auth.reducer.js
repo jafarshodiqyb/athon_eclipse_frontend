@@ -23,9 +23,19 @@ export function authentication(state = initialState, action) {
         user: action.user
       };
     case userTypes.LOGIN_SUCCESS:
+      const token = jwt.verify(userData, '12345-67890-09876-54321', function(err, decoded) {
+        if (err) {
+          alert('Sesi habis silahkan login kembali!')
+          localStorage.removeItem('token');
+          // return ()
+        } else if (decoded) {
+          return decoded
+        
+        }
+      })
       return {
         loggedIn: true,
-        user: action.user
+        user: token._doc
       };
     case userTypes.LOGIN_FAILURE:
       return {};
