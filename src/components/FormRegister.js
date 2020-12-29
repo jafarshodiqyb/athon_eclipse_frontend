@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function FormRegister(props) {
-    console.log(props)
   const classes = useStyles();
   const [user, setUser] = React.useState({
     firstName: "",
@@ -94,7 +93,6 @@ function FormRegister(props) {
   }, []);
 
   const handleChange = (e) => {
-      console.log(user)
     const { name, value } = e.target;
     setUser((prevState) => ({
       ...prevState,
@@ -115,7 +113,9 @@ function FormRegister(props) {
     ) {
       props.register(user);
     } else {
-      console.log(user);
+      // console.log(user);
+      props.updateUser(user);
+
       // putregister
     }
   };
@@ -163,11 +163,10 @@ function FormRegister(props) {
             />
           </Grid>
         </div>
-        <div className={"form-group col-12"}>
+        <div className={"form-group col-12"} hidden={!props.hide}>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
-              required={!props.hide}
               fullWidth
               name="address"
               label="Address"
@@ -182,7 +181,6 @@ function FormRegister(props) {
           <Grid item xs={12}>
             <TextField
               variant="outlined"
-              required={!props.hide}
               fullWidth
               name="motto"
               label="Motto"
@@ -193,7 +191,7 @@ function FormRegister(props) {
             />
           </Grid>
         </div>
-        <div className={"form-group col-12"} hidden={!props.hide}>
+        <div className={"form-group col-12"}>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
@@ -305,6 +303,7 @@ function mapState(state) {
 
 const actionCreators = {
   register: userActions.register,
+  updateUser : userActions.updateUser
 };
 
 const connectedFormRegister = connect(mapState, actionCreators)(FormRegister);

@@ -7,6 +7,8 @@ export const userActions = {
     login,
     logout,
     register,
+    changeImage,
+    updateUser
 };
 
 function login(username, password) {
@@ -61,4 +63,52 @@ function register(user) {
     function request(user) { return { type: userTypes.REGISTER_REQUEST, user } }
     function success(user) { return { type: userTypes.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: userTypes.REGISTER_FAILURE, error } }
+}
+
+function updateUser(user) {
+    return dispatch => {
+        dispatch(request(user));
+
+        userService.updateUser(user)
+            .then(
+                user => { 
+                    dispatch(success(user));
+                    // history.push('/login');
+                    dispatch(alertActions.success('Update successful'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                    //window.location.reload()
+                }
+            );
+    };
+
+    function request(user) { return { type: userTypes.UPDATE_REQUEST, user } }
+    function success(user) { return { type: userTypes.UPDATE_SUCCESS, user } }
+    function failure(error) { return { type: userTypes.UPDATE_FAILURE, error } }
+}
+
+function changeImage(file){
+    return dispatch => {
+        dispatch(request(file));
+
+        userService.changeImage(file)
+            .then(
+                user => { 
+                    dispatch(success(user));
+                    // history.push('/login');
+                    dispatch(alertActions.success('Change successful'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                    //window.location.reload()
+                }
+            );
+    };
+
+    function request(user) { return { type: userTypes.PROFILECHANGE_REQUEST, user } }
+    function success(user) { return { type: userTypes.PROFILECHANGE_SUCCESS, user } }
+    function failure(error) { return { type: userTypes.PROFILECHANGE_FAILURE, error } }
 }

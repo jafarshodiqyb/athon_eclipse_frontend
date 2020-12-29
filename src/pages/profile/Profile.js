@@ -38,6 +38,7 @@ import Copyright from "./../../parts/Copyright"
 import ChatBar from "./../../parts/ChatBar";
 import Alert from "@material-ui/lab/Alert";
 import {FormRegister} from "./../../components/FormRegister"
+import { baseUrl } from "./../../utils/baseURL";
 import { MoreVert as MoreVertIcon } from '@material-ui/icons'
 const styles = (theme) => ({
   root: {
@@ -71,22 +72,50 @@ const styles = (theme) => ({
       marginTop:'10%',
       marginBottom:'10%',
     },
+    input:{
+      display : 'none'
+    }
 });
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     const data = this.props;
+    console.log(data)
     this.state = {
       username: data.authentication.user.username,
       firstName: data.authentication.user.firstName,
       lastName: data.authentication.user.lastName,
+      uploading: false,
+      image:  data.authentication.user.image 
     };
 
   }
-
+  onChange = e => {
+    // const files = e.target.files
+    const files = e.target.files[0]
+    console.log(files)
+    // this.setState({ uploading: true })
+    const formData = new FormData()
+    // _.map(files,(i,file)=>{
+    //     formData.append(file, i)
+    // })
+    formData.append('file',files)
+    this.props.changeImage(formData)
+    
+  }
+  componentWillReceiveProps(nextState){
+    console.log(nextState)
+    if(nextState.users.items && nextState.users.items.url){
+      let body = {
+        username : this.state.username,
+        image : nextState.users.items.url
+      }
+      this.props.updateUser(body)
+    }
+  }
   render() {
     const { check, classes } = this.props;
-    const { username, firstName, lastName } = this.state;
+    const { username, firstName, lastName,image } = this.state;
     return (
       <div>
         <TopBar />
@@ -96,34 +125,41 @@ class Profile extends React.Component {
               <Card className={classes.root} variant="outlined">
                 <CardMedia
                   className={classes.media}
-                  image="person.jpg"
+                  image={image?image:"person.jpg"}
                   title={firstName}
                 />
+                <input
+                  accept="image/*"
+                  className={classes.input}
+                  id="contained-button-file"
+                  // multiple
+                  type="file"
+                  onChange={this.onChange}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button variant="contained" color="primary" component="span">
+                    Upload
+                  </Button>
+                </label>
                 <CardContent>
-                  <Typography
-                    variant="h4"
-                    color="textPrimary"
-                    component="p"
-                  >
+                  <Typography variant="h4" color="textPrimary" component="p">
                     {username}
                   </Typography>
                 </CardContent>
-                <CardActions>
-
-                </CardActions>
+                <CardActions></CardActions>
               </Card>
             </div>
             <div className="col-md-8 mt-4">
-            <Card className={classes.root} variant="outlined">
-            <Typography
-                    variant="h4"
-                    color="textPrimary"
-                    component="p"
-                    className="mt-4"
-                  >
-                    User Profile
-                  </Typography>
-              <FormRegister hide={true} {...this.props} />
+              <Card className={classes.root} variant="outlined">
+                <Typography
+                  variant="h4"
+                  color="textPrimary"
+                  component="p"
+                  className="mt-4"
+                >
+                  User Profile
+                </Typography>
+                <FormRegister hide={true} {...this.props} />
               </Card>
             </div>
           </div>
@@ -140,7 +176,8 @@ function mapState(state) {
 }
 
 const actionCreators = {
-
+  changeImage : userActions.changeImage,
+  updateUser : userActions.updateUser
 };
 
 // const connectedHomePage = connect(mapState, actionCreators)(HomePage);

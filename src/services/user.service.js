@@ -1,9 +1,12 @@
 import {baseUrl} from '../utils/baseURL'
+import { authHeader } from '../utils/auth-header';
 
 export const userService = {
     login,
     logout,
     register,
+    changeImage,
+    updateUser    
 };
 
 function login(username, password) {
@@ -36,6 +39,28 @@ function register(user) {
     };
 
     return fetch(`${baseUrl}/users/register`, requestOptions).then(handleResponse);
+}
+
+function updateUser(user) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { ...authHeader(),'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+    };
+
+    return fetch(`${baseUrl}/users/update-user`, requestOptions).then(handleResponse);
+}
+
+function changeImage(file){
+    const requestOptions = {
+        method: 'POST',
+        body: file,
+        // headers: { ...authHeader(),'Content-Type': 'application/json' },
+
+    };
+    
+    return fetch(`${baseUrl}/image-upload`, requestOptions).then(handleResponse);
+      
 }
 
 function handleResponse(response) {
