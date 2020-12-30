@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: "56.25%", // 16:9
   },
+  input: {
+    display: "none",
+  },
 }));
 
 const SmallAvatar = withStyles((theme) => ({
@@ -61,19 +64,12 @@ function ContentDummy(props) {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState({});
 
-  const findMyStories = props.stories && props.stories.user &&  props.stories.user.filter((value,i)=>{
+  const findMyStories = (props && props.stories && props.stories.user)?  props.stories.user.filter((value,i)=>{
     return value.username === props.authentication.user.username
-  })
+  }):[]
   const handleClickOpen = (username) => {
-    if(findMyStories.length>=0){
+    if(findMyStories.length>0 ||username !==props.authentication.user.username){
       setModalOpen({ ...modalOpen, [username]: true });
-    }else {
-      // opencamera
-      // capture
-      //post
-      // or
-      //openimage
-      //post
     }
   };
 
@@ -81,23 +77,30 @@ function ContentDummy(props) {
     setModalOpen({ ...modalOpen, [username]: false });
   };
 
+  const onChange = (e) => {
+    const files = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", files);
+    // props.changeImage(formData);
+  };
+
   return (
     <div>
       <Card variant="outlined" className={" mb-4"}>
         <div className="float-left">
           <div style={{ display: "inline-grid" }}>
-            <IconButton
-              className="p-0"
-              onClick={() => handleClickOpen(props.user.username)}
-            >
-              <Badge
+          <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={onChange}  />
+          <label htmlFor={findMyStories.length<=0?"icon-button-file":''}>
+
+        <IconButton color="primary" aria-label="upload picture" component="span"  onClick={() =>handleClickOpen(props.user.username)}>
+        <Badge
                 overlap="circle"
                 anchorOrigin={{
                   vertical: "bottom",
                   horizontal: "right",
                 }}
                 badgeContent={findMyStories.length<=0?<SmallAvatar alt="Add" src="add-icon.png"/>:''}
-              >
+                >
                 <Avatar
                   src={props.user.image ? props.user.image : "person.jpg"}
                   style={{
@@ -105,9 +108,11 @@ function ContentDummy(props) {
                     width: "60px",
                     height: "60px",
                   }}
-                />
+                  />
               </Badge>
-            </IconButton>
+        </IconButton>
+                  </label>
+        
             <Typography variant="caption" color="initial" className="mb-2">
               {props.user.username}
             </Typography>
