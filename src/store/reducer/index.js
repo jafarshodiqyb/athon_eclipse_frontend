@@ -6,6 +6,7 @@ import { users } from './users.reducer';
 import { alert } from './alert.reducer';
 import { check } from './check.reducer';
 import { activities } from './activity.reducer';
+import { stories } from './stories.reducer';
 
 
 
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   users,
   alert,
   check,
-  activities
+  activities,
+  stories
 });
 
 export default rootReducer;
