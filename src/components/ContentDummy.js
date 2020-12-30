@@ -17,6 +17,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import {Stories} from "./../parts/Stories"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -32,11 +33,60 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ContentDummy() {
+export default function ContentDummy(props) {
+  console.log(props)
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+  };
+
 
   return (
     <div>
+      <Card variant="outlined" className={" mt-4"}>
+        <div className="d-inline">
+          <div className="d-flex">
+            <IconButton className="p-0" onClick={handleClickOpen}>
+              <Avatar
+                src={props.user.image?props.user.image:"person.jpg"}
+                style={{
+                  margin: "10px",
+                  width: "60px",
+                  height: "60px",
+                }}
+              />
+            </IconButton>
+            <Typography variant="caption" color="initial" className="mb-2">
+              {props.user.username}
+            </Typography>
+          </div>
+          <div className="d-flex">
+            <IconButton className="p-0">
+              <Avatar
+                src="person.jpg"
+                style={{
+                  margin: "10px",
+                  width: "60px",
+                  height: "60px",
+                }}
+              />
+            </IconButton>
+            <Typography variant="caption" color="initial">
+              namdosan
+            </Typography>
+          </div>
+        </div>
+      </Card>
+      <Button variant="text" color="default" onClick={handleClickOpen}>
+        Stories
+      </Button>
+      <Stories open={open} onClose={handleClose} />
       <Card variant="outlined">
         <CardHeader id="form-Card-title">Add Activity</CardHeader>
         <CardContent>
@@ -58,24 +108,24 @@ export default function ContentDummy() {
           />
         </CardContent>
         <CardActions className="float-right mb-2">
-        <FormControl className={classes.formControl}>
-          {/* <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+          <FormControl className={classes.formControl}>
+            {/* <InputLabel shrink id="demo-simple-select-placeholder-label-label">
             Age
           </InputLabel> */}
-          <Select
-            labelId="demo-simple-select-placeholder-label-label"
-            id="demo-simple-select-placeholder-label"
-            value={10}
-            displayEmpty
+            <Select
+              labelId="demo-simple-select-placeholder-label-label"
+              id="demo-simple-select-placeholder-label"
+              value={10}
+              displayEmpty
             >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Public</MenuItem>
-            <MenuItem value={30}>Close Friends</MenuItem>
-            <MenuItem value={20}>Private</MenuItem>
-          </Select>
-            </FormControl>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Public</MenuItem>
+              <MenuItem value={30}>Close Friends</MenuItem>
+              <MenuItem value={20}>Private</MenuItem>
+            </Select>
+          </FormControl>
           <Button
             //   onClick={this.handleSubmit}
             variant="contained"
@@ -86,67 +136,64 @@ export default function ContentDummy() {
           </Button>
         </CardActions>
       </Card>
-      {
-        content.map((value,i)=>{
-          return ( 
-          <Grow in={true}>
-
-            <Card className={classes.root+ " mt-2 mb-4"}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                  J
-                </Avatar>
-              }
-              action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-              }
-              title={value.author}
-              subheader={value.date}
-              className="text-left"
-            />
-            <CardMedia
-              className={classes.media}
-              image={value.image}
-              title={value.imageText}
-              square
-            />
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {value.description}
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing className="float-right">
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-              </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon />
-              </IconButton>
-            </CardActions>
-            <div className="container mb-4">
-
-            <TextField
-            autoFocus
-            variant="outlined"
-            margin="dense"
-            id="name"
-            label="Add a comment.."
-            type="comment"
-            name="comment"
-            //   value={activity}
-            //   onChange={this.handleChange}
-            fullWidth
-          />
-            </div>
-          </Card>
-          </Grow>
       
-          )
-        })
-      }
+    
+      {content.map((value, i) => {
+        return (
+          <Grow in={true}>
+            <Card className={classes.root + " mt-2 mb-4"}>
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="recipe" className={classes.avatar}>
+                    J
+                  </Avatar>
+                }
+                action={
+                  <IconButton aria-label="settings">
+                    <MoreVertIcon />
+                  </IconButton>
+                }
+                title={value.author}
+                subheader={value.date}
+                className="text-left"
+              />
+              <CardMedia
+                className={classes.media}
+                image={value.image}
+                title={value.imageText}
+                square
+              />
+              <CardContent>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {value.description}
+                </Typography>
+              </CardContent>
+              <CardActions disableSpacing className="float-right">
+                <IconButton aria-label="add to favorites">
+                  <FavoriteIcon />
+                </IconButton>
+                <IconButton aria-label="share">
+                  <ShareIcon />
+                </IconButton>
+              </CardActions>
+              <div className="container mb-4">
+                <TextField
+                  autoFocus
+                  variant="outlined"
+                  margin="dense"
+                  id="name"
+                  label="Add a comment.."
+                  type="comment"
+                  name="comment"
+                  //   value={activity}
+                  //   onChange={this.handleChange}
+                  fullWidth
+                />
+              </div>
+            </Card>
+          </Grow>
+        );
+      })}
     </div>
   );
 }

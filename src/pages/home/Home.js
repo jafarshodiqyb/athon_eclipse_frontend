@@ -314,7 +314,7 @@ class HomePage extends React.Component {
               </Card>
             </div>
             <div className="col-md-6 mt-4">
-              <ContentDummy />
+              <ContentDummy {...this.state} />
             </div>
             <div className="col-md-3 mt-4">
               <ContentDummy2/>
