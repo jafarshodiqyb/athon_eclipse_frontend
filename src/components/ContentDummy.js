@@ -1,77 +1,132 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, createSvgIcon, FormControl, Grow, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
-import CreateIcon from '@material-ui/icons/Create';
+import React from "react";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Divider from "@material-ui/core/Divider";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+import {
+  Badge,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  createSvgIcon,
+  FormControl,
+  Grow,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
+import CreateIcon from "@material-ui/icons/Create";
 
-import clsx from 'clsx';
-import IconButton from '@material-ui/core/IconButton';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {Stories} from "./../parts/Stories"
-import { connect } from 'react-redux';
-import {storiesActions} from "./../store/action/stories.actions"
+import clsx from "clsx";
+import IconButton from "@material-ui/core/IconButton";
+import { red } from "@material-ui/core/colors";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { Stories } from "./../parts/Stories";
+import { connect } from "react-redux";
+import { storiesActions } from "./../store/action/stories.actions";
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
     // maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
-    display: 'inline',
+    display: "inline",
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
 }));
 
+const SmallAvatar = withStyles((theme) => ({
+  root: {
+    width: 22,
+    height: 22,
+    border: `2px solid ${theme.palette.background.paper}`,
+  },
+}))(Avatar);
 function ContentDummy(props) {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState({});
 
-  const handleClickOpen = username => {
-    setModalOpen({ ...modalOpen, [username]: true });
+  const findMyStories = props.stories && props.stories.user &&  props.stories.user.filter((value,i)=>{
+    return value.username === props.authentication.user.username
+  })
+  const handleClickOpen = (username) => {
+    if(findMyStories.length>=0){
+      setModalOpen({ ...modalOpen, [username]: true });
+    }else {
+      // opencamera
+      // capture
+      //post
+      // or
+      //openimage
+      //post
+    }
   };
 
-  const handleClose = username => {
+  const handleClose = (username) => {
     setModalOpen({ ...modalOpen, [username]: false });
   };
-
 
   return (
     <div>
       <Card variant="outlined" className={" mb-4"}>
         <div className="float-left">
-          <div style={{display:'inline-grid'}}>
-            <IconButton className="p-0" onClick={()=>handleClickOpen(props.user.username)}>
-              <Avatar
-                src={props.user.image ? props.user.image : "person.jpg"}
-                style={{
-                  margin: "10px",
-                  width: "60px",
-                  height: "60px",
+          <div style={{ display: "inline-grid" }}>
+            <IconButton
+              className="p-0"
+              onClick={() => handleClickOpen(props.user.username)}
+            >
+              <Badge
+                overlap="circle"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
                 }}
-              />
+                badgeContent={findMyStories.length<=0?<SmallAvatar alt="Add" src="add-icon.png"/>:''}
+              >
+                <Avatar
+                  src={props.user.image ? props.user.image : "person.jpg"}
+                  style={{
+                    margin: "10px",
+                    width: "60px",
+                    height: "60px",
+                  }}
+                />
+              </Badge>
             </IconButton>
             <Typography variant="caption" color="initial" className="mb-2">
               {props.user.username}
             </Typography>
           </div>
-          {props && props.stories && props.stories.user&&
+          {props &&
+            props.stories &&
+            props.stories.user &&
             props.stories.user.map((value, i) => {
               return (
-                <div style={{display:'inline-grid'}} key={i} hidden={value.username===props.user.username}>
-                  <IconButton className="p-0" onClick={() => handleClickOpen(value.username)} key={i}>
+                <div
+                  style={{ display: "inline-grid" }}
+                  key={i}
+                  hidden={value.username === props.user.username}
+                >
+                  <IconButton
+                    className="p-0"
+                    onClick={() => handleClickOpen(value.username)}
+                    key={i}
+                  >
                     <Avatar
                       src={value.image ? value.image : "person.jpg"}
                       style={{
@@ -84,7 +139,11 @@ function ContentDummy(props) {
                   <Typography variant="caption" color="initial">
                     {value.username}
                   </Typography>
-                  <Stories open={modalOpen[value.username]} onClose={()=>handleClose(value.username)} userStories={value.stories} />
+                  <Stories
+                    open={modalOpen[value.username]}
+                    onClose={() => handleClose(value.username)}
+                    userStories={value}
+                  />
                 </div>
               );
             })}
@@ -204,8 +263,7 @@ function mapState(state) {
   return state;
 }
 const actionCreators = {
-
-  getAllStories : storiesActions.getAllStories
+  getAllStories: storiesActions.getAllStories,
 };
 
 const connectedStories = connect(mapState, actionCreators)(ContentDummy);
@@ -213,30 +271,32 @@ export { connectedStories as ContentDummy };
 
 const content = [
   {
-    title: 'Telkom Athon',
-    author:'Jafar Shodiq',
-    date: 'Yesterday',
+    title: "Telkom Athon",
+    author: "Jafar Shodiq",
+    date: "Yesterday",
     description:
-      'Hi Telkomers! Watch Eclipse Team win this telkom athon competition....',
-    image: 'https://static.wixstatic.com/media/370a7e_8490be5524d94eb2b2b34ce9aa4603ef~mv2.png/v1/fill/w_1903,h_664,al_c,q_90,usm_0.66_1.00_0.01/370a7e_8490be5524d94eb2b2b34ce9aa4603ef~mv2.webp',
-    imageText: 'Telkom Athon',
+      "Hi Telkomers! Watch Eclipse Team win this telkom athon competition....",
+    image:
+      "https://static.wixstatic.com/media/370a7e_8490be5524d94eb2b2b34ce9aa4603ef~mv2.png/v1/fill/w_1903,h_664,al_c,q_90,usm_0.66_1.00_0.01/370a7e_8490be5524d94eb2b2b34ce9aa4603ef~mv2.webp",
+    imageText: "Telkom Athon",
   },
   {
-    title: 'What Programmer Participants learn?',
-    author:'Jafar Shodiq',
-    date: 'Yesterday',
-    description:
-      `Hi Telkomers! We bet you're intrigued by what TelkomAthon Programmer participants learned huh? Okay, here are our sneak peak for Programmer courses!`,
-    image: 'https://static.wixstatic.com/media/a27d24_bcc2558e4f9d40419983a507ccb5d514~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_90/a27d24_bcc2558e4f9d40419983a507ccb5d514~mv2.webp',
-    imageText: 'Transformasi Telkom Group',
+    title: "What Programmer Participants learn?",
+    author: "Jafar Shodiq",
+    date: "Yesterday",
+    description: `Hi Telkomers! We bet you're intrigued by what TelkomAthon Programmer participants learned huh? Okay, here are our sneak peak for Programmer courses!`,
+    image:
+      "https://static.wixstatic.com/media/a27d24_bcc2558e4f9d40419983a507ccb5d514~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_90/a27d24_bcc2558e4f9d40419983a507ccb5d514~mv2.webp",
+    imageText: "Transformasi Telkom Group",
   },
   {
-    title: 'Transformasi Telkom Group',
-    author:'Jafar Shodiq',
-    date: '2 days ago',
+    title: "Transformasi Telkom Group",
+    author: "Jafar Shodiq",
+    date: "2 days ago",
     description:
-      'Halo Telkomers! Ingin tahu lebih lanjut tentang Transformasi TelkomGroup? Simak FAQ nya di sini!',
-    image: 'https://portal.telkom.co.id/assets/s3/bglogin/7ef25991b9e9e3def7747ef04d83a481.png',
-    imageText: 'Transformasi Telkom Group',
+      "Halo Telkomers! Ingin tahu lebih lanjut tentang Transformasi TelkomGroup? Simak FAQ nya di sini!",
+    image:
+      "https://portal.telkom.co.id/assets/s3/bglogin/7ef25991b9e9e3def7747ef04d83a481.png",
+    imageText: "Transformasi Telkom Group",
   },
 ];
