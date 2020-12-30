@@ -8,17 +8,67 @@ import { ProtectedRoute } from './router/ProtectedRoute';
 import  HomePage from './home/Home';
 import LoginPage  from './login/LoginPage';
 import RegisterPage  from './register/Register';
-import { Snackbar } from '@material-ui/core';
+import { LinearProgress, Snackbar, withStyles } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import Profile from './profile/Profile'
+import { userActions } from '../store/action/user.actions';
+import * as _ from 'lodash'
 // import Alert from '@material-ui/lab/Alert';
+import Spinner from 'react-spinner-material';
+import { compose } from 'redux';
+import { PongSpinner  } from "react-spinners-kit";
+import { createLoadingSelector } from '../store/action/loading.selector';
+
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
+  const styles = (theme) => ({
+    loading: {
+      
+        position: 'fixed',
+        zIndex: 999,
+        height: '2em',
+        width: '2em',
+        overflow: 'show',
+        margin: 'auto',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        "&:before": {
+            content:  '""',
+            display: 'block',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(52, 52, 52, 0.8)'
+          
+            // background: '-webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.8))',
+      }
+    },
+    spinner:{
+       left: "-10em", 
+       top: "-5em",
+       color:'black' 
+    }
+  })
+  const SpinnerWrapper = ({ children}) => {
+    return (
+        <div style={{ left: "-10em", 
+        top: "-5em",position:"relative"}}>
+            {children}
+            
+        </div>
+    );
+  };
 class Main extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props)
+
     this.state = {
       open: true,
     };
@@ -47,8 +97,9 @@ class Main extends React.Component {
     }
   }
   render() {
-    const { alert } = this.props;
+    const { alert,isFetching,classes } = this.props;
     const { open } = this.state;
+    
     return (
       <div>
         {alert.message && (
@@ -64,6 +115,15 @@ class Main extends React.Component {
           </Snackbar>
           //   <div className={`alert ${alert.type}`}>{alert.message}</div>
         )}
+        <div className={isFetching?classes.loading:''}>
+          <SpinnerWrapper>
+          <PongSpinner
+            size={350}
+            color="white"
+            loading={isFetching}
+          />
+          </SpinnerWrapper>
+        </div>
         <Router history={history}>
           <Switch>
             <ProtectedRoute exact path="/" component={HomePage} />
@@ -78,14 +138,46 @@ class Main extends React.Component {
   }
 }
 
+// function mapState(state) {
+//   state.isFetching = loadingSelector(state)
+//   return state
+// }
+
 function mapState(state) {
-    const { alert } = state;
-    return { alert };
+  const { alert } = state;
+  const isFetching = loadingSelector(state)
+  return { alert,isFetching };
 }
 
+
 const actionCreators = {
-    clearAlerts: alertActions.clear
+    clearAlerts: alertActions.clear,
+    getUser : userActions.getUser
 };
 
-const connectedApp = connect(mapState, actionCreators)(Main);
-export { connectedApp as Main };
+// const connectedApp = connect(mapState, actionCreators)(Main);
+// export { connectedApp as Main };
+
+// Show loading when any of GET_TODOS_REQUEST, GET_USER_REQUEST is active
+const loadingSelector = createLoadingSelector([
+                          'STORIES_GETSTORIES', 
+                          'CHECKIN_GETCHECKIN',
+                          'CHECKIN',
+                          'CHECKOUT',
+                          'ACTIVITY',
+                          'DEL_ACTIVITY',
+                          'UPDATE_ACTIVITY',
+                          'USER_REGISTER',
+                          'USER_UPDATE',
+                          'USERS_LOGIN',
+                          'USERS_PROFILECHANGE',
+                          'USER_GETUSER',
+                        ]);
+export default compose(
+  connect(
+    mapState,
+    // mapStateToProps,
+    actionCreators // or put null here if you do not have actions to dispatch
+  ),
+  withStyles(styles)
+)(Main);
