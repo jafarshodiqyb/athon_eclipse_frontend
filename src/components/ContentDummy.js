@@ -18,6 +18,8 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {Stories} from "./../parts/Stories"
+import { connect } from 'react-redux';
+import {storiesActions} from "./../store/action/stories.actions"
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -33,28 +35,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ContentDummy(props) {
-  console.log(props)
+function ContentDummy(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState({});
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = username => {
+    setModalOpen({ ...modalOpen, [username]: true });
   };
 
-  const handleClose = (value) => {
-    setOpen(false);
+  const handleClose = username => {
+    setModalOpen({ ...modalOpen, [username]: false });
   };
 
 
   return (
     <div>
-      <Card variant="outlined" className={" mt-4"}>
-        <div className="d-inline">
-          <div className="d-flex">
-            <IconButton className="p-0" onClick={handleClickOpen}>
+      <Card variant="outlined" className={" mb-4"}>
+        <div className="float-left">
+          <div style={{display:'inline-grid'}}>
+            <IconButton className="p-0" onClick={()=>handleClickOpen(props.user.username)}>
               <Avatar
-                src={props.user.image?props.user.image:"person.jpg"}
+                src={props.user.image ? props.user.image : "person.jpg"}
                 style={{
                   margin: "10px",
                   width: "60px",
@@ -66,27 +67,29 @@ export default function ContentDummy(props) {
               {props.user.username}
             </Typography>
           </div>
-          <div className="d-flex">
-            <IconButton className="p-0">
-              <Avatar
-                src="person.jpg"
-                style={{
-                  margin: "10px",
-                  width: "60px",
-                  height: "60px",
-                }}
-              />
-            </IconButton>
-            <Typography variant="caption" color="initial">
-              namdosan
-            </Typography>
-          </div>
+          {props && props.stories && props.stories.user&&
+            props.stories.user.map((value, i) => {
+              return (
+                <div style={{display:'inline-grid'}} key={i} hidden={value.username===props.user.username}>
+                  <IconButton className="p-0" onClick={() => handleClickOpen(value.username)} key={i}>
+                    <Avatar
+                      src={value.image ? value.image : "person.jpg"}
+                      style={{
+                        margin: "10px",
+                        width: "60px",
+                        height: "60px",
+                      }}
+                    />
+                  </IconButton>
+                  <Typography variant="caption" color="initial">
+                    {value.username}
+                  </Typography>
+                  <Stories open={modalOpen[value.username]} onClose={()=>handleClose(value.username)} userStories={value.stories} />
+                </div>
+              );
+            })}
         </div>
       </Card>
-      <Button variant="text" color="default" onClick={handleClickOpen}>
-        Stories
-      </Button>
-      <Stories open={open} onClose={handleClose} />
       <Card variant="outlined">
         <CardHeader id="form-Card-title">Add Activity</CardHeader>
         <CardContent>
@@ -136,8 +139,7 @@ export default function ContentDummy(props) {
           </Button>
         </CardActions>
       </Card>
-      
-    
+
       {content.map((value, i) => {
         return (
           <Grow in={true}>
@@ -197,6 +199,17 @@ export default function ContentDummy(props) {
     </div>
   );
 }
+
+function mapState(state) {
+  return state;
+}
+const actionCreators = {
+
+  getAllStories : storiesActions.getAllStories
+};
+
+const connectedStories = connect(mapState, actionCreators)(ContentDummy);
+export { connectedStories as ContentDummy };
 
 const content = [
   {

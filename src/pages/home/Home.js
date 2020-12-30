@@ -34,7 +34,7 @@ import { DialogLayout } from "./../../parts/DialogLayout";
 import { compose } from "redux";
 import * as moment from "moment";
 import * as _ from "lodash";
-import ContentDummy from "./../../components/ContentDummy";
+import {ContentDummy} from "./../../components/ContentDummy";
 import ContentDummy2 from "./../../components/ContentDummy2";
 import Copyright from "./../../parts/Copyright";
 import ChatBar from "./../../parts/ChatBar";
@@ -42,6 +42,7 @@ import Alert from "@material-ui/lab/Alert";
 import { ProfileCard } from "./../../parts/ProfileCard";
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { Info, ViewColumn } from "@material-ui/icons";
+import { storiesActions } from "../../store/action/stories.actions";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -93,6 +94,10 @@ class HomePage extends React.Component {
       },
     };
     this.handleChange = this.handleChange.bind(this);
+  }
+  componentWillMount(){
+  
+    this.props.getAllStories();
   }
   componentDidMount() {
     this.props.getCheckin(this.state.user.username);
@@ -336,6 +341,7 @@ const actionCreators = {
   getUsers: userActions.getAll,
   deleteUser: userActions.delete,
   getCheckin: checkActions.getCheckin,
+  getAllStories: storiesActions.getAllStories,
   checkin: checkActions.checkin,
   checkout: checkActions.checkout,
   addActivity: activityActions.addActivity,

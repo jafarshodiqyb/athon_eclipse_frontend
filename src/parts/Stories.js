@@ -36,6 +36,7 @@ const stories = [
 	},
 ];
 function Stories(props) {
+  console.log(props)
   const { onClose, selectedValue, open } = props;
 
   const handleClose = () => {
@@ -52,7 +53,7 @@ function Stories(props) {
         open={open}
       >
         <ReactInstaStories
-          stories={stories}
+          stories={props.userStories}
           defaultInterval={1500}
           width={432}
           height={768}
