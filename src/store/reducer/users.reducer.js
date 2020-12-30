@@ -1,49 +1,18 @@
 import { userTypes } from '../type/user.type'
 
 export function users(state = {}, action) {
-  console.log(action)
   switch (action.type) {
-    case userTypes.GETALL_REQUEST:
+    case userTypes.GETUSER_REQUEST:
       return {
         loading: true
       };
-    case userTypes.GETALL_SUCCESS:
+    case userTypes.GETUSER_SUCCESS:
       return {
-        items: action.users
+        items: action.user
       };
-    case userTypes.GETALL_FAILURE:
+    case userTypes.GETUSER_FAILURE:
       return { 
         error: action.error
-      };
-    case userTypes.DELETE_REQUEST:
-      // add 'deleting:true' property to user being deleted
-      return {
-        ...state,
-        items: state.items.map(user =>
-          user.id === action.id
-            ? { ...user, deleting: true }
-            : user
-        )
-      };
-    case userTypes.DELETE_SUCCESS:
-      // remove deleted user from state
-      return {
-        items: state.items.filter(user => user.id !== action.id)
-      };
-    case userTypes.DELETE_FAILURE:
-      // remove 'deleting:true' property and add 'deleteError:[error]' property to user 
-      return {
-        ...state,
-        items: state.items.map(user => {
-          if (user.id === action.id) {
-            // make copy of user without 'deleting:true' property
-            const { deleting, ...userCopy } = user;
-            // return copy of user with 'deleteError:[error]' property
-            return { ...userCopy, deleteError: action.error };
-          }
-
-          return user;
-        })
       };
       case userTypes.PROFILECHANGE_REQUEST:
       return {

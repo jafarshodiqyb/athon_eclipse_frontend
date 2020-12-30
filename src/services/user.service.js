@@ -6,7 +6,9 @@ export const userService = {
     logout,
     register,
     changeImage,
-    updateUser    
+    updateUser,
+    getUser,
+    refreshToken    
 };
 
 function login(username, password) {
@@ -30,7 +32,22 @@ function logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('token');
 }
+function refreshToken(user){
+    const requestOptions = {
+        method: 'GET',
+        headers: { ...authHeader(),'Content-Type': 'application/json' },
+    };
 
+    return fetch(`${baseUrl}/users/refresh-token/${user}`, requestOptions)
+        .then(handleResponse)
+        .then(user => {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.removeItem("token");
+            localStorage.setItem('token', JSON.stringify(user.token));
+
+            return user;
+        });
+}
 function register(user) {
     const requestOptions = {
         method: 'POST',
@@ -40,7 +57,16 @@ function register(user) {
 
     return fetch(`${baseUrl}/users/register`, requestOptions).then(handleResponse);
 }
+function getUser(user){
+    const requestOptions = {
+        method: 'GET',
+        headers: { ...authHeader(),'Content-Type': 'application/json' },
 
+    };
+    
+    return fetch(`${baseUrl}/users/${user}`, requestOptions).then(handleResponse);
+      
+}
 function updateUser(user) {
     const requestOptions = {
         method: 'PUT',
@@ -48,7 +74,11 @@ function updateUser(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${baseUrl}/users/update-user`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/users/update-user`, requestOptions)
+        .then(handleResponse)
+        .then(data=>{
+            return refreshToken(data.username)
+        })
 }
 
 function changeImage(file){
