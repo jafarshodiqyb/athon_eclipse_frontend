@@ -90,9 +90,9 @@ function ContentDummy(props) {
         <div className="float-left">
           <div style={{ display: "inline-grid" }}>
           <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={onChange}  />
-          <label htmlFor={findMyStories.length<=0?"icon-button-file":''}>
+          <label htmlFor={findMyStories.length<=0?"icon-button-file":''} style={{display:'flex',marginBottom:0}}>
 
-        <IconButton color="primary" aria-label="upload picture" component="span"  onClick={() =>handleClickOpen(props.user.username)}>
+        <IconButton className="p-0"color="primary" aria-label="upload picture" component="span"  onClick={() =>handleClickOpen(props.user.username)}>
         <Badge
                 overlap="circle"
                 anchorOrigin={{
