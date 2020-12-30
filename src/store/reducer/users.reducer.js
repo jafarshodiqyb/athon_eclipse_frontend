@@ -20,7 +20,7 @@ export function users(state = {}, action) {
       };
     case userTypes.PROFILECHANGE_SUCCESS:
       return {
-        items: action.user[0]
+        ...state,items: action.user[0]
       };
     case userTypes.PROFILECHANGE_FAILURE:
       return { 
@@ -32,7 +32,7 @@ export function users(state = {}, action) {
       };
     case userTypes.UPDATE_SUCCESS:
       return {
-        items: action.user
+        ...state,items: action.user
       };
     case userTypes.UPDATE_FAILURE:
       return { 

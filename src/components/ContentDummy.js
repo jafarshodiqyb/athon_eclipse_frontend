@@ -264,14 +264,14 @@ function ContentDummy(props) {
   );
 }
 
-function mapState(state) {
+function mapStateToProps(state) {
   return state;
 }
-const actionCreators = {
+const mapDispatchToProps = {
   getAllStories: storiesActions.getAllStories,
 };
 
-const connectedStories = connect(mapState, actionCreators)(ContentDummy);
+const connectedStories = connect(mapStateToProps, mapDispatchToProps)(ContentDummy);
 export { connectedStories as ContentDummy };
 
 const content = [

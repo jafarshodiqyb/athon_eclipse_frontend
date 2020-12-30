@@ -9,8 +9,8 @@ export function check(state = {}, action) {
       };
     case checkTypes.CHECKIN_SUCCESS:
       return {
-        checkin: true,
-        // user: action.user
+        // checkin: true,
+        ...state,item: action.user
       };
     case checkTypes.CHECKIN_FAILURE:
       return {};
@@ -37,8 +37,9 @@ export function check(state = {}, action) {
       };
     case checkTypes.CHECKOUT_SUCCESS:
       return {
-        checkout: true,
-        // user: action.user
+        // checkout: true,
+        ...state,
+        item: action.user
       };
     case checkTypes.CHECKOUT_FAILURE:
       return {};

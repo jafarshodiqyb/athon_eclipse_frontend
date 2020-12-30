@@ -18,7 +18,7 @@ function checkin(user) {
         body: JSON.stringify(userTemp)
     };
 
-    return fetch(`${baseUrl}/check/checkin`, requestOptions).then(userService.handleResponse);
+    return fetch(`${baseUrl}/check/checkin`, requestOptions).then(handleResponse);
 }
 
 function getCheckin(user) {
@@ -39,7 +39,7 @@ function checkout(user) {
         body: JSON.stringify(userTemp)
     };
 
-    return fetch(`${baseUrl}/check/checkout`, requestOptions).then(userService.handleResponse);
+    return fetch(`${baseUrl}/check/checkout`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

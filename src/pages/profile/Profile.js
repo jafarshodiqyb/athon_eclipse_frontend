@@ -52,7 +52,6 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     const data = this.props;
-    console.log(data)
     this.state = {
       username: data.authentication.user.username,
       firstName: data.authentication.user.firstName,
@@ -68,6 +67,10 @@ class Profile extends React.Component {
         image : nextState.users.items.url
       }
       this.props.updateUser(body)
+      this.setState({
+        image:nextState.users.items.url,
+      })
+      this.forceUpdate()
     }
   }
   render() {
@@ -102,18 +105,23 @@ class Profile extends React.Component {
   }
 }
 
-function mapState(state) {
-  return state;
-}
+// function mapStateToProps(state) {
+//   const {authentication,users} = state
+//   return {authentication,users};
+// }
+const mapStateToProps = state => ({
+  authentication: state.authentication,
+  users: state.users,
+});
 
-const actionCreators = {
+const mapDispatchToProps  = {
   updateUser : userActions.updateUser
 };
 
 export default compose(
   connect(
-    mapState,
-    actionCreators // or put null here if you do not have actions to dispatch
+    mapStateToProps,
+    mapDispatchToProps  // or put null here if you do not have actions to dispatch
   ),
   withStyles(styles)
 )(Profile);

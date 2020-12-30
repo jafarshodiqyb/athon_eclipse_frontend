@@ -78,15 +78,15 @@ function DialogLayout(props) {
     );
 }
 
-function mapState(state) {
+function mapStateToProps(state) {
   return state;
 }
-const actionCreators = {
+const mapDispatchToProps = {
 
   addActivity: activityActions.addActivity,
   updateActivity : activityActions.updateActivity,
   deleteActivity: activityActions.deleteActivity,
 };
 
-const connectedDialog = connect(mapState, actionCreators)(DialogLayout);
+const connectedDialog = connect(mapStateToProps, mapDispatchToProps)(DialogLayout);
 export { connectedDialog as DialogLayout };

@@ -46,7 +46,6 @@ const SmallAvatar = withStyles((theme) => ({
 }))(Avatar);
 
 function Stories(props) {
-  console.log(props);
   const { onClose, selectedValue, open } = props;
 
   const handleClose = () => {
@@ -137,14 +136,14 @@ function Stories(props) {
   );
 }
 
-function mapState(state) {
+function mapStateToProps(state) {
   return state;
 }
-const actionCreators = {
+const mapDispatchToProps = {
   addActivity: activityActions.addActivity,
   updateActivity: activityActions.updateActivity,
   deleteActivity: activityActions.deleteActivity,
 };
 
-const connectedDialog = connect(mapState, actionCreators)(Stories);
+const connectedDialog = connect(mapStateToProps, mapDispatchToProps)(Stories);
 export { connectedDialog as Stories };

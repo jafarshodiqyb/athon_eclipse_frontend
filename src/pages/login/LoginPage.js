@@ -11,6 +11,7 @@ import { deepOrange } from "@material-ui/core/colors";
 import Copyright from "../../parts/Copyright";
 import queryString from 'query-string';
  import jwt from 'jsonwebtoken'
+import { createLoadingSelector } from "../../store/action/loading.selector";
 const styles = (theme) => ({
     root: {
         height: '100vh',
@@ -276,22 +277,26 @@ class LoginPage extends React.Component {
   }
 }
 
-function mapState(state) {
-  const { loggingIn } = state.authentication;
-  return { loggingIn };
+function mapStateToProps(state) {
+  // const { loggingIn } = state.authentication;
+  // return { isFetching: loadingSelector(state) };
+  return state
 }
 
-const actionCreators = {
+const mapDispatchToProps = {
   login: userActions.login,
   logout: userActions.logout,
 };
 
-// const connectedLoginPage = connect(mapState, actionCreators)(LoginPage);
-// export { connectedLoginPage as LoginPage };
+// const loadingSelector = createLoadingSelector(['USER_LOGIN']);
+// const mapStateToPropsToProps = (state) => ({ isFetching: loadingSelector(state) });
+// export default connect(mapStateToPropsToProps)(Todos);
+
 export default compose(
     connect(
-      mapState,
-      actionCreators // or put null here if you do not have actions to dispatch
+      mapStateToProps,
+      // mapStateToPropsToProps,
+      mapDispatchToProps // or put null here if you do not have actions to dispatch
     ),
     withStyles(styles)
   )(LoginPage);

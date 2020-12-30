@@ -30,7 +30,6 @@ const styles = makeStyles((theme) => ({
   },
 }));
 function ProfileCard(props) {
-
   const classes = styles();
 
   const onChange = (e) => {
@@ -41,11 +40,12 @@ function ProfileCard(props) {
   };
 
   return (
-    <Card className={classes.root} variant="outlined">
+    <Card className={classes.root} variant="outlined" key={props.username}>
       <CardMedia
         className={classes.media}
         image={props.image ? props.image : "person.jpg"}
         title={props.firstName}
+        key={props.username}
       />
       <div hidden={props.readOnly}>
       <input
@@ -75,13 +75,13 @@ function ProfileCard(props) {
   );
 }
 
-function mapState(state) {
+function mapStateToProps(state) {
   return state;
 }
-const actionCreators = {
+const mapDispatchToProps = {
   changeImage: userActions.changeImage,
   updateUser: userActions.updateUser,
 };
 
-const connectedProfile = connect(mapState, actionCreators)(ProfileCard);
+const connectedProfile = connect(mapStateToProps, mapDispatchToProps)(ProfileCard);
 export { connectedProfile as ProfileCard };

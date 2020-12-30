@@ -18,6 +18,7 @@ import Spinner from 'react-spinner-material';
 import { compose } from 'redux';
 import { PongSpinner  } from "react-spinners-kit";
 import { createLoadingSelector } from '../store/action/loading.selector';
+import { store } from '../store/configureStore';
 
 
 function Alert(props) {
@@ -67,7 +68,6 @@ function Alert(props) {
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props)
 
     this.state = {
       open: true,
@@ -95,7 +95,11 @@ class Main extends React.Component {
         open: true,
       });
     }
+    this.forceUpdate.bind(this)
   }
+  componentDidMount(){
+    store.subscribe( this.forceUpdate.bind(this) );
+}
   render() {
     const { alert,isFetching,classes } = this.props;
     const { open } = this.state;
@@ -138,24 +142,24 @@ class Main extends React.Component {
   }
 }
 
-// function mapState(state) {
+// function mapStateToProps(state) {
 //   state.isFetching = loadingSelector(state)
 //   return state
 // }
 
-function mapState(state) {
+function mapStateToProps(state) {
   const { alert } = state;
   const isFetching = loadingSelector(state)
   return { alert,isFetching };
 }
 
 
-const actionCreators = {
+const mapDispatchToProps = {
     clearAlerts: alertActions.clear,
     getUser : userActions.getUser
 };
 
-// const connectedApp = connect(mapState, actionCreators)(Main);
+// const connectedApp = connect(mapStateToProps, mapDispatchToProps)(Main);
 // export { connectedApp as Main };
 
 // Show loading when any of GET_TODOS_REQUEST, GET_USER_REQUEST is active
@@ -175,9 +179,9 @@ const loadingSelector = createLoadingSelector([
                         ]);
 export default compose(
   connect(
-    mapState,
-    // mapStateToProps,
-    actionCreators // or put null here if you do not have actions to dispatch
+    mapStateToProps,
+    // mapStateToPropsToProps,
+    mapDispatchToProps // or put null here if you do not have actions to dispatch
   ),
   withStyles(styles)
 )(Main);

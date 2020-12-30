@@ -126,20 +126,20 @@ class RegisterPage extends React.Component {
   }
 }
 
-function mapState(state) {
+function mapStateToProps(state) {
   const { registering } = state.registration;
   return { registering };
 }
 
-const actionCreators = {
+const mapDispatchToProps = {
   register: userActions.register,
 };
 
-// const connectedRegisterPage = connect(mapState, actionCreators)(RegisterPage);
+// const connectedRegisterPage = connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
 export default compose(
   connect(
-    mapState,
-    actionCreators // or put null here if you do not have actions to dispatch
+    mapStateToProps,
+    mapDispatchToProps // or put null here if you do not have actions to dispatch
   ),
   withStyles(styles)
 )(RegisterPage);

@@ -296,15 +296,15 @@ function FormRegister(props) {
     </div>
   );
 }
-function mapState(state) {
+function mapStateToProps(state) {
   const { registering } = state.registration;
   return { registering };
 }
 
-const actionCreators = {
+const mapDispatchToProps = {
   register: userActions.register,
   updateUser : userActions.updateUser
 };
 
-const connectedFormRegister = connect(mapState, actionCreators)(FormRegister);
+const connectedFormRegister = connect(mapStateToProps, mapDispatchToProps)(FormRegister);
 export { connectedFormRegister as FormRegister };
