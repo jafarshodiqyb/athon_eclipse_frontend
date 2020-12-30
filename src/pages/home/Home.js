@@ -43,6 +43,7 @@ import { ProfileCard } from "./../../parts/ProfileCard";
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { Info, ViewColumn } from "@material-ui/icons";
 import { storiesActions } from "../../store/action/stories.actions";
+import  {createLoadingSelector}  from "../../store/action/loading.selector";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -82,6 +83,7 @@ const styles = (theme) => ({
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props)
     const data = this.props;
     this.state = {
       user: data.authentication.user,
@@ -334,7 +336,8 @@ class HomePage extends React.Component {
 }
 
 function mapState(state) {
-  return state;
+  state.isFetching = loadingSelector(state)
+  return state
 }
 
 const actionCreators = {
@@ -348,11 +351,14 @@ const actionCreators = {
   deleteActivity: activityActions.deleteActivity,
 };
 
+// Show loading when any of GET_TODOS_REQUEST, GET_USER_REQUEST is active
+const loadingSelector = createLoadingSelector(['STORIES_GETSTORIES', 'CHECKIN_GETCHECKIN']);
 // const connectedHomePage = connect(mapState, actionCreators)(HomePage);
 // export { connectedHomePage as HomePage };
 export default compose(
   connect(
     mapState,
+    // mapStateToProps,
     actionCreators // or put null here if you do not have actions to dispatch
   ),
   withStyles(styles)

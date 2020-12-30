@@ -7,7 +7,7 @@ import { alert } from './alert.reducer';
 import { check } from './check.reducer';
 import { activities } from './activity.reducer';
 import { stories } from './stories.reducer';
-
+import { loadingReducer } from "./loading.reducer";
 
 
 const rootReducer = combineReducers({
@@ -17,7 +17,8 @@ const rootReducer = combineReducers({
   alert,
   check,
   activities,
-  stories
+  stories,
+  loadingReducer
 });
 
 export default rootReducer;
