@@ -1,4 +1,4 @@
-import { Avatar, Box, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, makeStyles, Menu, MenuItem, Typography } from "@material-ui/core";
+import { Avatar, Box, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, makeStyles, Menu, MenuItem, Tooltip, Typography, withStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
 import * as _ from 'lodash'
 import * as moment from 'moment'
@@ -9,8 +9,12 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useState } from "react";
 import { deepOrange } from "@material-ui/core/colors";
 import { DialogLayout } from "../Dialog/DialogLayout";
+import { compose } from "redux";
+import { activityActions } from "../../store/action/activity.actions";
+import { connect } from "react-redux";
+import { MockActivityList } from "./MockActivity";
 
-export function ActivityList(props) {
+ function ActivityList(props) {
   const {check,status} = props
   const [anchorEl, setAnchorEl] = useState({});
   const classes = styles();
@@ -60,7 +64,21 @@ export function ActivityList(props) {
     const handleCloseAnchor = (id) => {
       setAnchorEl({ ...anchorEl, [id]: null });
     };
+    const handleMoveStatus = (parentId,childId,activity,status) =>{
+      let body = {
+        parentId: parentId,
+        childId: childId,
+        activities: {
+          activity: activity,
+          status:status==='todo'?'doing':status==='doing'?'done':'done',
+        },
+      }
+      console.log(body)
+      props.updateActivity(body)
+    }
     return (
+      <div>
+
       <List>
         {check.item &&
           listActivities.map((value, i) => {
@@ -77,6 +95,8 @@ export function ActivityList(props) {
                     )
                   }
                 >
+            <Tooltip title="Diarium" placement="left">
+
                   <ListItemAvatar style={{ marginLeft: "-2em" }}>
                     <Avatar
                       variant="square"
@@ -85,6 +105,7 @@ export function ActivityList(props) {
                       D
                     </Avatar>
                   </ListItemAvatar>
+                  </Tooltip>
                   <ListItemText
                     primary={value.activity}
                     secondary={
@@ -119,9 +140,9 @@ export function ActivityList(props) {
                         onClick={() => handleCloseAnchor(value._id)}
                       >
                         <IconButton
-                        // onClick={(e) =>
-                        //   handleModal("delete", "", check.item._id, value._id)
-                        // }
+                        onClick={(e) =>
+                          handleMoveStatus(check.item._id, value._id,value.activity,status)
+                        }
                         >
                           <ForwardIcon />
                         </IconButton>
@@ -152,8 +173,10 @@ export function ActivityList(props) {
           activity={data.activity}
           username={props.user.username}
           ids={data.ids}
+          status={status}
         />
       </List>
+      </div>
     );
   }
   const styles = makeStyles((theme) => ({
@@ -161,17 +184,6 @@ export function ActivityList(props) {
       width: "100%",
       //   maxWidth: '36ch',
       backgroundColor: theme.palette.background.paper,
-    },
-    media: {
-      height: 0,
-      paddingTop: "56.25%", // 16:9
-      borderRadius: "50%",
-      margin: "22%",
-      marginTop: "10%",
-      marginBottom: "10%",
-    },
-    input: {
-      display: "none",
     },
     tab: {
       minWidth: "6em",
@@ -183,4 +195,18 @@ export function ActivityList(props) {
       margin: "0 auto",
     },
   }));
+  function mapStateToProps(state) {
+    return state;
+  }
+  const mapDispatchToProps = {
   
+    updateActivity : activityActions.updateActivity,
+  };
+  export default compose(
+    connect(
+      mapStateToProps,
+      // mapStateToPropsToProps,
+      mapDispatchToProps // or put null here if you do not have actions to dispatch
+    ),
+    withStyles(styles)
+  )(ActivityList);

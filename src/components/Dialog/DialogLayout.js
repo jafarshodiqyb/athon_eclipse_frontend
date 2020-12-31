@@ -4,6 +4,7 @@ import { activityActions } from "../../store/action/activity.actions";
 import { connect } from "react-redux";
 
 function DialogLayout(props) {
+  console.log(props)
     const [activityTemp, setActivityTemp] = React.useState(null);
     let title = 'Are you sure to perform this action?' 
     let content = ''
@@ -15,6 +16,7 @@ function DialogLayout(props) {
         username: username,
         activities: {
           activity: activityTemp,
+          status:props.status?props.status:'todo'
         },
       };
       props.ids? body.parentId = props.ids.parentId:body.parentId ='' 

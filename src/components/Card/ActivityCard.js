@@ -32,7 +32,8 @@ import { DialogLayout } from "../Dialog/DialogLayout";
 import { useEffect, useState } from "react";
 import { deepOrange } from "@material-ui/core/colors";
 import { TabPanel } from "../Tabs/Tabs";
-import { ActivityList } from "./../List/ActivtiyList";
+import  ActivityList  from "./../List/ActivtiyList";
+import { MockActivityList } from "../List/MockActivity";
 function ActivityCard(props) {
   const { check } = props;
   const [value, setValue] = useState(0);
@@ -67,6 +68,8 @@ function ActivityCard(props) {
             value={value}
             index={0}
           >
+        <MockActivityList/>
+
             <ActivityList {...props} status="todo" />
           </TabPanel>
           <TabPanel value={value} index={1}>
