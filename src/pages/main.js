@@ -14,7 +14,6 @@ import Profile from './profile/Profile'
 import { userActions } from '../store/action/user.actions';
 import * as _ from 'lodash'
 // import Alert from '@material-ui/lab/Alert';
-import Spinner from 'react-spinner-material';
 import { compose } from 'redux';
 import { PongSpinner  } from "react-spinners-kit";
 import { createLoadingSelector } from '../store/action/loading.selector';
