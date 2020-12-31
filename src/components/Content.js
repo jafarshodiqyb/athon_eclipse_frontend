@@ -52,6 +52,14 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: "none",
   },
+  storiesWrap:{
+    display: "flex",
+    // justifyContent: space-around,
+    maxWidth: '30em',
+    position: "relative",
+    overflowX: "auto",
+    whiteSpace: "nowrap",
+  },
   stories: {
     margin: "10px",
     width: "60px",
@@ -113,7 +121,7 @@ function Content(props) {
   return (
     <div>
       <Card variant="outlined" className={" mb-4"}>
-        <div className="float-left">
+        <div className={classes.storiesWrap + " float-left"}>
           <div style={{ display: "inline-grid" }}>
             <input
               accept="image/*"

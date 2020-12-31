@@ -193,8 +193,8 @@ function ActivityCard(props) {
             DONE
           </TabPanel>
           <Button
-            variant="contained"
-            color="secondary"
+            variant="outlined"
+            color="primary"
             className={classes.button + " mt-4 mb-4"}
             startIcon={<AddIcon />}
             onClick={(e) => handleModal("add")}
