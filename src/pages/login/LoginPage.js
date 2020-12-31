@@ -253,7 +253,7 @@ class LoginPage extends React.Component {
                   </div>
                   <div className="container mt-4">
                     <Button
-                      variant="contained"
+                      variant="text"
                       size="small"
                       color="default"
                       onClick={this.googleLogIn}
