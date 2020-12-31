@@ -40,7 +40,7 @@ import Alert from "@material-ui/lab/Alert";
 import {FormRegister} from "./../../components/FormRegister"
 import { baseUrl } from "./../../utils/baseURL";
 import { MoreVert as MoreVertIcon } from '@material-ui/icons'
-import {ProfileCard} from "../../parts/ProfileCard";
+import {ProfileCard} from "../../parts/Card/ProfileCard";
 const styles = (theme) => ({
   root: {
     width: "100%",

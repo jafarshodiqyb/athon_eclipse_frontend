@@ -10,7 +10,7 @@ import {
   Hidden
 } from "@material-ui/core";
 import { connect } from "react-redux";
-import { userActions } from "../store/action/user.actions";
+import { userActions } from "../../store/action/user.actions";
 const styles = makeStyles((theme) => ({
   root: {
     width: "100%",
