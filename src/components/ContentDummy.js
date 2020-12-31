@@ -90,7 +90,7 @@ function ContentDummy(props) {
     if(props.users.items){
       let body = {
         username : props.authentication.user.username,
-        image : props.authentication.user.username,
+        image : props.authentication.user.image,
         stories:{
           url:props.users.items.url
         }
