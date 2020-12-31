@@ -129,7 +129,7 @@ function changeImage(file){
                 user => { 
                     dispatch(success(user));
                     // history.push('/login');
-                    dispatch(alertActions.success('Change successful'));
+                    dispatch(alertActions.success('Image uploaded'));
                 },
                 error => {
                     dispatch(failure(error.toString()));
