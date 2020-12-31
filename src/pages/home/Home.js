@@ -39,7 +39,8 @@ import Content2 from "./../../components/Content2";
 import Copyright from "./../../parts/Copyright";
 import ChatBar from "./../../parts/ChatBar";
 import Alert from "@material-ui/lab/Alert";
-import { ProfileCard } from "./../../parts/ProfileCard";
+import { ProfileCard } from "../../parts/Card/ProfileCard";
+import { ActivityCard } from "../../parts/Card/ActivityCard";
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { Info, ViewColumn } from "@material-ui/icons";
 import { storiesActions } from "../../store/action/stories.actions";
@@ -94,7 +95,6 @@ class HomePage extends React.Component {
         childId: "",
       },
     };
-    this.handleChange = this.handleChange.bind(this);
   }
   componentWillMount(){
     this.props.getAllStories();
@@ -105,27 +105,7 @@ class HomePage extends React.Component {
     window.scrollTo(0, 0);
   }
 
-  handleModal(type, activity, parentId, childId) {
-    // if(activity =='close')
-    if (parentId && childId) {
-      this.setState({
-        ids: {
-          parentId: parentId,
-          childId: childId,
-        },
-      });
-    }
-    this.setState({
-      activity: activity,
-      modal: !this.state.modal,
-      modalType: type,
-    });
-  }
-
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
+ 
 
   checkin() {
     return (e) => this.props.checkin(this.state.user.username);
@@ -137,7 +117,6 @@ class HomePage extends React.Component {
   render() {
     const { check, classes } = this.props;
     const { user, modal, activity, ids, modalType } = this.state;
-    let listActivities;
     let title, date;
     if (
       check.item &&
@@ -159,9 +138,7 @@ class HomePage extends React.Component {
       title = "";
       date = "";
     }
-    if (check.item) {
-      listActivities = check.item.activities;
-    }
+
 
     return (
       <div>
@@ -239,7 +216,7 @@ class HomePage extends React.Component {
                     </div>
               </Card>
 
-              <Card className={classes.root + " mt-4"} variant="outlined">
+              {/* <Card className={classes.root + " mt-4"} variant="outlined">
                 <CardHeader title="Activity" />
                 <Paper
                   style={{ maxHeight: 300, overflow: "auto" }}
@@ -317,7 +294,8 @@ class HomePage extends React.Component {
                     ids={ids}
                   />
                 </Paper>
-              </Card>
+              </Card> */}
+              <ActivityCard {...this.state}/>
             </div>
             <div className="col-md-6 mt-4">
               <Content {...this.state} />
