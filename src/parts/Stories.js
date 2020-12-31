@@ -32,9 +32,12 @@ const code = {
 
 const contentStyle = {
   // background: 'salmon',
-  width: "100%",
+  // width: "100%",
   padding: 20,
   color: "white",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "contain",
+  backgroundPosition: "center",
 };
 
 const SmallAvatar = withStyles((theme) => ({
@@ -98,7 +101,7 @@ function Stories(props) {
               </Typography>
             </div>
             {/* <h1>{ }</h1> */}
-            <p>Now render React components right into your stories.</p>
+            {/* <p>Now render React components right into your stories.</p>
             <p>Possibilities are endless, like here - here's a code block!</p>
             <pre>
               <code style={code}>console.log('Hello, world!')</code>
@@ -109,7 +112,7 @@ function Stories(props) {
               style={image}
               src="https://images.unsplash.com/photo-1565506737357-af89222625ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
             ></img>
-            <h3>Perfect. But there's more! →</h3>
+            <h3>Perfect. But there's more! →</h3> */}
           </div>
         );
       },
