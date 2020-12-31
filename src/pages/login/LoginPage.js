@@ -8,7 +8,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import "./login.css";
 import { compose } from "redux";
 import { deepOrange } from "@material-ui/core/colors";
-import Copyright from "../../parts/Copyright";
+import Copyright from "../../parts/Footer/Copyright";
 import queryString from 'query-string';
  import jwt from 'jsonwebtoken'
 import { createLoadingSelector } from "../../store/action/loading.selector";

@@ -14,7 +14,7 @@ import {
   Typography,
   withStyles,
 } from "@material-ui/core";
-import { activityActions } from "../store/action/activity.actions";
+import { activityActions } from "../../store/action/activity.actions";
 import { connect } from "react-redux";
 import ReactInstaStories from "react-insta-stories";
 import { compose } from "redux";

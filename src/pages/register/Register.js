@@ -10,8 +10,8 @@ import {
 } from "@material-ui/core";
 import "./register.css";
 import { deepOrange, green } from "@material-ui/core/colors";
-import Copyright from "../../parts/Copyright";
-import {FormRegister} from "../../components/FormRegister";
+import Copyright from "../../parts/Footer/Copyright";
+import {FormRegister} from "../../components/Form/FormRegister";
 
 const styles = (theme) => ({
   root: {

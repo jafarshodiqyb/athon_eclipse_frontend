@@ -30,10 +30,11 @@ import AddIcon from "@material-ui/icons/Add";
 import { connect } from "react-redux";
 import { userActions } from "../../store/action/user.actions";
 import * as moment from "moment";
-import { DialogLayout } from "../DialogLayout";
+import { DialogLayout } from "../Dialog/DialogLayout";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { deepOrange } from "@material-ui/core/colors";
 
 function ActivityCard(props) {
   const classes = styles();
@@ -117,6 +118,14 @@ function ActivityCard(props) {
                           )
                         }
                       >
+                        <ListItemAvatar style={{marginLeft:"-2em"}}>
+                          <Avatar
+                            variant="square"
+                            className={classes.square + " mr-2"}
+                          >
+                            D
+                          </Avatar>
+                        </ListItemAvatar>
                         <ListItemText
                           primary={value.activity}
                           secondary={
@@ -235,6 +244,11 @@ const styles = makeStyles((theme) => ({
   tab: {
     minWidth: "6em",
     width: "6em",
+  },
+  square: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: '#D4232C',
+    margin: "0 auto",
   },
 }));
 

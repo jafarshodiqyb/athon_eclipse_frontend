@@ -35,8 +35,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Copyright from "./../parts/Copyright";
-import { userActions } from "./../store/action/user.actions";
+import Copyright from "../../parts/Footer/Copyright";
+import { userActions } from "../../store/action/user.actions";
 import { connect } from "react-redux";
 import { compose } from "redux";
 const useStyles = makeStyles((theme) => ({

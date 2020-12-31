@@ -28,19 +28,19 @@ import { connect } from "react-redux";
 import { userActions } from "./../../store/action/user.actions";
 import { checkActions } from "./../../store/action/check.actions";
 import { activityActions } from "./../../store/action/activity.actions";
-import TopBar from "../../parts/TopBar";
-import { DialogLayout } from "./../../parts/DialogLayout";
+import TopBar from "../../parts/Header/TopBar";
+import { DialogLayout } from "./../../components/Dialog/DialogLayout";
 import { compose } from "redux";
 import * as moment from "moment";
 import * as _ from "lodash";
 import Content from "./../../components/Content";
-import Copyright from "./../../parts/Copyright"
-import ChatBar from "./../../parts/ChatBar";
+import Copyright from "./../../parts/Footer/Copyright"
+import ChatBar from "./../../parts/ChatBar/ChatBar";
 import Alert from "@material-ui/lab/Alert";
-import {FormRegister} from "./../../components/FormRegister"
+import {FormRegister} from "./../../components/Form/FormRegister"
 import { baseUrl } from "./../../utils/baseURL";
 import { MoreVert as MoreVertIcon } from '@material-ui/icons'
-import {ProfileCard} from "../../parts/Card/ProfileCard";
+import {ProfileCard} from "../../components/Card/ProfileCard";
 const styles = (theme) => ({
   root: {
     width: "100%",
