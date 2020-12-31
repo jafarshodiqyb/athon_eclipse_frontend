@@ -9,6 +9,7 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
+  makeStyles,
   TextField,
   Typography,
   withStyles,
@@ -16,6 +17,7 @@ import {
 import { activityActions } from "../store/action/activity.actions";
 import { connect } from "react-redux";
 import ReactInstaStories from "react-insta-stories";
+import { compose } from "redux";
 
 const image = {
   display: "block",
@@ -48,7 +50,16 @@ const SmallAvatar = withStyles((theme) => ({
   },
 }))(Avatar);
 
+const useStyles = makeStyles((theme) => ({
+  input: {
+    display: "none",
+    zIndex:1001,
+    position: "absolute"
+  },
+}));
+
 function Stories(props) {
+  const classes = useStyles()
   const { onClose, selectedValue, open } = props;
 
   const handleClose = () => {
@@ -58,7 +69,10 @@ function Stories(props) {
   const handleListItemClick = (value) => {
     onClose(value);
   };
-  const addStory = () => {
+  // const addStory = () => {
+  //   alert("tes");
+  // };
+  const onChange = () => {
     alert("tes");
   };
   const stories = props.userStories.stories.map((value, i) => {
@@ -70,9 +84,15 @@ function Stories(props) {
             className="w-100"
           >
             <div className="d-flex">
+            <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={onChange}  />
+          <label htmlFor={props.userStories.username ===
+                  props.authentication.user.username?"icon-button-file":''} style={{display:'flex',marginBottom:0}}>
+            
               <IconButton
                 className="p-0"
-                onClick={addStory}
+                aria-label="upload picture" 
+                component="span"
+                // onClick={addStory}
                 key={i}
                 style={{ zIndex: 1000 }}
                 disabled={
@@ -96,6 +116,7 @@ function Stories(props) {
                   <Avatar src={props.userStories.image} />
                 </Badge>
               </IconButton>
+            </label>
               <Typography variant="h6" color="initial" className="mt-1 ml-2">
                 {props.userStories.username}
               </Typography>
@@ -131,7 +152,7 @@ function Stories(props) {
         defaultInterval={1500}
         width={432}
         height={768}
-        onAllStoriesEnd={handleClose}
+        // onAllStoriesEnd={handleClose}
         keyboardNavigation={true}
         // onStoryEnd={(s, st) => console.log('story ended', s, st)}
       />
@@ -148,5 +169,13 @@ const mapDispatchToProps = {
   deleteActivity: activityActions.deleteActivity,
 };
 
-const connectedDialog = connect(mapStateToProps, mapDispatchToProps)(Stories);
-export { connectedDialog as Stories };
+// const connectedDialog = connect(mapStateToProps, mapDispatchToProps)(Stories);
+// export { connectedDialog as Stories };
+export default compose(
+  connect(
+    mapStateToProps,
+    // mapStateToProps,
+    mapDispatchToProps// or put null here if you do not have actions to dispatch
+  ),
+  withStyles(useStyles)
+)(Stories);

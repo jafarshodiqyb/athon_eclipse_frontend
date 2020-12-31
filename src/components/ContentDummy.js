@@ -32,7 +32,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { Stories } from "./../parts/Stories";
+import Stories  from "./../parts/Stories";
 import { connect } from "react-redux";
 import { storiesActions } from "./../store/action/stories.actions";
 import { userActions } from "../store/action/user.actions";
@@ -83,10 +83,12 @@ function ContentDummy(props) {
     const formData = new FormData();
     formData.append("file", files);
     props.changeImage(formData);
+    handleClose(props.authentication.user.username)
   };
 
   useEffect(() => {
-    if(props.users.items&& findMyStories.length<=0){
+    //after profile update, dont post to stories
+    if(props.users.items){
       let body = {
         username : props.authentication.user.username,
         image : props.authentication.user.image,

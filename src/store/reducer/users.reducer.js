@@ -20,7 +20,7 @@ export function users(state = {}, action) {
       };
     case userTypes.PROFILECHANGE_SUCCESS:
       return {
-        ...state,items: action.user[0]
+        ...state,loading:false,items: action.user[0]
       };
     case userTypes.PROFILECHANGE_FAILURE:
       return { 
