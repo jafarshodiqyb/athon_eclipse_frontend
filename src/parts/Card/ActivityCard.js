@@ -56,7 +56,6 @@ function ActivityCard(props) {
   }
 
   const handleClickAnchor = (event, id) => {
-    console.log(event, id);
     setAnchorEl({ ...anchorEl, [id]: event.currentTarget });
   };
 
@@ -79,7 +78,6 @@ function ActivityCard(props) {
       modalType: type,
     });
 
-    console.log(data);
   };
   const handleCloseModal = (type) => {
     setData({ ...data.modal, [type]: false });
