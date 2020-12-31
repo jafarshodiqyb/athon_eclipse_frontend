@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ContentDummy2() {
+export default function Content2() {
   const classes = useStyles();
 
   return (

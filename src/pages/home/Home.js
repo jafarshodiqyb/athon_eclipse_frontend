@@ -34,8 +34,8 @@ import { DialogLayout } from "./../../parts/DialogLayout";
 import { compose } from "redux";
 import * as moment from "moment";
 import * as _ from "lodash";
-import {ContentDummy} from "./../../components/ContentDummy";
-import ContentDummy2 from "./../../components/ContentDummy2";
+import {Content} from "./../../components/Content";
+import Content2 from "./../../components/Content2";
 import Copyright from "./../../parts/Copyright";
 import ChatBar from "./../../parts/ChatBar";
 import Alert from "@material-ui/lab/Alert";
@@ -83,7 +83,6 @@ const styles = (theme) => ({
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props)
     const data = this.props;
     this.state = {
       user: data.authentication.user,
@@ -321,10 +320,10 @@ class HomePage extends React.Component {
               </Card>
             </div>
             <div className="col-md-6 mt-4">
-              <ContentDummy {...this.state} />
+              <Content {...this.state} />
             </div>
             <div className="col-md-3 mt-4">
-              <ContentDummy2/>
+              <Content2/>
             </div>
           </div>
         </div>

@@ -32,9 +32,9 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Stories  from "./../parts/Stories";
+import Stories  from "../parts/Stories";
 import { connect } from "react-redux";
-import { storiesActions } from "./../store/action/stories.actions";
+import { storiesActions } from "../store/action/stories.actions";
 import { userActions } from "../store/action/user.actions";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +52,16 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: "none",
   },
+  stories: {
+    margin: "10px",
+    width: "60px",
+    height: "60px",
+    // border:"5px solid"
+  },
+  storiesBorder: {
+    border: "3px solid",
+    borderColor: "#3F51B5",
+  },
 }));
 
 const SmallAvatar = withStyles((theme) => ({
@@ -61,10 +71,9 @@ const SmallAvatar = withStyles((theme) => ({
     border: `2px solid ${theme.palette.background.paper}`,
   },
 }))(Avatar);
-function ContentDummy(props) {
+function Content(props) {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState({});
-  console.log(props)
   const findMyStories = (props && props.stories && props.stories.user)?  props.stories.user.filter((value,i)=>{
     return value.username === props.authentication.user.username
   }):[]
@@ -106,30 +115,47 @@ function ContentDummy(props) {
       <Card variant="outlined" className={" mb-4"}>
         <div className="float-left">
           <div style={{ display: "inline-grid" }}>
-          <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={onChange}  />
-          <label htmlFor={findMyStories.length<=0?"icon-button-file":''} style={{display:'flex',marginBottom:0}}>
-
-        <IconButton className="p-0"color="primary" aria-label="upload picture" component="span"  onClick={() =>handleClickOpen(props.user.username)}>
-        <Badge
-                overlap="circle"
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                badgeContent={findMyStories.length<=0?<SmallAvatar alt="Add" src="add-icon.png"/>:''}
-                >
-                <Avatar
-                  src={props.user.image ? props.user.image : "person.jpg"}
-                  style={{
-                    margin: "10px",
-                    width: "60px",
-                    height: "60px",
+            <input
+              accept="image/*"
+              className={classes.input}
+              id="icon-button-file"
+              type="file"
+              onChange={onChange}
+            />
+            <label
+              htmlFor={findMyStories.length <= 0 ? "icon-button-file" : ""}
+              style={{ display: "flex", marginBottom: 0 }}
+            >
+              <IconButton
+                className="p-0"
+                color="primary"
+                aria-label="upload picture"
+                component="span"
+                onClick={() => handleClickOpen(props.user.username)}
+              >
+                <Badge
+                  overlap="circle"
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
                   }}
+                  badgeContent={
+                    findMyStories.length <= 0 ? (
+                      <SmallAvatar alt="Add" src="add-icon.png" />
+                    ) : (
+                      ""
+                    )
+                  }
+                >
+                  <Avatar
+                    src={props.user.image ? props.user.image : "person.jpg"}
+                    className={[classes.stories, (findMyStories.length <= 0?" ":classes.storiesBorder)]}
+
                   />
-              </Badge>
-        </IconButton>
-                  </label>
-        
+                </Badge>
+              </IconButton>
+            </label>
+
             <Typography variant="caption" color="initial" className="mb-2">
               {props.user.username}
             </Typography>
@@ -151,11 +177,7 @@ function ContentDummy(props) {
                   >
                     <Avatar
                       src={value.image ? value.image : "person.jpg"}
-                      style={{
-                        margin: "10px",
-                        width: "60px",
-                        height: "60px",
-                      }}
+                      className={[classes.stories, classes.storiesBorder]}
                     />
                   </IconButton>
                   <Typography variant="caption" color="initial">
@@ -290,8 +312,8 @@ const mapDispatchToProps = {
   postStories : storiesActions.postStories
 };
 
-const connectedStories = connect(mapStateToProps, mapDispatchToProps)(ContentDummy);
-export { connectedStories as ContentDummy };
+const connectedStories = connect(mapStateToProps, mapDispatchToProps)(Content);
+export { connectedStories as Content };
 
 const content = [
   {

@@ -33,7 +33,7 @@ import { DialogLayout } from "./../../parts/DialogLayout";
 import { compose } from "redux";
 import * as moment from "moment";
 import * as _ from "lodash";
-import ContentDummy from "./../../components/ContentDummy";
+import Content from "./../../components/Content";
 import Copyright from "./../../parts/Copyright"
 import ChatBar from "./../../parts/ChatBar";
 import Alert from "@material-ui/lab/Alert";
