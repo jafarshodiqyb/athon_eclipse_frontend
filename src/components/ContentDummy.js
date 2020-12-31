@@ -86,8 +86,7 @@ function ContentDummy(props) {
   };
 
   useEffect(() => {
-    console.log(props.users.items);
-    if(props.users.items){
+    if(props.users.items&& findMyStories.length<=0){
       let body = {
         username : props.authentication.user.username,
         image : props.authentication.user.image,
