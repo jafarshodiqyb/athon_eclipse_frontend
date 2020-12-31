@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -35,6 +35,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Stories } from "./../parts/Stories";
 import { connect } from "react-redux";
 import { storiesActions } from "./../store/action/stories.actions";
+import { userActions } from "../store/action/user.actions";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -63,7 +64,7 @@ const SmallAvatar = withStyles((theme) => ({
 function ContentDummy(props) {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState({});
-
+  console.log(props)
   const findMyStories = (props && props.stories && props.stories.user)?  props.stories.user.filter((value,i)=>{
     return value.username === props.authentication.user.username
   }):[]
@@ -81,8 +82,23 @@ function ContentDummy(props) {
     const files = e.target.files[0];
     const formData = new FormData();
     formData.append("file", files);
-    // props.changeImage(formData);
+    props.changeImage(formData);
   };
+
+  useEffect(() => {
+    console.log(props.users.items);
+    if(props.users.items){
+      let body = {
+        username : props.authentication.user.username,
+        image : props.authentication.user.username,
+        stories:{
+          url:props.users.items.url
+        }
+      }
+      props.postStories(body)
+    }
+  }, [props.users.items]);
+
 
   return (
     <div>
@@ -269,6 +285,8 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   getAllStories: storiesActions.getAllStories,
+  changeImage : userActions.changeImage,
+  postStories : storiesActions.postStories
 };
 
 const connectedStories = connect(mapStateToProps, mapDispatchToProps)(ContentDummy);

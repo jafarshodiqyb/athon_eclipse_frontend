@@ -98,8 +98,8 @@ class HomePage extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentWillMount(){
-  
     this.props.getAllStories();
+    this.forceUpdate()
   }
   componentDidMount() {
     this.props.getCheckin(this.state.user.username);

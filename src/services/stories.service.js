@@ -2,7 +2,8 @@ import {baseUrl} from '../utils/baseURL'
 import { authHeader } from '../utils/auth-header';
 import {userService} from './user.service'
 export const storiesService = {
-    getAllStories
+    getAllStories,
+    postStories
 };
 
 
@@ -11,11 +12,25 @@ export const storiesService = {
 function getAllStories() {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
+        // headers: authHeader()
+        headers: { ...authHeader(),'Content-Type': 'application/json' },
+
     };
 
     return fetch(`${baseUrl}/stories/`, requestOptions).then(handleResponse);
 }
+
+function postStories(body) {
+    const requestOptions = {
+        method: 'POST',
+        body :  JSON.stringify(body),
+        headers: { ...authHeader(),'Content-Type': 'application/json' },
+
+    };
+
+    return fetch(`${baseUrl}/stories/`, requestOptions).then(getAllStories);
+}
+
 
 
 
