@@ -10,7 +10,7 @@ import { stories } from './stories.reducer';
 import { loadingReducer } from "./loading.reducer";
 
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   authentication,
   registration,
   users,
@@ -20,5 +20,14 @@ const rootReducer = combineReducers({
   stories,
   loadingReducer
 });
+
+const rootReducer = (state, action) => {
+  // when a logout action is dispatched it will reset redux state
+  if (action.type === 'USERS_LOGOUT') {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
 
 export default rootReducer;
