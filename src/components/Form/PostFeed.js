@@ -77,7 +77,8 @@ function PostFeed(props) {
         }
     }
     console.log(body)
-    props.postFeed(body)   
+    props.postFeed(body)
+    setData({content:"",image:""})   
   };
 
   const handleChange = (e) => {
@@ -148,6 +149,7 @@ function PostFeed(props) {
                 color="primary"
                 aria-label="upload picture post"
                 component="span"
+              disabled={data.content===""}
               >
                 <PhotoCamera />
               </IconButton>
@@ -160,6 +162,7 @@ function PostFeed(props) {
               startIcon={<CreateIcon />}
               className="float-right mb-2"
               onClick={handlePost}
+              disabled={data.content===""}
             >
               Post
             </Button>
