@@ -105,7 +105,7 @@ class Main extends React.Component {
     
     return (
       <div>
-        {true && (
+        {alert.message && (
           <Snackbar
             open={alert.message && open}
             autoHideDuration={1500}
