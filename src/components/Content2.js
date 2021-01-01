@@ -78,7 +78,7 @@ export default function Content2(props) {
     <div>
       <Card className={classes.root + "d-flex"} variant="outlined">
         <CardHeader title="Trending #Hashtags" />
-        <CardMedia />
+        <Divider/>
         <CardContent>
           <div className={classes.chips}>
             {data &&
@@ -99,7 +99,7 @@ export default function Content2(props) {
       </Card>
       <Card className={classes.root + "d-flex mt-4"} variant="outlined">
         <CardHeader title="You May like" />
-        <CardMedia />
+        <Divider/>
         <CardContent>
           <List className={classes.root}>
             <ListItem alignItems="flex-start">

@@ -22,6 +22,7 @@ import {
   Box,
   MenuItem,
   Menu,
+  Divider,
 } from "@material-ui/core";
 
 import AddIcon from "@material-ui/icons/Add";
@@ -53,6 +54,7 @@ function ActivityCard(props) {
     <div>
       <Card className={classes.root + " mt-4"} variant="outlined">
         <CardHeader title="Activity" />
+        <Divider/>
         <Paper square>
           <Tabs
             value={value}
