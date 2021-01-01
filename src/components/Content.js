@@ -28,15 +28,12 @@ import CreateIcon from "@material-ui/icons/Create";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Stories  from "../parts/Stories/Stories";
 import { connect } from "react-redux";
 import { storiesActions } from "../store/action/stories.actions";
 import { userActions } from "../store/action/user.actions";
 import { PostFeed } from "./Form/PostFeed";
+import { FeedCard } from "./Card/FeedCard";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -204,63 +201,9 @@ function Content(props) {
       </Card>
 
       <PostFeed {...props}/>
+      <FeedCard {...props}/>
 
-      {content.map((value, i) => {
-        return (
-          <Grow in={true}>
-            <Card className={classes.root + " mt-2 mb-4"}>
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="recipe" className={classes.avatar}>
-                    J
-                  </Avatar>
-                }
-                action={
-                  <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                title={value.author}
-                subheader={value.date}
-                className="text-left"
-              />
-              <CardMedia
-                className={classes.media}
-                image={value.image}
-                title={value.imageText}
-                square
-              />
-              <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {value.description}
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing className="float-right">
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
-                </IconButton>
-              </CardActions>
-              <div className="container mb-4">
-                <TextField
-                  autoFocus
-                  variant="outlined"
-                  margin="dense"
-                  id="name"
-                  label="Add a comment.."
-                  type="comment"
-                  name="comment"
-                  //   value={activity}
-                  //   onChange={this.handleChange}
-                  fullWidth
-                />
-              </div>
-            </Card>
-          </Grow>
-        );
-      })}
+      
     </div>
   );
 }

@@ -72,10 +72,11 @@ function PostFeed(props) {
         image : props.authentication.user.image,
         posts : {
             content : data.content,
-            image : formData,
+            image : data.image?formData:'',
             createdDate : Date()
         }
     }
+    console.log(body)
     props.postFeed(body)   
   };
 
@@ -86,7 +87,6 @@ function PostFeed(props) {
         ...prevState,
           [name]: value,
     }));
-    console.log(data)
   };
 
   const selectImage = (e) => {
@@ -96,7 +96,6 @@ function PostFeed(props) {
         ...prevState,
             image:files
     }))
-    console.log(data)
   };
   return (
     <div>

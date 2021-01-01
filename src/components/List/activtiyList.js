@@ -73,7 +73,6 @@ import { MockActivityList } from "./MockActivity";
           status:status==='todo'?'doing':status==='doing'?'done':'done',
         },
       }
-      console.log(body)
       props.updateActivity(body)
     }
     return (

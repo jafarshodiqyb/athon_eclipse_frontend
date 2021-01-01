@@ -4,7 +4,6 @@ import { activityActions } from "../../store/action/activity.actions";
 import { connect } from "react-redux";
 
 function DialogLayout(props) {
-  console.log(props)
     const [activityTemp, setActivityTemp] = React.useState(null);
     let title = 'Are you sure to perform this action?' 
     let content = ''

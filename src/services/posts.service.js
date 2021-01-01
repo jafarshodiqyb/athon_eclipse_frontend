@@ -1,6 +1,7 @@
 import {baseUrl} from '../utils/baseURL'
 import { authHeader } from '../utils/auth-header';
 import {uploadImageService} from './uploadImage.service'
+import { filter } from 'lodash';
 
 export const postsService = {
     getAllFeed,
@@ -21,24 +22,20 @@ function getAllFeed() {
     return fetch(`${baseUrl}/posts/`, requestOptions).then(handleResponse);
 }
 
-function postFeed(body) {
+async function postFeed(body) {
     const requestOptions = {
         method: 'POST',
         body :  body,
         headers: { ...authHeader(),'Content-Type': 'application/json' },
 
     };
-    return uploadImageService.uploadImage(body.posts.image)
-    .then(function(res){
-        if(res){
-            console.log(res[0].url)
-            body.posts.image = res[0].url
-        }
-        requestOptions.body = JSON.stringify(body)
-        console.log(requestOptions)
-        return fetch(`${baseUrl}/posts/`, requestOptions)
-    }).then(getAllFeed);
-}
+    if (typeof body.posts.image == 'object'){
+        const upload = await  uploadImageService.uploadImage(body.posts.image)
+        body.posts.image = upload[0].url;
+    }
+        requestOptions.body = JSON.stringify(body);
+        return fetch(`${baseUrl}/posts/`, requestOptions).then(getAllFeed);
+    }
 
 
 

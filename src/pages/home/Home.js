@@ -24,6 +24,7 @@ import { ProfileCard } from "../../components/Card/ProfileCard";
 import { ActivityCard } from "../../components/Card/ActivityCard";
 import { storiesActions } from "../../store/action/stories.actions";
 import  {createLoadingSelector}  from "../../store/action/loading.selector";
+import { postsActions } from "../../store/action/post.actions";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -77,6 +78,7 @@ class HomePage extends React.Component {
   }
   componentWillMount(){
     this.props.getAllStories();
+    this.props.getAllposts();
     this.forceUpdate()
   }
   componentDidMount() {
@@ -224,6 +226,7 @@ const actionCreators = {
   deleteUser: userActions.delete,
   getCheckin: checkActions.getCheckin,
   getAllStories: storiesActions.getAllStories,
+  getAllposts: postsActions.getAllposts,
   checkin: checkActions.checkin,
   checkout: checkActions.checkout,
   addActivity: activityActions.addActivity,

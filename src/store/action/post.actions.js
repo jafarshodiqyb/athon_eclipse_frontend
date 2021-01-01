@@ -3,7 +3,8 @@ import { postsTypes } from '../type/posts.type';
 import { postsService } from '../../services/posts.service';
 
 export const postsActions = {
-    postFeed
+    postFeed,
+    getAllposts
 };
 
 
@@ -11,7 +12,7 @@ function getAllposts() {
     return dispatch => {
         dispatch(request());
 
-        postsService.getAllposts()
+        postsService.getAllFeed()
             .then(
                 posts => { 
                     dispatch(success(posts));
@@ -25,9 +26,9 @@ function getAllposts() {
             );
     };
 
-    function request(posts) { return { type: postsTypes.GETposts_REQUEST, posts } }
-    function success(posts) { return { type: postsTypes.GETposts_SUCCESS, posts } }
-    function failure(error) { return { type: postsTypes.GETposts_FAILURE, error } }
+    function request(posts) { return { type: postsTypes.GETPOSTS_REQUEST, posts } }
+    function success(posts) { return { type: postsTypes.GETPOSTS_SUCCESS, posts } }
+    function failure(error) { return { type: postsTypes.GETPOSTS_FAILURE, error } }
 }
 
 function postFeed(body) {
