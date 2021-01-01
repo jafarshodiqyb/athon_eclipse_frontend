@@ -133,6 +133,7 @@ class HomePage extends React.Component {
                 !moment(check.item.lastCheckIn).isSame(moment(), "day"))
             }
             autoHideDuration={1500}
+            style={{zIndex:1}}
             // onClose={this.handleSnackBar}
           >
             <Alert onClose={this.handleSnackBar} severity="error">
