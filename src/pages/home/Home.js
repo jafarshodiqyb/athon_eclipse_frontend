@@ -205,7 +205,7 @@ class HomePage extends React.Component {
               <Content {...this.state} />
             </div>
             <div className="col-md-3 mt-4">
-              <Content2/>
+              <Content2 {...this.props}/>
             </div>
           </div>
         </div>
