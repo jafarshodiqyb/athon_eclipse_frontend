@@ -233,7 +233,7 @@ class LoginPage extends React.Component {
                   <Link to="/register" className="btn btn-link">
                     Register
                   </Link> */}
-                  <div className="container">
+                  <div className="container mb-4">
                     <div className="row">
                       <div className="col-md-3 offset-md-3 mt-2 ">
                         <Link to="#" variant="body2">
@@ -251,18 +251,37 @@ class LoginPage extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div className="container mt-4">
-                    <Button
+                  <Typography component="span" variant="subtitle1" className="mt-4">
+                    Or Login Using
+                  </Typography>
+                  <div className="container">
+                    <IconButton
                       variant="text"
                       size="small"
                       color="default"
                       onClick={this.googleLogIn}
-                      startIcon={ <Avatar sizes="small" src="google.png"/>}
-                      className="mt-4"
+                      className="mt-2"
                     >
-
-                      Login with Google
-                    </Button>
+                      <Avatar sizes="small" src="google.png" />
+                    </IconButton>
+                    <IconButton
+                      variant="text"
+                      size="small"
+                      color="default"
+                      // onClick={this.googleLogIn}
+                      className="mt-2"
+                    >
+                      <Avatar sizes="small" src="facebook.png" />
+                    </IconButton>
+                    <IconButton
+                      variant="text"
+                      size="small"
+                      color="default"
+                      // onClick={this.googleLogIn}
+                      className="mt-2"
+                    >
+                      <Avatar sizes="small" src="twitter.png" />
+                    </IconButton>
                   </div>
                   <Box mt={5}>
                     <Copyright />
