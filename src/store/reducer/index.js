@@ -8,6 +8,8 @@ import { check } from './check.reducer';
 import { activities } from './activity.reducer';
 import { stories } from './stories.reducer';
 import { loadingReducer } from "./loading.reducer";
+import { posts } from "./posts.reducer";
+
 
 
 const appReducer = combineReducers({
@@ -18,7 +20,8 @@ const appReducer = combineReducers({
   check,
   activities,
   stories,
-  loadingReducer
+  loadingReducer,
+  posts
 });
 
 const rootReducer = (state, action) => {

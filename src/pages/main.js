@@ -105,7 +105,7 @@ class Main extends React.Component {
     
     return (
       <div>
-        {alert.message && (
+        {true && (
           <Snackbar
             open={alert.message && open}
             autoHideDuration={1500}
@@ -175,6 +175,8 @@ const loadingSelector = createLoadingSelector([
                           'USERS_LOGIN',
                           'USERS_PROFILECHANGE',
                           'USER_GETUSER',
+                          'POSTS_GETPOSTS',
+                          'POSTS_POSTPOSTS'
                         ]);
 export default compose(
   connect(

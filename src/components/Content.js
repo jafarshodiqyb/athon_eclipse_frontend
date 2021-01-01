@@ -36,6 +36,7 @@ import Stories  from "../parts/Stories/Stories";
 import { connect } from "react-redux";
 import { storiesActions } from "../store/action/stories.actions";
 import { userActions } from "../store/action/user.actions";
+import { PostFeed } from "./Form/PostFeed";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -201,55 +202,8 @@ function Content(props) {
             })}
         </div>
       </Card>
-      <Card variant="outlined">
-        <CardHeader id="form-Card-title">Add Activity</CardHeader>
-        <CardContent>
-          {/* <CardContentText>
-            To subscribe to this website, please enter your activity address here. We will send updates
-            occasionally.
-          </CardContentText> */}
 
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="What Do You Think?"
-            type="activity"
-            name="activity"
-            //   value={activity}
-            //   onChange={this.handleChange}
-            fullWidth
-          />
-        </CardContent>
-        <CardActions className="float-right mb-2">
-          <FormControl className={classes.formControl}>
-            {/* <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-            Age
-          </InputLabel> */}
-            <Select
-              labelId="demo-simple-select-placeholder-label-label"
-              id="demo-simple-select-placeholder-label"
-              value={10}
-              displayEmpty
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Public</MenuItem>
-              <MenuItem value={30}>Close Friends</MenuItem>
-              <MenuItem value={20}>Private</MenuItem>
-            </Select>
-          </FormControl>
-          <Button
-            //   onClick={this.handleSubmit}
-            variant="contained"
-            color="primary"
-            startIcon={<CreateIcon />}
-          >
-            Post
-          </Button>
-        </CardActions>
-      </Card>
+      <PostFeed {...props}/>
 
       {content.map((value, i) => {
         return (
