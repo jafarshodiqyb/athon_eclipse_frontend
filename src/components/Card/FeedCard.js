@@ -20,7 +20,9 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { connect } from "react-redux";
 import { postsActions } from "../../store/action/post.actions";
 import { useEffect } from "react";
-import * as _ from 'lodash'
+import * as _ from 'lodash';
+import * as moment from 'moment'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -63,33 +65,31 @@ function FeedCard(props) {
       {props.posts &&props.posts.user && props.posts.user.map((value, i) => {
         return (
           <Grow in={true}>
-            <Card className={classes.root + " mt-2 mb-4"}>
+            <Card className={classes.root + " mt-4 mb-4"} variant="outlined">
               <CardHeader
-                avatar={
-                  <Avatar aria-label="recipe" className={classes.avatar}>
-                    J
-                  </Avatar>
+                avatar={                    
+                    <Avatar src={value.image} aria-label="recipe" className={classes.avatar}/>
                 }
                 action={
                   <IconButton aria-label="settings">
                     <MoreVertIcon />
                   </IconButton>
                 }
-                title={value.author}
-                subheader={value.date}
+                title={value.username}
+                subheader={moment(value.lastUpdate).format("DD/MM/YYYY HH:mm")}
                 className="text-left"
               />
-              <CardMedia
-                className={classes.media}
-                image={value.posts.image?value.posts.image:"noimage.jpg"}
-                title={value.imageText}
-                square
-              />
               <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {value.description}
+                <Typography variant="h5" color="textPrimary" component="p" align="left">
+                  {value.posts.content}
                 </Typography>
               </CardContent>
+              <CardMedia
+                className={value.posts.image?classes.media:""}
+                image={value.posts.image?value.posts.image:""}
+                title={value.posts.content}
+                square
+              />
               <CardActions disableSpacing className="float-right">
                 <IconButton aria-label="add to favorites">
                   <FavoriteIcon />
