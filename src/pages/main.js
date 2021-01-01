@@ -94,10 +94,12 @@ class Main extends React.Component {
         open: true,
       });
     }
+    window.scrollTo(0, 0);
     this.forceUpdate.bind(this)
   }
   componentDidMount(){
     store.subscribe( this.forceUpdate.bind(this) );
+    window.scrollTo(0, 0);
 }
   render() {
     const { alert,isFetching,classes } = this.props;
