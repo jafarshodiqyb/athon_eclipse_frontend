@@ -47,7 +47,7 @@ function getCheckin(id) {
     };
 
     function request() { return { type: checkTypes.GETCHECKIN_REQUEST } }
-    function success(users) { return { type: checkTypes.GETCHECKIN_SUCCESS, users } }
+    function success(user) { return { type: checkTypes.GETCHECKIN_SUCCESS, user } }
     function failure(error) { return { type: checkTypes.GETCHECKIN_FAILURE, error } }
 }
 

@@ -23,9 +23,8 @@ export function check(state = {}, action) {
         loading: true,
       };
     case checkTypes.GETCHECKIN_SUCCESS:
-      // remove deleted user from state
       return {
-        item : action.users
+        ...state,item: action.user
       };
     case checkTypes.GETCHECKIN_FAILURE:
       // remove 'deleting:true' property and add 'deleteError:[error]' property to user

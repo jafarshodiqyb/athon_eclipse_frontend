@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 import { MockActivityList } from "./MockActivity";
 
  function ActivityList(props) {
+   console.log(props)
   const {check,status} = props
   const [anchorEl, setAnchorEl] = useState({});
   const classes = styles();

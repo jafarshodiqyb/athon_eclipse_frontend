@@ -3,6 +3,8 @@ import { alertActions } from './alert.actions';
 import { history } from '../../utils/history';
 import { activityService } from '../../services/activity.service';
 import { activityTypes } from './../type/activity.type';
+import { checkActions } from './../action/check.actions';
+import { dispatchSelector } from '../../utils/dispatchSelector';
 
 export const activityActions= {
     addActivity,
@@ -13,71 +15,70 @@ export const activityActions= {
 
 function addActivity(data) {
     return dispatch => {
-        dispatch(request(data));
-
+        dispatch(dispatchSelector.request(data,activityTypes.ACTIVITY_REQUEST));
+        dispatch(dispatchSelector.request(data,checkTypes.GETCHECKIN_REQUEST));
         activityService.addActivity(data)
             .then(
                 data => { 
-                    dispatch(success(data));
+                    // dispatch(success(data));
+                    dispatch(dispatchSelector.success(data,activityTypes.ACTIVITY_SUCCESS));
+                    dispatch(dispatchSelector.success(data,checkTypes.GETCHECKIN_SUCCESS));
                     dispatch(alertActions.success('Add activity successful'));
                     // history.push('/');
-                    window.location.reload()
+                    // window.location.reload()
 
                 },
                 error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    // dispatch(failure(error.toString()));
+                    dispatch(dispatchSelector.error(error,activityTypes.ACTIVITY_FAILURE));
+                    dispatch(dispatchSelector.error(error,checkTypes.GETCHECKIN_FAILURE));
+
+                    // dispatch(alertActions.error(error.toString()));
                 }
             );
     };
-
-    function request(user) { return { type: activityTypes.ACTIVITY_REQUEST, user } }
-    function success(user) { return { type: activityTypes.ACTIVITY_SUCCESS, user } }
-    function failure(error) { return { type: activityTypes.ACTIVITY_FAILURE, error } }
 }
 
 function updateActivity(data) {
     return dispatch => {
-        dispatch(request(data));
-
+        dispatch(dispatchSelector.request(data,activityTypes.UPDATE_ACTIVITY_REQUEST));
+        dispatch(dispatchSelector.request(data,checkTypes.GETCHECKIN_REQUEST));
         activityService.updateActivity(data)
             .then(
                 data => { 
-                    dispatch(success(data));
+                    dispatch(dispatchSelector.success(data,activityTypes.UPDATE_ACTIVITY_SUCCESS));
+                    dispatch(dispatchSelector.success(data,checkTypes.GETCHECKIN_SUCCESS));
                     dispatch(alertActions.success('Edit activity successful'));
                     // history.push('/');
-                    window.location.reload()
+                    // window.location.reload()
 
                 },
                 error => {
-                    dispatch(failure(error.toString()));
+                    dispatch(dispatchSelector.error(error,activityTypes.UPDATE_ACTIVITY_FAILURE));
+                    dispatch(dispatchSelector.error(error,checkTypes.GETCHECKIN_FAILURE));
                     dispatch(alertActions.error(error.toString()));
                 }
             );
     };
-
-    function request(user) { return { type: activityTypes.ACTIVITY_REQUEST, user } }
-    function success(user) { return { type: activityTypes.ACTIVITY_SUCCESS, user } }
-    function failure(error) { return { type: activityTypes.ACTIVITY_FAILURE, error } }
 }
 function deleteActivity(id) {
     return dispatch => {
-        dispatch(request(id));
-
+        dispatch(dispatchSelector.request(id,activityTypes.DEL_ACTIVITY_REQUEST));
+        dispatch(dispatchSelector.request(id,checkTypes.GETCHECKIN_REQUEST));
         activityService.deleteActivity(id)
             .then(
                 id =>{ 
-                    dispatch(success(id));
-                    // history.push('/');
+                    dispatch(dispatchSelector.success(id,activityTypes.DEL_ACTIVITY_SUCCESS));
+                    dispatch(dispatchSelector.success(id,checkTypes.GETCHECKIN_SUCCESS));
                     dispatch(alertActions.success('Delete activity successful'));
-                    window.location.reload()
+                    // window.location.reload()
 
                 },
-                error => dispatch(failure(id, error.toString()))
+                error => {
+                    dispatch(dispatchSelector.error(error,activityTypes.DEL_ACTIVITY_FAILURE));
+                    dispatch(dispatchSelector.error(error,checkTypes.GETCHECKIN_FAILURE));
+                    dispatch(alertActions.error(error.toString()));
+                }
             );
     };
-
-    function request(id) { return { type: activityTypes.DEL_ACTIVITY_REQUEST, id } }
-    function success(id) { return { type: activityTypes.DEL_ACTIVITY_SUCCESS, id } }
-    function failure(id, error) { return { type: activityTypes.DEL_ACTIVITY_FAILURE, id, error } }
 }
