@@ -32,7 +32,7 @@ import * as moment from "moment";
 import { DialogAddEdit } from "../Dialog/DialogAddEdit";
 import { useEffect, useState } from "react";
 import { deepOrange } from "@material-ui/core/colors";
-import { TabPanel } from "../Tabs/Tabs";
+import { a11yProps, TabPanel } from "../Tabs/Tabs";
 import  ActivityList  from "./../List/ActivtiyList";
 import { MockActivityList } from "../List/MockActivity";
 function ActivityCard(props) {
@@ -128,13 +128,6 @@ const styles = makeStyles((theme) => ({
     margin: "0 auto",
   },
 }));
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
 
 function mapStateToProps(state) {
   return state;
