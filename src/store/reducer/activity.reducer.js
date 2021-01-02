@@ -28,11 +28,7 @@ export function activities(state = {}, action) {
       return {};
     case activityTypes.UPDATE_ACTIVITY_REQUEST:
       return {
-        ...state,
-        item: {
-          ...state.activities,
-          activities: action.user.activities,
-        },
+        
       };
     case activityTypes.UPDATE_ACTIVITY_SUCCESS:
       return {
