@@ -32,7 +32,6 @@ class Profile extends React.Component {
     
   }
   componentWillReceiveProps(nextState){
-    console.log(nextState)
     if(nextState.authentication && nextState.authentication.user) this.setState({ image : nextState.authentication.user.image})
   }
   render() {
