@@ -38,15 +38,32 @@ const styles = makeStyles((theme) => ({
   }
 }));
 function ProfileCard(props) {
+  console.log(props)
   const classes = styles();
 
   const onChange = (e) => {
     const files = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", files);
-    props.changeImage(formData);
+    let body = {
+      username : props.username,
+      image : files?files:''
+    }
+    props.updateUser(body)
+
   };
 
+  // componentWillReceiveProps(nextState){
+  //   if(nextState.users.items && nextState.users.items.url){
+  //     let body = {
+  //       username : this.state.username,
+  //       image : nextState.users.items.url
+  //     }
+  //     this.props.updateUser(body)
+  //     this.setState({
+  //       image:nextState.users.items.url,
+  //     })
+  //     this.forceUpdate()
+  //   }
+  // }
   return (
     <Card className={classes.root} variant="outlined" key={props.username}>
       <IconButton
