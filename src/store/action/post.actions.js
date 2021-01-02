@@ -1,6 +1,7 @@
 import { alertActions } from './alert.actions';
 import { postsTypes } from '../type/posts.type';
 import { postsService } from '../../services/posts.service';
+import { dispatchSelector } from '../../utils/dispatchSelector';
 
 export const postsActions = {
     postFeed,
@@ -10,25 +11,19 @@ export const postsActions = {
 
 function getAllposts() {
     return dispatch => {
-        dispatch(request());
-
         postsService.getAllFeed()
             .then(
                 posts => { 
-                    dispatch(success(posts));
+                    dispatch(dispatchSelector.success(posts, postsTypes.GETPOSTS_SUCCESS));
                     // dispatch(alertActions.success('Get posts successful'));
 
                 },
                 error => {
-                    dispatch(failure(error.toString()));
+                    dispatch(dispatchSelector.failure(error,postsTypes.GETPOSTS_FAILURE));
                     dispatch(alertActions.error(error.toString()));
                 }
             );
     };
-
-    function request(posts) { return { type: postsTypes.GETPOSTS_REQUEST, posts } }
-    function success(posts) { return { type: postsTypes.GETPOSTS_SUCCESS, posts } }
-    function failure(error) { return { type: postsTypes.GETPOSTS_FAILURE, error } }
 }
 
 function postFeed(body) {

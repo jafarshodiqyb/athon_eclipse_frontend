@@ -7,7 +7,7 @@ export function posts(state = {}, action) {
     case postsTypes.GETPOSTS_SUCCESS:
       return {
         ...state,
-        user: action.posts
+        user: action.payload
       };
     case postsTypes.GETPOSTS_FAILURE:
       return {};
