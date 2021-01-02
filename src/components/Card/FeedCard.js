@@ -79,7 +79,6 @@ function FeedCard(props) {
               </CardActions>
               <div className="container mb-4">
                 <TextField
-                  autoFocus
                   variant="outlined"
                   margin="dense"
                   id="name"
