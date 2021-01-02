@@ -149,7 +149,7 @@ export default function Content2(props) {
 
       <Card className={classes.root + "d-flex mt-4"} variant="outlined">
         <div className="mt-4 mb-4">
-        <div style={{position:"relative"}}>
+        <div style={{position:"relative",display:"flex"}}>
         <SpinnerWrapper>
           <RingSpinner  className="ml-2" size={25} color="#D4232C" loading={true} />
         </SpinnerWrapper>
