@@ -7,7 +7,7 @@ export function stories(state = {}, action) {
     case storiesTypes.GETSTORIES_SUCCESS:
       return {
         ...state,
-        user: action.stories
+        user: action.payload
       };
     case storiesTypes.GETSTORIES_FAILURE:
       return {};
@@ -19,7 +19,7 @@ export function stories(state = {}, action) {
         // user: action.payload
       };
     case storiesTypes.POSTSTORIES_SUCCESS:
-      return Object.assign({}, state, { user: action.stories })
+      return Object.assign({}, state, { user: action.payload })
     case storiesTypes.POSTSTORIES_FAILURE:
       return {};
     default:

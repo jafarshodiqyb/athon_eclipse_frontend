@@ -16,7 +16,6 @@ const token = jwt.verify(userData, '12345-67890-09876-54321', function(err, deco
 // let token =userData && userData!=null? jwt.verify(userData, '12345-67890-09876-54321'): null
 const initialState = token ? { loggedIn: true, payload : token._doc } : {}
 export  function authentication(state = initialState, action) {
-  console.log(action)
   switch (action.type) {
     case userTypes.LOGIN_REQUEST:
       return {
