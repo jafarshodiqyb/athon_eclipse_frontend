@@ -85,7 +85,7 @@ function Stories(props) {
           >
             <div className="d-flex">
             <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={onChange}  />
-          <label htmlFor={props.userStories.username ===
+            <label htmlFor={props.userStories.username ===
                   props.authentication.payload.username?"icon-button-file":''} style={{display:'flex',marginBottom:0}}>
             
               <IconButton
@@ -121,19 +121,6 @@ function Stories(props) {
                 {props.userStories.username}
               </Typography>
             </div>
-            {/* <h1>{ }</h1> */}
-            {/* <p>Now render React components right into your stories.</p>
-            <p>Possibilities are endless, like here - here's a code block!</p>
-            <pre>
-              <code style={code}>console.log('Hello, world!')</code>
-            </pre>
-            <p>Or here, an image!</p>
-            <br />
-            <img
-              style={image}
-              src="https://images.unsplash.com/photo-1565506737357-af89222625ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
-            ></img>
-            <h3>Perfect. But there's more! →</h3> */}
           </div>
         );
       },
