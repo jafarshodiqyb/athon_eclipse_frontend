@@ -24,25 +24,16 @@ class Profile extends React.Component {
     super(props);
     const data = this.props;
     this.state = {
-      username: data.authentication.payload.username,
-      firstName: data.payload.firstName,
-      lastName: data.payload.lastName,
-      image:  data.payload.image 
+      username: data.authentication.user.username,
+      firstName: data.authentication.user.firstName,
+      lastName: data.authentication.user.lastName,
+      image:  data.authentication.user.image 
     };
-
+    
   }
   componentWillReceiveProps(nextState){
-    if(nextState.users.items && nextState.users.items.url){
-      let body = {
-        username : this.state.username,
-        image : nextState.users.items.url
-      }
-      this.props.updateUser(body)
-      this.setState({
-        image:nextState.users.items.url,
-      })
-      this.forceUpdate()
-    }
+    console.log(nextState)
+    if(nextState.authentication && nextState.authentication.user) this.setState({ image : nextState.authentication.user.image})
   }
   render() {
     const {classes } = this.props;
