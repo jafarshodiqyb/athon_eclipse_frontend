@@ -36,27 +36,6 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: "56.25%", // 16:9
   },
-  input: {
-    display: "none",
-  },
-  storiesWrap:{
-    display: "flex",
-    // justifyContent: space-around,
-    maxWidth: '30em',
-    position: "relative",
-    overflowX: "auto",
-    whiteSpace: "nowrap",
-  },
-  stories: {
-    margin: "10px",
-    width: "60px",
-    height: "60px",
-    // border:"5px solid"
-  },
-  storiesBorder: {
-    border: "3px solid",
-    borderColor: "#3F51B5",
-  },
 }));
 function FeedCard(props) {
   const classes = useStyles()

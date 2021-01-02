@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   storiesWrap:{
     display: "flex",
     // justifyContent: space-around,
-    maxWidth: '30em',
+    maxWidth: '35em',
     position: "relative",
     overflowX: "auto",
     whiteSpace: "nowrap",
@@ -186,7 +186,7 @@ function Content(props) {
                       className={[classes.stories, classes.storiesBorder]}
                     />
                   </IconButton>
-                  <Typography variant="caption" color="initial">
+                  <Typography variant="caption" color="initial" className="mb-2">
                     {value.username}
                   </Typography>
                   <Stories
@@ -219,35 +219,3 @@ const mapDispatchToProps = {
 
 const connectedStories = connect(mapStateToProps, mapDispatchToProps)(Content);
 export { connectedStories as Content };
-
-const content = [
-  {
-    title: "Telkom Athon",
-    author: "Jafar Shodiq",
-    date: "Yesterday",
-    description:
-      "Hi Telkomers! Watch Eclipse Team win this telkom athon competition....",
-    image:
-      "https://static.wixstatic.com/media/370a7e_8490be5524d94eb2b2b34ce9aa4603ef~mv2.png/v1/fill/w_1903,h_664,al_c,q_90,usm_0.66_1.00_0.01/370a7e_8490be5524d94eb2b2b34ce9aa4603ef~mv2.webp",
-    imageText: "Telkom Athon",
-  },
-  {
-    title: "What Programmer Participants learn?",
-    author: "Jafar Shodiq",
-    date: "Yesterday",
-    description: `Hi Telkomers! We bet you're intrigued by what TelkomAthon Programmer participants learned huh? Okay, here are our sneak peak for Programmer courses!`,
-    image:
-      "https://static.wixstatic.com/media/a27d24_bcc2558e4f9d40419983a507ccb5d514~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_90/a27d24_bcc2558e4f9d40419983a507ccb5d514~mv2.webp",
-    imageText: "Transformasi Telkom Group",
-  },
-  {
-    title: "Transformasi Telkom Group",
-    author: "Jafar Shodiq",
-    date: "2 days ago",
-    description:
-      "Halo Telkomers! Ingin tahu lebih lanjut tentang Transformasi TelkomGroup? Simak FAQ nya di sini!",
-    image:
-      "https://portal.telkom.co.id/assets/s3/bglogin/7ef25991b9e9e3def7747ef04d83a481.png",
-    imageText: "Transformasi Telkom Group",
-  },
-];
