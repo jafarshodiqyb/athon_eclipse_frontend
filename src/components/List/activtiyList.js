@@ -4,7 +4,9 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 import DeleteIcon from "@material-ui/icons/Delete";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import ForwardIcon from "@material-ui/icons/Forward";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useState } from "react";
 import { deepOrange } from "@material-ui/core/colors";
@@ -78,7 +80,7 @@ import { MockActivityList } from "./MockActivity";
     return (
       <div>
 
-      <List>
+      <List className="pt-0 mt-0">
         {check.item &&
           listActivities.map((value, i) => {
             return (
@@ -105,15 +107,18 @@ import { MockActivityList } from "./MockActivity";
                     </Avatar>
                   </ListItemAvatar>
                   </Tooltip>
-                  <ListItemText
-                    primary={value.activity}
-                    secondary={
+                  <ListItemText style={{ overflowWrap: "anywhere" }}>
+                    <Typography variant="body" color="textPrimary" className={classes.elipsis}>
+                      {value.activity}
+                    </Typography>
+                    <Typography variant="subtitle2" color="textSecondary" style={{width:'8em'}}>
+                    {
                       value.createdDate
                         ? moment(value.createdDate).format("DD/MM/YYYY HH:mm")
                         : "-"
                     }
-                    style={{ overflowWrap: "anywhere" }}
-                  />
+                    </Typography>
+                  </ListItemText>
 
                   <ListItemSecondaryAction
                     style={{ display: "flex", left: "10em" }}
@@ -137,13 +142,33 @@ import { MockActivityList } from "./MockActivity";
                         key={value._id}
                         // selected={option === "Pyxis"}
                         onClick={() => handleCloseAnchor(value._id)}
+                        // style={{background:status=='done'?'rgba(52, 52, 52, 0.2)':''}}
                       >
                         <IconButton
                         onClick={(e) =>
                           handleMoveStatus(check.item._id, value._id,value.activity,status)
                         }
+                        style={{color:'#22AF25'}}
+                        hidden={status==='done'}
+                        // disabled={status==='done'}
                         >
-                          <ForwardIcon />
+                          <NavigateNextIcon />
+                        </IconButton>
+                      </MenuItem>
+                      <MenuItem
+                        key={value._id}
+                        // selected={option === "Pyxis"}
+                        onClick={() => handleCloseAnchor(value._id)}
+                        // style={{background:status=='done'?'rgba(52, 52, 52, 0.2)':''}}
+                      >
+                        <IconButton
+                        onClick={(e) =>
+                          alert('tobe continued')
+                        }
+                        style={{color:'#22AF25'}}
+                        hidden={status==='todo'}
+                        >
+                          <NavigateBeforeIcon />
                         </IconButton>
                       </MenuItem>
                       <MenuItem
@@ -192,6 +217,13 @@ import { MockActivityList } from "./MockActivity";
       color: theme.palette.getContrastText(deepOrange[500]),
       backgroundColor: '#D4232C',
       margin: "0 auto",
+    },
+    elipsis: {
+      whiteSpace: "nowrap",
+      width: "8em",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      display:"block"
     },
   }));
   function mapStateToProps(state) {

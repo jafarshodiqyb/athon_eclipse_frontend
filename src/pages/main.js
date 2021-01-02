@@ -65,16 +65,17 @@ class Main extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.alert.type || nextProps.isFetching ){
-      if(!(nextProps.alert.type && nextProps.isFetching))
-      this.props.enqueueSnackbar(!nextProps.isFetching?nextProps.alert.message:'Please Wait', {
-        variant: !nextProps.isFetching?nextProps.alert.type:'info',
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "left",
-        },
-        autoHideDuration : !nextProps.isFetching? 4000 :null
-      },
-      );
+      if(!(nextProps.alert.type && nextProps.isFetching)){
+
+        this.props.enqueueSnackbar(!nextProps.isFetching?nextProps.alert.message:'Please Wait', {
+          variant: !nextProps.isFetching?nextProps.alert.type:'info',
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "left",
+          },
+          autoHideDuration : !nextProps.isFetching? 4000 :null
+        });
+      }
     } else this.props.closeSnackbar()
     
     window.scrollTo(0, 0);

@@ -1,7 +1,8 @@
-import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, makeStyles, Menu, MenuItem, Tooltip } from "@material-ui/core";
+import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, makeStyles, Menu, MenuItem, Tooltip, Typography } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import ForwardIcon from "@material-ui/icons/Forward";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useState } from "react";
 import * as  moment  from "moment";
@@ -18,7 +19,7 @@ export function MockActivityList(){
         setAnchorEl({ ...anchorEl, [id]: null });
       };
     return (
-        <List>
+        <List className="pb-0 mb-0">
              <ListItem button>
             <Tooltip title="NDE" placement="left">
                   <ListItemAvatar style={{ marginLeft: "-2em" }}>
@@ -32,13 +33,18 @@ export function MockActivityList(){
             </Tooltip>
 
                   <ListItemText
-                    primary="Undangan UAT..."
-                    secondary={
-                       moment('2020-12-31T23:59:00.000+00:00').format("DD/MM/YYYY HH:mm")
-                        
-                    }
+                   
                     style={{ overflowWrap: "anywhere" }}
-                  />
+                  >
+                     <Typography variant="body" color="textPrimary" className={classes.elipsis}>
+                    Undangan UAT...
+                    </Typography>
+                    <Typography variant="subtitle2" color="textSecondary" style={{width:'8em'}}>
+                    {
+                       moment('2020-12-31T23:59:00.000+00:00').format("DD/MM/YYYY HH:mm")    
+                    }
+                    </Typography>
+                  </ListItemText>
 
                   <ListItemSecondaryAction
                     style={{ display: "flex", left: "10em" }}
@@ -66,7 +72,7 @@ export function MockActivityList(){
                         <IconButton
                         disabled
                         >
-                          <ForwardIcon />
+                          <NavigateNextIcon />
                         </IconButton>
                       </MenuItem>
                       <MenuItem
@@ -97,13 +103,17 @@ export function MockActivityList(){
             </Tooltip>
 
                   <ListItemText
-                    primary="SPPD New York"
-                    secondary={
-                       moment('2020-12-31T23:59:00.000+00:00').format("DD/MM/YYYY HH:mm")
-                        
+                    // style={{ overflowWrap: "anywhere" }}
+                  >
+                     <Typography variant="body" color="textPrimary" className={classes.elipsis}>
+                     SPPD New Yorkasdsadasdsad
+                    </Typography>
+                    <Typography variant="subtitle2" color="textSecondary" style={{width:'8em'}}>
+                    {
+                     moment('2020-12-31T23:59:00.000+00:00').format("DD/MM/YYYY HH:mm")
                     }
-                    style={{ overflowWrap: "anywhere" }}
-                  />
+                    </Typography>
+                  </ListItemText>
 
                   <ListItemSecondaryAction
                     style={{ display: "flex", left: "10em" }}
@@ -131,7 +141,7 @@ export function MockActivityList(){
                         <IconButton
                         disabled
                         >
-                          <ForwardIcon />
+                          <NavigateNextIcon />
                         </IconButton>
                       </MenuItem>
                       <MenuItem
@@ -157,10 +167,16 @@ export function MockActivityList(){
 }
 
 const styles = makeStyles((theme) => ({
-
-    square: {
-      color: theme.palette.getContrastText(deepOrange[500]),
-      backgroundColor: '#D4232C',
-      margin: "0 auto",
-    },
-  }));
+  square: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: "#D4232C",
+    margin: "0 auto",
+  },
+  elipsis: {
+    whiteSpace: "nowrap",
+    width: "8em",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display:"block"
+  },
+}));
