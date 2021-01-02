@@ -14,16 +14,17 @@ const token = jwt.verify(userData, '12345-67890-09876-54321', function(err, deco
 })
 // console.log(token)
 // let token =userData && userData!=null? jwt.verify(userData, '12345-67890-09876-54321'): null
-const initialState = token ? { loggedIn: true, user : token._doc } : {}
+const initialState = token ? { loggedIn: true, payload : token._doc } : {}
 export  function authentication(state = initialState, action) {
+  console.log(action)
   switch (action.type) {
     case userTypes.LOGIN_REQUEST:
       return {
         loggingIn: true,
-        user: action.user
+        user: action.payload
       };
     case userTypes.LOGIN_SUCCESS:
-        const token =  jwt.verify(action.user.token, '12345-67890-09876-54321', function(err, decoded) {
+        const token =  jwt.verify(action.payload.token, '12345-67890-09876-54321', function(err, decoded) {
           if (err) {
             alert('Sesi habis silahkan login kembali!')
             localStorage.removeItem('token');
@@ -35,7 +36,7 @@ export  function authentication(state = initialState, action) {
         })
       return {
         ...state,
-        user: token._doc?token._doc:token['0']
+        payload: token._doc?token._doc:token['0']
       };
     case userTypes.LOGIN_FAILURE:
       return {};

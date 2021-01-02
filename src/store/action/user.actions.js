@@ -2,6 +2,7 @@ import { userTypes } from './../type/user.type';
 import { userService } from './../../services/user.service';
 import { alertActions } from './alert.actions';
 import { history } from './../../utils/history';
+import { dispatchSelector } from '../../utils/dispatchSelector';
 
 export const userActions = {
     login,
@@ -14,16 +15,14 @@ export const userActions = {
 
 function login(username, password) {
     return dispatch => {
-        dispatch(request({ username }));
-
         userService.login(username, password)
             .then(
-                user => { 
-                    dispatch(success(user));
+                user => {
+                    dispatch(dispatchSelector.success(user, userTypes.LOGIN_SUCCESS));
                     history.push('/');
                 },
                 error => {
-                    dispatch(failure(error.toString()));
+                    dispatch(dispatchSelector.failure(error, userTypes.LOGIN_FAILURE));
                     dispatch(alertActions.error(error.toString()));
                     // history.push('/login');
                     //window.location.reload()
@@ -31,10 +30,6 @@ function login(username, password) {
                 }
             );
     };
-
-    function request(user) { return { type: userTypes.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userTypes.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: userTypes.LOGIN_FAILURE, error } }
 }
 
 function logout() {
@@ -44,102 +39,75 @@ function logout() {
 
 function register(user) {
     return dispatch => {
-        dispatch(request(user));
 
         userService.register(user)
             .then(
-                user => { 
-                    dispatch(success());
+                user => {
+                    dispatch(dispatchSelector.success(user, userTypes.REGISTER_SUCCESS)); 
                     history.push('/login');
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {
-                    dispatch(failure(error.toString()));
+                    dispatch(dispatchSelector.failure(error, userTypes.REGISTER_SUCCESS)); 
                     dispatch(alertActions.error(error.toString()));
                     //window.location.reload()
                 }
             );
     };
-
-    function request(user) { return { type: userTypes.REGISTER_REQUEST, user } }
-    function success(user) { return { type: userTypes.REGISTER_SUCCESS, user } }
-    function failure(error) { return { type: userTypes.REGISTER_FAILURE, error } }
 }
 function getUser(user) {
     return dispatch => {
-        dispatch(request(user));
-
         userService.getUser(user)
             .then(
                 user => { 
-                    dispatch(success(user));
+                    dispatch(dispatchSelector.success(user, userTypes.GETUSER_SUCCESS)); 
                     // history.push('/login');
                     dispatch(alertActions.success('Get User Succesfull'));
                 },
                 error => {
-                    dispatch(failure(error.toString()));
+                    dispatch(dispatchSelector.error(user, userTypes.GETUSER_FAILURE)); 
                     dispatch(alertActions.error(error.toString()));
                     //window.location.reload()
                 }
             );
     };
-
-    function request(user) { return { type: userTypes.GETUSER_REQUEST, user } }
-    function success(user) { return { type: userTypes.GETUSER_SUCCESS, user } }
-    function failure(error) { return { type: userTypes.GETUSER_FAILURE, error } }
 }
 
 function updateUser(user) {
     return dispatch => {
-        dispatch(request(user));
-        dispatch(requestLogin( user ));
-
 
         userService.updateUser(user)
             .then(
-                user => { 
-                    dispatch(success(user));
-                    dispatch(successLogin(user));
+                user => {
+                    dispatch(dispatchSelector.success(user, userTypes.UPDATE_SUCCESS));  
+                    dispatch(dispatchSelector.success(user, userTypes.LOGIN_SUCCESS));  
                     // history.push('/login');
                     dispatch(alertActions.success('Update successful'));
                 },
                 error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(failureLogin(error.toString()));
+                    dispatch(dispatchSelector.failure(error, userTypes.UPDATE_SUCCESS));  
+                    dispatch(dispatchSelector.failure(error, userTypes.LOGIN_FAILURE));  
                     dispatch(alertActions.error(error.toString()));
                     //window.location.reload()
                 }
             );
     };
-
-    function request(user) { return { type: userTypes.UPDATE_REQUEST, user } }
-    function success(user) { return { type: userTypes.UPDATE_SUCCESS, user } }
-    function failure(error) { return { type: userTypes.UPDATE_FAILURE, error } }
-    function requestLogin(user) { return { type: userTypes.LOGIN_REQUEST, user } }
-    function successLogin(user) { return { type: userTypes.LOGIN_SUCCESS, user } }
-    function failureLogin(error) { return { type: userTypes.LOGIN_FAILURE, error } }
 }
 
 function changeImage(file){
     return dispatch => {
-        dispatch(request(file));
-
         userService.changeImage(file)
             .then(
                 user => { 
-                    dispatch(success(user));
                     // history.push('/login');
+                    dispatch(dispatchSelector.success(user, userTypes.PROFILECHANGE_SUCCESS));  
                     dispatch(alertActions.success('Image uploaded'));
                 },
                 error => {
-                    dispatch(failure(error.toString()));
+                    dispatch(dispatchSelector.failure(error, userTypes.PROFILECHANGE_SUCCESS));  
                     dispatch(alertActions.error(error.toString()));
                     //window.location.reload()
                 }
             );
     };
-
-    function request(user) { return { type: userTypes.PROFILECHANGE_REQUEST, user } }
-    function success(user) { return { type: userTypes.PROFILECHANGE_SUCCESS, user } }
-    function failure(error) { return { type: userTypes.PROFILECHANGE_FAILURE, error } }
 }

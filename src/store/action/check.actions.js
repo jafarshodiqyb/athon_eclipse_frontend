@@ -13,7 +13,6 @@ export const checkActions = {
 
 function checkin(user) {
     return dispatch => {
-        dispatch(dispatchSelector.request(user,checkTypes.CHECKIN_REQUEST));
         checkServices.checkin(user)
             .then(
                 user => { 
@@ -31,7 +30,6 @@ function checkin(user) {
 
 function getCheckin(id) {
     return dispatch => {
-        dispatch(dispatchSelector.request(id,checkTypes.GETCHECKIN_REQUEST));
 
         checkServices.getCheckin(id)
             .then(
@@ -44,7 +42,6 @@ function getCheckin(id) {
 
 function checkout(user) {
     return dispatch => {
-        dispatch(dispatchSelector.request(user,checkTypes.CHECKOUT_REQUEST));
 
         checkServices.checkout(user)
             .then(

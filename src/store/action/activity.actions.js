@@ -15,8 +15,6 @@ export const activityActions= {
 
 function addActivity(data) {
     return dispatch => {
-        dispatch(dispatchSelector.request(data,activityTypes.ACTIVITY_REQUEST));
-        dispatch(dispatchSelector.request(data,checkTypes.GETCHECKIN_REQUEST));
         activityService.addActivity(data)
             .then(
                 data => { 
@@ -41,8 +39,6 @@ function addActivity(data) {
 
 function updateActivity(data) {
     return dispatch => {
-        dispatch(dispatchSelector.request(data,activityTypes.UPDATE_ACTIVITY_REQUEST));
-        dispatch(dispatchSelector.request(data,checkTypes.GETCHECKIN_REQUEST));
         activityService.updateActivity(data)
             .then(
                 data => { 
@@ -63,8 +59,6 @@ function updateActivity(data) {
 }
 function deleteActivity(id) {
     return dispatch => {
-        dispatch(dispatchSelector.request(id,activityTypes.DEL_ACTIVITY_REQUEST));
-        dispatch(dispatchSelector.request(id,checkTypes.GETCHECKIN_REQUEST));
         activityService.deleteActivity(id)
             .then(
                 id =>{ 

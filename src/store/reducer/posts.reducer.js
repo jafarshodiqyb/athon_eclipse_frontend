@@ -2,8 +2,6 @@ import { postsTypes } from "../type/posts.type";
 
 export function posts(state = {}, action) {
   switch (action.type) {
-    case postsTypes.GETPOSTS_REQUEST:
-      return Object.assign({}, state)
     case postsTypes.GETPOSTS_SUCCESS:
       return {
         ...state,
@@ -16,7 +14,7 @@ export function posts(state = {}, action) {
     case postsTypes.POSTPOSTS_REQUEST:
       return {
         gettingposts: true,
-        // user: action.user
+        // user: action.payload
       };
     case postsTypes.POSTPOSTS_SUCCESS:
       return Object.assign({}, state, { user: action.posts })
