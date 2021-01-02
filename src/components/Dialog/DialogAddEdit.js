@@ -3,11 +3,9 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { activityActions } from "../../store/action/activity.actions";
 import { connect } from "react-redux";
 
-function DialogLayout(props) {
+function DialogAddEdit(props) {
     const [activityTemp, setActivityTemp] = React.useState(null);
-    let title = 'Are you sure to perform this action?' 
-    let content = ''
-
+    
     const handleSubmit = (e) => {
       e.preventDefault();
       const { username, open } = props;
@@ -24,9 +22,8 @@ function DialogLayout(props) {
         props.addActivity(body);
       } else if(props.type==='edit'){
         props.updateActivity(body)
-      } else if(props.type ==='delete'){
-        props.deleteActivity(body)
       }
+
       if (props.open) {
         handleClose();
       }
@@ -52,6 +49,7 @@ function DialogLayout(props) {
       fullWidth
     />
     )
+    let title,content  
     if(props.type ==='edit' || props.type ==='add' ){
       title = props.activity!=null?'Edit Activity':'Add Activity'
       content = props.activity!=null?`Recent Activity: ${props.activity}`:'Add your Daily activity here'
@@ -89,5 +87,5 @@ const mapDispatchToProps = {
   deleteActivity: activityActions.deleteActivity,
 };
 
-const connectedDialog = connect(mapStateToProps, mapDispatchToProps)(DialogLayout);
-export { connectedDialog as DialogLayout };
+const connectedDialog = connect(mapStateToProps, mapDispatchToProps)(DialogAddEdit);
+export { connectedDialog as DialogAddEdit };

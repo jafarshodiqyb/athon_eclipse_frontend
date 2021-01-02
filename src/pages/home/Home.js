@@ -15,8 +15,8 @@ import TopBar from "../../parts/Header/TopBar";
 import { compose } from "redux";
 import * as moment from "moment";
 import * as _ from "lodash";
-import {Content} from "./../../components/Content";
-import Content2 from "./../../components/Content2";
+import {Content} from "./../../parts/Content/Feed/Content";
+import Content2 from "./../../parts/Content/Side/Content2";
 import Copyright from "./../../parts/Footer/Copyright";
 import ChatBar from "./../../parts/ChatBar/ChatBar";
 import Alert from "@material-ui/lab/Alert";
@@ -27,6 +27,7 @@ import  {createLoadingSelector}  from "../../store/action/loading.selector";
 import { postsActions } from "../../store/action/post.actions";
 import { FireworkSpinner } from "react-spinners-kit";
 import { SpinnerWrapper } from "../../components/Wrapper/Wrapper";
+import { DialogConfirmation } from "../../components/Dialog/DialogConfirmation";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -76,25 +77,35 @@ class HomePage extends React.Component {
         parentId: "",
         childId: "",
       },
+      checkProfile:false
     };
-  }
-  componentWillMount(){
-    this.props.getAllStories();
-    this.props.getAllposts();
-    this.forceUpdate()
-  }
-  componentDidMount() {
-    this.props.getCheckin(this.state.user.username);
-    window.scrollTo(0, 0);
+    this.handleOnClose.bind(this)
   }
 
- 
+  componentDidMount() {
+    this.props.getAllStories();
+    this.props.getAllposts();
+    this.props.getCheckin(this.state.user.username);
+    this.forceUpdate()
+    window.scrollTo(0, 0);
+    // if(this.state.user)
+    let cek = _.some((this.state.user),(value,i)=>{
+      if(i!='password')return ((value === undefined||value === ''||value === null))      
+    }) 
+    this.setState({checkProfile:cek})
+  }
 
   checkin() {
     return (e) => this.props.checkin(this.state.user.username);
   }
   checkout() {
     return (e) => this.props.checkout(this.state.user.username);
+  }
+
+  handleOnClose(type){
+    this.setState({
+      checkProfile:false
+    })
   }
 
   render() {
@@ -126,25 +137,6 @@ class HomePage extends React.Component {
 
     return (
       <div>
-        {isNotCheckinToday && (
-          <Snackbar
-            open={
-              _.isEmpty(check) ||
-              (check &&
-                check.item &&
-                !moment(check.item.lastCheckIn).isSame(moment(), "day"))
-            }
-            autoHideDuration={1500}
-            style={{ zIndex: 1 }}
-            // onClose={this.handleSnackBar}
-          >
-            <Alert onClose={this.handleSnackBar} severity="error">
-              Hari ini anda belum Check In. Silahkan Check In terlebih dahulu!
-            </Alert>
-            {/* {alert.message} */}
-          </Snackbar>
-          //   <div className={`alert ${alert.type}`}>{alert.message}</div>
-        )}
         <TopBar />
         <div className="container">
           <div className="row">
@@ -166,8 +158,19 @@ class HomePage extends React.Component {
                 {/* <InfoTitle>50 Days of Premium!</InfoTitle>
                     <InfoSubtitle>Get it before 01.01.2020</InfoSubtitle> */}
                 <div className="float-right pr-2 pb-2 mt-2">
-                  <SpinnerWrapper style={{position:'absolute',zIndex:'1',paddingLeft: "8%","margin-top": "-5%"}}>
-                    <FireworkSpinner size={60} color="red" loading={isNotCheckinToday} />
+                  <SpinnerWrapper
+                    style={{
+                      position: "absolute",
+                      zIndex: "1",
+                      paddingLeft: "8%",
+                      "margin-top": "-5%",
+                    }}
+                  >
+                    <FireworkSpinner
+                      size={60}
+                      color="red"
+                      loading={isNotCheckinToday}
+                    />
                   </SpinnerWrapper>
                   <Button
                     variant="outlined"
@@ -175,7 +178,7 @@ class HomePage extends React.Component {
                     className={classes.button}
                     startIcon={<InputIcon />}
                     size="small"
-                    style={{zIndex:2}}
+                    style={{ zIndex: 2 }}
                     onClick={
                       _.isEmpty(check) ||
                       (check &&
@@ -212,6 +215,32 @@ class HomePage extends React.Component {
         </div>
         <ChatBar />
         <Copyright />
+        <DialogConfirmation 
+          open={this.state.checkProfile} 
+          onClose={()=>this.handleOnClose('updateProfile')}
+          title="Your profile is not updated. Do you want to update?"
+          confirmation={{yes:"next",no:"skip"}}
+          type="link"
+        />
+        {isNotCheckinToday && (
+          <Snackbar
+            open={
+              _.isEmpty(check) ||
+              (check &&
+                check.item &&
+                !moment(check.item.lastCheckIn).isSame(moment(), "day"))
+            }
+            autoHideDuration={1500}
+            style={{ zIndex: 1 }}
+            // onClose={this.handleSnackBar}
+          >
+            <Alert onClose={this.handleSnackBar} severity="error">
+              Hari ini anda belum Check In. Silahkan Check In terlebih dahulu!
+            </Alert>
+            {/* {alert.message} */}
+          </Snackbar>
+          //   <div className={`alert ${alert.type}`}>{alert.message}</div>
+        )}
       </div>
     );
   }
