@@ -25,7 +25,7 @@ import {
 } from "@material-ui/core";
 import * as _ from "lodash";
 import { PongSpinner, RingSpinner } from "react-spinners-kit";
-import { SpinnerWrapper } from "./Wrapper/Wrapper";
+import { SpinnerWrapper } from "../../../components/Wrapper/Wrapper";
 const hashtagRegex = require("hashtag-regex");
 const useStyles = makeStyles((theme) => ({
   root: {

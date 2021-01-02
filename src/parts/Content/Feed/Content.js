@@ -28,12 +28,12 @@ import CreateIcon from "@material-ui/icons/Create";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import { red } from "@material-ui/core/colors";
-import Stories  from "../parts/Stories/Stories";
+import Stories  from "../../Stories/Stories";
 import { connect } from "react-redux";
-import { storiesActions } from "../store/action/stories.actions";
-import { userActions } from "../store/action/user.actions";
-import { PostFeed } from "./Form/PostFeed";
-import { FeedCard } from "./Card/FeedCard";
+import { storiesActions } from "../../../store/action/stories.actions";
+import { userActions } from "../../../store/action/user.actions";
+import { PostFeed } from "../../../components/Form/PostFeed";
+import { FeedCard } from "../../../components/Card/FeedCard";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
