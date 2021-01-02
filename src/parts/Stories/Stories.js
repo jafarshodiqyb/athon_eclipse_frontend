@@ -86,7 +86,7 @@ function Stories(props) {
             <div className="d-flex">
             <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={onChange}  />
           <label htmlFor={props.userStories.username ===
-                  props.authentication.user.username?"icon-button-file":''} style={{display:'flex',marginBottom:0}}>
+                  props.authentication.payload.username?"icon-button-file":''} style={{display:'flex',marginBottom:0}}>
             
               <IconButton
                 className="p-0"
@@ -97,7 +97,7 @@ function Stories(props) {
                 style={{ zIndex: 1000 }}
                 disabled={
                   props.userStories.username !==
-                  props.authentication.user.username
+                  props.authentication.payload.username
                 }
               >
                 <Badge
@@ -108,7 +108,7 @@ function Stories(props) {
                   }}
                   badgeContent={
                     props.userStories.username ===
-                      props.authentication.user.username && (
+                      props.authentication.payload.username && (
                       <SmallAvatar alt="Add" src="add-icon.png" />
                     )
                   }

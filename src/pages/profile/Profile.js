@@ -24,10 +24,10 @@ class Profile extends React.Component {
     super(props);
     const data = this.props;
     this.state = {
-      username: data.authentication.user.username,
-      firstName: data.authentication.user.firstName,
-      lastName: data.authentication.user.lastName,
-      image:  data.authentication.user.image 
+      username: data.authentication.payload.username,
+      firstName: data.payload.firstName,
+      lastName: data.payload.lastName,
+      image:  data.payload.image 
     };
 
   }

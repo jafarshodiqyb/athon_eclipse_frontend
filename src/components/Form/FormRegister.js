@@ -82,11 +82,11 @@ function FormRegister(props) {
     if (props.hide) {
       setUser((prevState) => ({
         ...prevState,
-        firstName: props.authentication.user.firstName,
-        lastName: props.authentication.user.lastName,
-        username: props.authentication.user.username,
-        address: props.authentication.user.address,
-        motto: props.authentication.user.motto,
+        firstName: props.payload.firstName,
+        lastName: props.payload.lastName,
+        username: props.authentication.payload.username,
+        address: props.payload.address,
+        motto: props.payload.motto,
 
       }));
     }
