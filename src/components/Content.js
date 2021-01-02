@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   storiesWrap:{
     display: "flex",
     // justifyContent: space-around,
-    maxWidth: '35em',
+    minWidth: '35em',
     position: "relative",
     overflowX: "auto",
     whiteSpace: "nowrap",
@@ -81,10 +81,10 @@ function Content(props) {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState({});
   const findMyStories = (props && props.stories && props.stories.user)?  props.stories.user.filter((value,i)=>{
-    return value.username === props.authentication.user.username
+    return value.username === props.authentication.payload.username
   }):[]
   const handleClickOpen = (username) => {
-    if(findMyStories.length>0 ||username !==props.authentication.user.username){
+    if(findMyStories.length>0 ||username !==props.authentication.payload.username){
       setModalOpen({ ...modalOpen, [username]: true });
     }
   };
@@ -94,28 +94,20 @@ function Content(props) {
   };
 
   const onChange = (e) => {
+    e.preventDefault();
     const files = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", files);
-    props.changeImage(formData);
-    handleClose(props.authentication.user.username)
-  };
-
-  useEffect(() => {
-    //after profile update, dont post to stories
-    if(props.users.items){
+    // props.changeImage(formData);
       let body = {
-        username : props.authentication.user.username,
-        image : props.authentication.user.image,
+        username : props.authentication.payload.username,
+        image : props.user.image?props.user.image:'',
         stories:{
-          url:props.users.items.url
+          image:files?files:'',
+          url:''
         }
       }
       props.postStories(body)
-    }
-  }, [props.users.items]);
-
-
+      handleClose(props.authentication.payload.username)
+  };
   return (
     <div>
       <Card variant="outlined" className={" mb-4"}>

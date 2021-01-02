@@ -47,7 +47,7 @@ function FeedCard(props) {
             <Card className={classes.root + " mt-4 mb-4"} variant="outlined">
               <CardHeader
                 avatar={                    
-                    <Avatar src={value.image} aria-label="recipe" className={classes.avatar}/>
+                    <Avatar src={value.image?value.image:'person.jpg'} aria-label="recipe" className={classes.avatar}/>
                 }
                 action={
                   <IconButton aria-label="settings">

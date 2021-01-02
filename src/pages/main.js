@@ -87,7 +87,6 @@ class Main extends React.Component {
 }
   render() {
     const { isFetching,classes } = this.props;
-    
     return (
       <div>
         <div className={isFetching?classes.loading:''}>
@@ -123,10 +122,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
     clearAlerts: alertActions.clear,
-    getUser : userActions.getUser
 };
 
-// Show loading when any of GET_TODOS_REQUEST, GET_USER_REQUEST is active
 const loadingSelector = createLoadingSelector([
                           // 'STORIES_GETSTORIES', 
                           // 'CHECKIN_GETCHECKIN',
@@ -141,7 +138,9 @@ const loadingSelector = createLoadingSelector([
                           'USERS_LOGIN',
                           'USERS_PROFILECHANGE',
                           'USER_GETUSER',
-                          'POSTS_POSTPOSTS'
+                          'POSTS_POSTPOSTS',
+                          "STORIES_POSTSTORIES",
+                          'POSTSTORIES'
                         ]);
 export default compose(
   connect(
