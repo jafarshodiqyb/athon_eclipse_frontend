@@ -1,6 +1,7 @@
 import {baseUrl} from '../utils/baseURL'
 import { authHeader } from '../utils/auth-header';
 import {handleResponse} from './../utils/handleResponse'
+import { uploadImageService } from './uploadImage.service';
 
 export const userService = {
     login,
@@ -68,13 +69,21 @@ function getUser(user){
     return fetch(`${baseUrl}/users/${user}`, requestOptions).then(handleResponse);
       
 }
-function updateUser(user) {
+
+async function updateUser(user) {
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(),'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
+        body: user
     };
-
+    console.log(user)
+    if (typeof user.image == 'object'){
+        const formData = new FormData();
+        formData.append("file", user.image);    
+        const upload = await  uploadImageService.uploadImage(formData)
+        user.image = upload[0].url;
+    }
+        requestOptions.body = JSON.stringify(user);
     return fetch(`${baseUrl}/users/update-user`, requestOptions)
         .then(handleResponse)
         .then(data=>{
