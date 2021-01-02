@@ -298,8 +298,6 @@ class LoginPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-  // const { loggingIn } = state.authentication;
-  // return { isFetching: loadingSelector(state) };
   return state
 }
 
@@ -307,11 +305,6 @@ const mapDispatchToProps = {
   login: userActions.login,
   logout: userActions.logout,
 };
-
-// const loadingSelector = createLoadingSelector(['USER_LOGIN']);
-// const mapStateToPropsToProps = (state) => ({ isFetching: loadingSelector(state) });
-// export default connect(mapStateToPropsToProps)(Todos);
-
 export default compose(
     connect(
       mapStateToProps,

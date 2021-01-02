@@ -19,7 +19,7 @@ export function posts(state = {}, action) {
         // user: action.user
       };
     case postsTypes.POSTPOSTS_SUCCESS:
-      return Object.assign({}, state, { isFetching: false, user: action.posts })
+      return Object.assign({}, state, { user: action.posts })
     case postsTypes.POSTPOSTS_FAILURE:
       return {};
     default:

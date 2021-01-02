@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Content2(props) {
   const classes = useStyles();
-  console.log(props);
   const regex = hashtagRegex();
   let match;
   let find = {};

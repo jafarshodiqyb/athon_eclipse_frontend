@@ -218,7 +218,6 @@ class HomePage extends React.Component {
 }
 
 function mapState(state) {
-  state.isFetching = loadingSelector(state)
   return state
 }
 
@@ -235,7 +234,6 @@ const actionCreators = {
 };
 
 // Show loading when any of GET_TODOS_REQUEST, GET_USER_REQUEST is active
-const loadingSelector = createLoadingSelector(['STORIES_GETSTORIES', 'CHECKIN_GETCHECKIN']);
 // const connectedHomePage = connect(mapState, actionCreators)(HomePage);
 // export { connectedHomePage as HomePage };
 export default compose(

@@ -76,7 +76,6 @@ function PostFeed(props) {
             createdDate : Date()
         }
     }
-    console.log(body)
     props.postFeed(body)
     setData({content:"",image:""})   
   };

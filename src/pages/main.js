@@ -8,7 +8,8 @@ import { ProtectedRoute } from './router/ProtectedRoute';
 import  HomePage from './home/Home';
 import LoginPage  from './login/LoginPage';
 import RegisterPage  from './register/Register';
-import { LinearProgress, Snackbar, withStyles } from '@material-ui/core';
+import { LinearProgress, Snackbar, withStyles, Typography } from '@material-ui/core';
+import { withSnackbar } from 'notistack';
 import MuiAlert from '@material-ui/lab/Alert';
 import Profile from './profile/Profile'
 import { userActions } from '../store/action/user.actions';
@@ -20,10 +21,6 @@ import { createLoadingSelector } from '../store/action/loading.selector';
 import { store } from '../store/configureStore';
 import { SpinnerWrapper } from '../components/Wrapper/Wrapper';
 
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
   const styles = (theme) => ({
     loading: {
       
@@ -45,7 +42,7 @@ function Alert(props) {
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundColor: 'rgba(52, 52, 52, 0.8)'
+            backgroundColor: 'rgba(52, 52, 52, 0.8)',
           
             // background: '-webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.8))',
       }
@@ -59,33 +56,27 @@ function Alert(props) {
 class Main extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      open: true,
-    };
     history.listen((location, action) => {
       // clear alert on location change
       this.props.clearAlerts();
     });
-    this.handleSnackBar = this.handleSnackBar.bind(this);
   }
 
-  handleSnackBar(event, reason) {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    // this.setState({open:false})
-    this.setState({ open: false });
-  }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.alert.type && nextProps.alert.type == 'error' ||nextProps.alert.type == 'success')
-    {
-      this.setState({
-        open: true,
-      });
-    }
+    if(nextProps.alert.type || nextProps.isFetching ){
+      if(!(nextProps.alert.type && nextProps.isFetching))
+      this.props.enqueueSnackbar(!nextProps.isFetching?nextProps.alert.message:'Please Wait', {
+        variant: !nextProps.isFetching?nextProps.alert.type:'info',
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "left",
+        },
+        autoHideDuration : !nextProps.isFetching? 4000 :null
+      },
+      );
+    } else this.props.closeSnackbar()
+    
     window.scrollTo(0, 0);
     this.forceUpdate.bind(this)
   }
@@ -94,26 +85,12 @@ class Main extends React.Component {
     window.scrollTo(0, 0);
 }
   render() {
-    const { alert,isFetching,classes } = this.props;
-    const { open } = this.state;
+    const { isFetching,classes } = this.props;
     
     return (
       <div>
-        {alert.message && (
-          <Snackbar
-            open={alert.message && open}
-            autoHideDuration={1500}
-            onClose={this.handleSnackBar}
-          >
-            <Alert onClose={this.handleSnackBar} severity={alert.type}>
-              {alert.message}
-            </Alert>
-            {/* {alert.message} */}
-          </Snackbar>
-          //   <div className={`alert ${alert.type}`}>{alert.message}</div>
-        )}
         <div className={isFetching?classes.loading:''}>
-          <SpinnerWrapper style={{ left: "-10em", top: "-5em",position:"relative"}}>
+          <SpinnerWrapper style={{ left: "-10em", top: "-5em",position:"relative",zIndex:1000}}>
           <PongSpinner
             size={350}
             color="white"
@@ -135,13 +112,9 @@ class Main extends React.Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   state.isFetching = loadingSelector(state)
-//   return state
-// }
 
 function mapStateToProps(state) {
-  const { alert } = state;
+  const {alert} = state 
   const isFetching = loadingSelector(state)
   return { alert,isFetching };
 }
@@ -152,13 +125,11 @@ const mapDispatchToProps = {
     getUser : userActions.getUser
 };
 
-// const connectedApp = connect(mapStateToProps, mapDispatchToProps)(Main);
-// export { connectedApp as Main };
-
 // Show loading when any of GET_TODOS_REQUEST, GET_USER_REQUEST is active
 const loadingSelector = createLoadingSelector([
-                          'STORIES_GETSTORIES', 
-                          'CHECKIN_GETCHECKIN',
+                          // 'STORIES_GETSTORIES', 
+                          // 'CHECKIN_GETCHECKIN',
+                          // 'POSTS_GETPOSTS',
                           'CHECKIN',
                           'CHECKOUT',
                           'ACTIVITY',
@@ -169,7 +140,6 @@ const loadingSelector = createLoadingSelector([
                           'USERS_LOGIN',
                           'USERS_PROFILECHANGE',
                           'USER_GETUSER',
-                          'POSTS_GETPOSTS',
                           'POSTS_POSTPOSTS'
                         ]);
 export default compose(
@@ -178,5 +148,6 @@ export default compose(
     // mapStateToPropsToProps,
     mapDispatchToProps // or put null here if you do not have actions to dispatch
   ),
-  withStyles(styles)
+  withStyles(styles),
+  withSnackbar 
 )(Main);

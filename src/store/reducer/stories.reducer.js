@@ -19,7 +19,7 @@ export function stories(state = {}, action) {
         // user: action.user
       };
     case storiesTypes.POSTSTORIES_SUCCESS:
-      return Object.assign({}, state, { isFetching: false, user: action.stories })
+      return Object.assign({}, state, { user: action.stories })
     case storiesTypes.POSTSTORIES_FAILURE:
       return {};
     default:
