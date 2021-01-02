@@ -1,7 +1,7 @@
 import {baseUrl} from '../utils/baseURL'
 import { authHeader } from '../utils/auth-header';
 import {uploadImageService} from './uploadImage.service'
-import { filter } from 'lodash';
+import {handleResponse} from './../utils/handleResponse'
 
 export const postsService = {
     getAllFeed,
@@ -36,26 +36,3 @@ async function postFeed(body) {
         requestOptions.body = JSON.stringify(body);
         return fetch(`${baseUrl}/posts/`, requestOptions).then(getAllFeed);
     }
-
-
-
-
-function handleResponse(response) {
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
-        if (!response.ok) {
-            if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                // userService.logout();
-                //window.location.reload();
-                
-                // location.reload(true);
-            }
-
-            const error = (data &&  data.message) || data.err.message || response.statusText;
-            return Promise.reject(error);
-        }
-        
-        return data;
-    });
-}

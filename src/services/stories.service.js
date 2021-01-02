@@ -1,6 +1,8 @@
 import {baseUrl} from '../utils/baseURL'
 import { authHeader } from '../utils/auth-header';
-import {userService} from './user.service'
+import { handleResponse } from '../utils/handleResponse';
+import { uploadImageService } from './uploadImage.service';
+
 export const storiesService = {
     getAllStories,
     postStories
@@ -20,36 +22,19 @@ function getAllStories() {
     return fetch(`${baseUrl}/stories/`, requestOptions).then(handleResponse);
 }
 
-function postStories(body) {
+async function postStories(body) {
     const requestOptions = {
         method: 'POST',
-        body :  JSON.stringify(body),
+        body :  body,
         headers: { ...authHeader(),'Content-Type': 'application/json' },
 
     };
-
+    if (typeof body.stories.image == 'object'){
+        const formData = new FormData();
+        formData.append("file", body.stories.image);    
+        const upload = await  uploadImageService.uploadImage(formData)
+        body.stories.url = upload[0].url;
+    }
+        requestOptions.body = JSON.stringify(body);
     return fetch(`${baseUrl}/stories/`, requestOptions).then(getAllStories);
-}
-
-
-
-
-function handleResponse(response) {
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
-        if (!response.ok) {
-            if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                userService.logout();
-                //window.location.reload();
-                
-                // location.reload(true);
-            }
-
-            const error = (data &&  data.message) || data.err.message || response.statusText;
-            return Promise.reject(error);
-        }
-        
-        return data;
-    });
-}
+    }
