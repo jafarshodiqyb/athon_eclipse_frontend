@@ -257,30 +257,31 @@ class LoginPage extends React.Component {
                   <div className="container">
                     <IconButton
                       variant="text"
-                      size="small"
+                      // size="small"
                       color="default"
                       onClick={this.googleLogIn}
                       className="mt-2"
                     >
-                      <Avatar sizes="small" src="google.png" />
+                      <img height="45px" width="45px" src="1google.png" />
                     </IconButton>
                     <IconButton
                       variant="text"
-                      size="small"
+                      // size="small"
                       color="default"
                       // onClick={this.googleLogIn}
                       className="mt-2"
                     >
-                      <Avatar sizes="small" src="facebook.png" />
+                      <Avatar src="facebook.png" />
                     </IconButton>
                     <IconButton
                       variant="text"
-                      size="small"
+                      // size="small"
                       color="default"
                       // onClick={this.googleLogIn}
                       className="mt-2"
-                    >
-                      <Avatar sizes="small" src="twitter.png" />
+                      >
+                    
+                      <Avatar src="twitter.png" />
                     </IconButton>
                   </div>
                   <Box mt={5}>
