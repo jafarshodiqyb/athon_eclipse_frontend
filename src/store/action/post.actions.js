@@ -10,7 +10,8 @@ export const postsActions = {
 
 
 function getAllposts() {
-    return dispatch => {
+    return dispatch => {                    
+        dispatch(dispatchSelector.request(null,postsTypes.GETPOSTS_REQUEST));
         postsService.getAllFeed()
             .then(
                 posts => { 
@@ -27,24 +28,19 @@ function getAllposts() {
 }
 
 function postFeed(body) {
-    return dispatch => {
-        dispatch(request(body));
-
+    return dispatch => {                    
+        dispatch(dispatchSelector.request(body,postsTypes.POSTPOSTS_REQUEST));
         postsService.postFeed(body)
             .then(
                 posts => { 
-                    dispatch(success(posts));
+                    dispatch(dispatchSelector.success(posts,postsTypes.POSTPOSTS_SUCCESS));
                     dispatch(alertActions.success('Post feed successful'));
 
                 },
                 error => {
-                    dispatch(failure(error.toString()));
+                    dispatch(dispatchSelector.failure(error,postsTypes.POSTPOSTS_FAILURE));                    
                     dispatch(alertActions.error(error.toString()));
                 }
             );
     };
-
-    function request(posts) { return { type: postsTypes.POSTPOSTS_REQUEST, posts } }
-    function success(posts) { return { type: postsTypes.POSTPOSTS_SUCCESS, posts } }
-    function failure(error) { return { type: postsTypes.POSTPOSTS_FAILURE, error } }
 }

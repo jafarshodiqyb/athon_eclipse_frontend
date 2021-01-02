@@ -3,6 +3,7 @@ import { userService } from './../../services/user.service';
 import { alertActions } from './alert.actions';
 import { history } from './../../utils/history';
 import { dispatchSelector } from '../../utils/dispatchSelector';
+import { activityTypes } from '../type/activity.type';
 
 export const userActions = {
     login,
@@ -14,7 +15,8 @@ export const userActions = {
 };
 
 function login(username, password) {
-    return dispatch => {
+    return dispatch => {                    
+        dispatch(dispatchSelector.request(username,userTypes.LOGIN_REQUEST));
         userService.login(username, password)
             .then(
                 user => {
@@ -38,8 +40,8 @@ function logout() {
 }
 
 function register(user) {
-    return dispatch => {
-
+    return dispatch => {                    
+        dispatch(dispatchSelector.request(user,userTypes.REGISTER_REQUEST));
         userService.register(user)
             .then(
                 user => {
@@ -56,7 +58,8 @@ function register(user) {
     };
 }
 function getUser(user) {
-    return dispatch => {
+    return dispatch => {                    
+        dispatch(dispatchSelector.request(user,userTypes.GETUSER_REQUEST));
         userService.getUser(user)
             .then(
                 user => { 
@@ -74,8 +77,9 @@ function getUser(user) {
 }
 
 function updateUser(user) {
-    return dispatch => {
-
+    return dispatch => {                    
+        dispatch(dispatchSelector.request(user,userTypes.UPDATE_REQUEST));
+        dispatch(dispatchSelector.request(user,userTypes.LOGIN_REQUEST));
         userService.updateUser(user)
             .then(
                 user => {
@@ -95,7 +99,8 @@ function updateUser(user) {
 }
 
 function changeImage(file){
-    return dispatch => {
+    return dispatch => {                    
+        dispatch(dispatchSelector.request(file,userTypes.PROFILECHANGE_REQUEST));
         userService.changeImage(file)
             .then(
                 user => { 
