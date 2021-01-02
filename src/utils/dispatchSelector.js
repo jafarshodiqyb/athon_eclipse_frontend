@@ -5,5 +5,5 @@ export const dispatchSelector = {
 };
 
 function request(user,type) { return { type: type } }
-function success(user,type) { return { type: type, user } }
+function success(payload,type) { return { type: type, payload } }
 function failure(error,type) { return { type: type, error } }
