@@ -64,16 +64,19 @@ class Main extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
+
+    console.log(nextProps)
     if(nextProps.alert.type || nextProps.isFetching ){
       if(!(nextProps.alert.type && nextProps.isFetching)){
-
         this.props.enqueueSnackbar(!nextProps.isFetching?nextProps.alert.message:'Please Wait', {
           variant: !nextProps.isFetching?nextProps.alert.type:'info',
           anchorOrigin: {
-            vertical: "bottom",
-            horizontal: "left",
+            vertical: "top",
+            horizontal: "right",
           },
-          autoHideDuration : !nextProps.isFetching? 4000 :null
+          autoHideDuration : !nextProps.isFetching? 3000 :null,
+          preventDuplicate: true
+          
         });
       }
     } else this.props.closeSnackbar()

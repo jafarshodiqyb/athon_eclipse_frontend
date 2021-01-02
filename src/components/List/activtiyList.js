@@ -10,11 +10,12 @@ import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useState } from "react";
 import { deepOrange } from "@material-ui/core/colors";
-import { DialogLayout } from "../Dialog/DialogLayout";
+import { DialogAddEdiit, DialogAddEdit } from "../Dialog/DialogAddEdit";
 import { compose } from "redux";
 import { activityActions } from "../../store/action/activity.actions";
 import { connect } from "react-redux";
 import { MockActivityList } from "./MockActivity";
+import { DialogConfirmation } from "../Dialog/DialogConfirmation";
 
  function ActivityList(props) {
   const {check,status} = props
@@ -190,8 +191,17 @@ import { MockActivityList } from "./MockActivity";
               </div>
             );
           })}
-        <DialogLayout
-          open={data[data.modalType]}
+        <DialogAddEdit
+          open={data[data.modalType]&& data.modalType!=='delete'}
+          onClose={(e) => handleCloseModal(data.modalType)}
+          type={data.modalType}
+          activity={data.activity}
+          username={props.user.username}
+          ids={data.ids}
+          status={status}
+        />
+        <DialogConfirmation
+          open={data[data.modalType]&& data.modalType=='delete'}
           onClose={(e) => handleCloseModal(data.modalType)}
           type={data.modalType}
           activity={data.activity}
