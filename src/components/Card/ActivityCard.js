@@ -29,7 +29,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { connect } from "react-redux";
 import { userActions } from "../../store/action/user.actions";
 import * as moment from "moment";
-import { DialogLayout } from "../Dialog/DialogLayout";
+import { DialogAddEdit } from "../Dialog/DialogAddEdit";
 import { useEffect, useState } from "react";
 import { deepOrange } from "@material-ui/core/colors";
 import { TabPanel } from "../Tabs/Tabs";
@@ -90,7 +90,7 @@ function ActivityCard(props) {
           >
             Add Activity
           </Button>
-          <DialogLayout
+          <DialogAddEdit
             open={open}
             onClose={(e) => handleCloseModal(e)}
             type="add"
