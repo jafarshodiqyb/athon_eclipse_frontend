@@ -1,8 +1,8 @@
-export const SpinnerWrapper = ({ children,style}) => {
+export const SpinnerWrapper = ({ children,style,className}) => {
     console.log(style)
     return (
         <div style={{ position:"relative",...style}} 
-        // className="ml-3 mt-1"
+        className={className}
         >
             {children}
             

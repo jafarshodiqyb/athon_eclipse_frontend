@@ -25,6 +25,8 @@ import { ActivityCard } from "../../components/Card/ActivityCard";
 import { storiesActions } from "../../store/action/stories.actions";
 import  {createLoadingSelector}  from "../../store/action/loading.selector";
 import { postsActions } from "../../store/action/post.actions";
+import { FireworkSpinner } from "react-spinners-kit";
+import { SpinnerWrapper } from "../../components/Wrapper/Wrapper";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -97,7 +99,7 @@ class HomePage extends React.Component {
 
   render() {
     const { check, classes } = this.props;
-    const { user, modal, activity, ids, modalType } = this.state;
+    const { user } = this.state;
     let title, date;
     if (
       check.item &&
@@ -119,14 +121,12 @@ class HomePage extends React.Component {
       title = "";
       date = "";
     }
-
+    let isNotCheckinToday = true 
+    if (check) isNotCheckinToday = (_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), "day")))
 
     return (
       <div>
-        {(_.isEmpty(check) ||
-          (check &&
-            check.item &&
-            !moment(check.item.lastCheckIn).isSame(moment(), "day"))) && (
+        {isNotCheckinToday && (
           <Snackbar
             open={
               _.isEmpty(check) ||
@@ -135,7 +135,7 @@ class HomePage extends React.Component {
                 !moment(check.item.lastCheckIn).isSame(moment(), "day"))
             }
             autoHideDuration={1500}
-            style={{zIndex:1}}
+            style={{ zIndex: 1 }}
             // onClose={this.handleSnackBar}
           >
             <Alert onClose={this.handleSnackBar} severity="error">
@@ -150,62 +150,63 @@ class HomePage extends React.Component {
           <div className="row">
             <div className="col-md-3 mt-4">
               <ProfileCard {...user} readOnly={true} />
-              <Card className={ " mt-4"} variant="outlined">
+              <Card className={" mt-4"} variant="outlined">
                 <div className="pl-4 pt-2">
-                  <Typography component="h6" variant="h6" align="left" >
+                  <Typography component="h6" variant="h6" align="left">
                     {title}
-                    </Typography>
-                    <Typography variant="subtitle2" color="textSecondary" align="left" >
-                      {date}
-                    </Typography>
+                  </Typography>
+                  <Typography
+                    variant="subtitle2"
+                    color="textSecondary"
+                    align="left"
+                  >
+                    {date}
+                  </Typography>
                 </div>
-                    {/* <InfoTitle>50 Days of Premium!</InfoTitle>
+                {/* <InfoTitle>50 Days of Premium!</InfoTitle>
                     <InfoSubtitle>Get it before 01.01.2020</InfoSubtitle> */}
-                    <div className="float-right pr-2 pb-2 mt-2">
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      className={classes.button}
-                      startIcon={<InputIcon />}
-                      size="small"
-                      onClick={
-                        _.isEmpty(check) ||
-                        (check &&
-                          check.item &&
-                          !moment(check.item.lastCheckIn).isSame(
-                            moment(),
-                            "day"
-                          ))
-                          ? this.checkin()
-                          : this.checkout()
-                      }
-                      disabled={
-                        check.item &&
-                        moment(check.item.lastCheckIn).isSame(
-                          moment(),
-                          "day"
-                        ) &&
-                        moment(check.item.lastCheckOut).isSame(moment(), "day")
-                      }
-                    >
-                      {_.isEmpty(check) ||
+                <div className="float-right pr-2 pb-2 mt-2">
+                  <SpinnerWrapper style={{position:'absolute',zIndex:'1',paddingLeft: "8%","margin-top": "-5%"}}>
+                    <FireworkSpinner size={60} color="red" loading={isNotCheckinToday} />
+                  </SpinnerWrapper>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    className={classes.button}
+                    startIcon={<InputIcon />}
+                    size="small"
+                    style={{zIndex:2}}
+                    onClick={
+                      _.isEmpty(check) ||
                       (check &&
                         check.item &&
                         !moment(check.item.lastCheckIn).isSame(moment(), "day"))
-                        ? "CHECKIN"
-                        : "CHECKOUT"}
-                    </Button>
-                    </div>
+                        ? this.checkin()
+                        : this.checkout()
+                    }
+                    disabled={
+                      check.item &&
+                      moment(check.item.lastCheckIn).isSame(moment(), "day") &&
+                      moment(check.item.lastCheckOut).isSame(moment(), "day")
+                    }
+                  >
+                    {_.isEmpty(check) ||
+                    (check &&
+                      check.item &&
+                      !moment(check.item.lastCheckIn).isSame(moment(), "day"))
+                      ? "CHECKIN"
+                      : "CHECKOUT"}
+                  </Button>
+                </div>
               </Card>
 
-              
-              <ActivityCard {...this.state}/>
+              <ActivityCard {...this.state} />
             </div>
             <div className="col-md-6 mt-4">
               <Content {...this.state} />
             </div>
             <div className="col-md-3 mt-4">
-              <Content2 {...this.props}/>
+              <Content2 {...this.props} />
             </div>
           </div>
         </div>

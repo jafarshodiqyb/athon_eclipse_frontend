@@ -18,6 +18,7 @@ import { compose } from 'redux';
 import { PongSpinner  } from "react-spinners-kit";
 import { createLoadingSelector } from '../store/action/loading.selector';
 import { store } from '../store/configureStore';
+import { SpinnerWrapper } from '../components/Wrapper/Wrapper';
 
 
 function Alert(props) {
@@ -55,15 +56,6 @@ function Alert(props) {
        color:'black' 
     }
   })
-  const SpinnerWrapper = ({ children}) => {
-    return (
-        <div style={{ left: "-10em", 
-        top: "-5em",position:"relative"}}>
-            {children}
-            
-        </div>
-    );
-  };
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -121,7 +113,7 @@ class Main extends React.Component {
           //   <div className={`alert ${alert.type}`}>{alert.message}</div>
         )}
         <div className={isFetching?classes.loading:''}>
-          <SpinnerWrapper>
+          <SpinnerWrapper style={{ left: "-10em", top: "-5em",position:"relative"}}>
           <PongSpinner
             size={350}
             color="white"

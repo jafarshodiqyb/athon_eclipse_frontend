@@ -25,6 +25,7 @@ import {
 } from "@material-ui/core";
 import * as _ from "lodash";
 import { PongSpinner, RingSpinner } from "react-spinners-kit";
+import { SpinnerWrapper } from "./Wrapper/Wrapper";
 const hashtagRegex = require("hashtag-regex");
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -150,7 +151,7 @@ export default function Content2(props) {
       <Card className={classes.root + "d-flex mt-4"} variant="outlined">
         <div className="mt-4 mb-4">
         <div style={{position:"relative",display:"flex"}}>
-        <SpinnerWrapper>
+        <SpinnerWrapper className="ml-3 mt-1">
           <RingSpinner  className="ml-2" size={25} color="#D4232C" loading={true} />
         </SpinnerWrapper>
         <Typography
@@ -207,12 +208,3 @@ export default function Content2(props) {
     </div>
   );
 }
-
-const SpinnerWrapper = ({ children}) => {
-  return (
-      <div style={{ position:"relative"}} className="ml-3 mt-1">
-          {children}
-          
-      </div>
-  );
-};
