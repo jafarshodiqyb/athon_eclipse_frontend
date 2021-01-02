@@ -96,6 +96,7 @@ function PostFeed(props) {
         ...prevState,
             image:files
     }))
+    console.log(e.target.files[0])
   };
   return (
     <div>
@@ -153,6 +154,9 @@ function PostFeed(props) {
                 <PhotoCamera />
               </IconButton>
             </label>
+            <Typography variant="caption" color="initial">
+              {data.image?data.image.name:''}
+            </Typography>
           </div>
             <Button
               //   onClick={this.handleSubmit}
