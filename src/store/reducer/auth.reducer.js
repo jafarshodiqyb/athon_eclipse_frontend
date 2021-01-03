@@ -1,10 +1,12 @@
 import { userTypes } from './../type/user.type';
 import jwt from 'jsonwebtoken'
-let userData = JSON.parse(localStorage.getItem('token'))
+import queryString from 'query-string';
 
+let userData = JSON.parse(localStorage.getItem('token'))
 const token = jwt.verify(userData, '12345-67890-09876-54321', function(err, decoded) {
   if (err) {
-    alert('Sesi habis silahkan login kembali!')
+    
+    // alert('Sesi habis silahkan login kembali!')
     localStorage.removeItem('token');
     // return ()
   } else if (decoded) {
@@ -25,8 +27,12 @@ export  function authentication(state = initialState, action) {
     case userTypes.LOGIN_SUCCESS:
         const token =  jwt.verify(action.payload.token, '12345-67890-09876-54321', function(err, decoded) {
           if (err) {
-            alert('Sesi habis silahkan login kembali!')
-            localStorage.removeItem('token');
+            let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
+            console.log(params)
+            if(!params.token){
+              alert('Sesi habis silahkan login kembali!')
+              localStorage.removeItem('token');
+            }
             // return ()
           } else if (decoded) {
             return decoded
