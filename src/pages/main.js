@@ -84,12 +84,12 @@ class Main extends React.Component {
         });
     } else this.props.closeSnackbar()
     
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     this.forceUpdate.bind(this)
   }
   componentDidMount(){
     store.subscribe( this.forceUpdate.bind(this) );
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 }
   render() {
     const { isFetching,classes } = this.props;
