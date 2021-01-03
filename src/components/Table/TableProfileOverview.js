@@ -26,7 +26,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              Username
+              {user?user.username:''}
             </Typography>
           </div>
         </div>
@@ -40,7 +40,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user.firstName}
+              {user?user.firstName:''}
             </Typography>
           </div>
         </div>
@@ -54,7 +54,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user.lastName}
+              {user?user.lastName:''}
             </Typography>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user.address}
+              {user?user.address:''}
             </Typography>
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user.motto}
+              {user?user.motto:''}
             </Typography>
           </div>
         </div>
