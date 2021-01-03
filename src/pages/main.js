@@ -64,8 +64,6 @@ class Main extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
-
-    console.log(nextProps)
     if(nextProps.alert.type || nextProps.isFetching ){
       if(!(nextProps.alert.type && nextProps.isFetching)){
         this.props.enqueueSnackbar(!nextProps.isFetching?nextProps.alert.message:'Please Wait', {

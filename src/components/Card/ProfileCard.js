@@ -38,7 +38,6 @@ const styles = makeStyles((theme) => ({
   },
 }));
 function ProfileCard(props) {
-  console.log(props);
   const classes = styles();
 
   const onChange = (e) => {

@@ -96,7 +96,6 @@ function PostFeed(props) {
         ...prevState,
             image:files
     }))
-    console.log(e.target.files[0])
   };
   return (
     <div>

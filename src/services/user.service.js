@@ -76,7 +76,6 @@ async function updateUser(user) {
         headers: { ...authHeader(),'Content-Type': 'application/json' },
         body: user
     };
-    console.log(user)
     if (typeof user.image == 'object'){
         const formData = new FormData();
         formData.append("file", user.image);    

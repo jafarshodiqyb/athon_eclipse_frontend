@@ -19,6 +19,7 @@ import { a11yProps, TabPanel } from "../../components/Tabs/Tabs";
 import HomeIcon from '@material-ui/icons/Home';
 import EditIcon from '@material-ui/icons/Edit';
 import LockIcon from '@material-ui/icons/Lock';
+import TableProfileOverview from "../../components/Table/TableProfileOverview";
 
 const styles = (theme) => ({
   root: {
@@ -63,6 +64,7 @@ class Profile extends React.Component {
   
   handleChange (event,newValue) {
     event.preventDefault();
+    
     this.setState({value : parseInt(event.currentTarget.getAttribute('index'))})
   }
   componentWillReceiveProps(nextState){
@@ -77,8 +79,8 @@ class Profile extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-4 mt-4">
-              <ProfileCard {...this.state} readOnly={false}/>
-              <Card className="mt-4"variant="outlined" square>
+              <ProfileCard {...this.state} readOnly={false} />
+              <Card className="mt-4" variant="outlined" square>
                 <Tabs
                   value={this.state.value}
                   onChange={(e) => this.handleChange(e)}
@@ -87,28 +89,56 @@ class Profile extends React.Component {
                   indicatorColor="primary"
                   textColor="primary"
                 >
-                  <Tab icon={<HomeIcon className={classes.icon} />} selected={this.state.value} index={0} className={classes.tab} label="Account Overview"{...a11yProps(0)} />
-                  <Tab icon={<EditIcon className={classes.icon}/>} selected={this.state.value} index={1}  className={classes.tab} label="Edit Profile"{...a11yProps(1)} />
-                  <Tab icon={<LockIcon className={classes.icon}/>} selected={this.state.value} index={2}  className={classes.tab} label="Change Password" {...a11yProps(2)} />
+                  <Tab
+                    icon={<HomeIcon className={classes.icon} />}
+                    selected={this.state.value}
+                    index={0}
+                    className={classes.tab}
+                    label="Account Overview"
+                    {...a11yProps(0)}
+                  />
+                  <Tab
+                    icon={<EditIcon className={classes.icon} />}
+                    selected={this.state.value}
+                    index={1}
+                    className={classes.tab}
+                    label="Edit Profile"
+                    {...a11yProps(1)}
+                  />
+                  <Tab
+                    icon={<LockIcon className={classes.icon} />}
+                    selected={this.state.value}
+                    index={2}
+                    className={classes.tab}
+                    label="Change Password"
+                    {...a11yProps(2)}
+                  />
                 </Tabs>
-                
               </Card>
             </div>
             <div className="col-md-8 mt-4">
               <Card className={classes.root} variant="outlined">
-              <TabPanel value={this.state.value} index={0}>
-                  Account Overview
+                <TabPanel value={this.state.value} index={0}>
+                  <Typography
+                    variant="h4"
+                    color="textPrimary"
+                    component="p"
+                    className="mt-4 text-left"
+                  >
+                    Account Overview
+                  </Typography>
+                  <TableProfileOverview {...this.props} onChange={(e)=>this.handleChange(e)}/>
                 </TabPanel>
                 <TabPanel value={this.state.value} index={1}>
-                <Typography
-                  variant="h4"
-                  color="textPrimary"
-                  component="p"
-                  className="mt-4"
+                  <Typography
+                    variant="h4"
+                    color="textPrimary"
+                    component="p"
+                    className="mt-4 text-left"
                   >
-                  Edit Profile
-                </Typography>
-                <FormRegister hide={true} {...this.props} />
+                    Edit Profile
+                  </Typography>
+                  <FormRegister hide={true} {...this.props} />
                 </TabPanel>
                 <TabPanel value={this.state.value} index={2}>
                   Change Password
@@ -123,11 +153,6 @@ class Profile extends React.Component {
     );
   }
 }
-
-// function mapStateToProps(state) {
-//   const {authentication,users} = state
-//   return {authentication,users};
-// }
 const mapStateToProps = state => ({
   authentication: state.authentication,
   users: state.users,
