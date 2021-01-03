@@ -60,6 +60,7 @@ function ActivityCard(props) {
             value={value}
             onChange={handleChange}
             aria-label="simple tabs example"
+            indicatorColor="primary"
           >
             <Tab className={classes.tab} label="TO DO" {...a11yProps(0)} />
             <Tab className={classes.tab} label="DOING" {...a11yProps(1)} />
