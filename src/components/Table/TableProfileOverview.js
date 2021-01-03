@@ -58,7 +58,32 @@ export default function TableProfileOverview(props) {
           </div>
         </div>
         <Divider />
-        
+        <div className="row mt-3 mb-3">
+          <div className="col-md-6 text-left">
+            <Typography variant="span" color="textSecondary">
+              Email
+            </Typography>
+          </div>
+          <div className="col-md-6 text-left ">
+            <Typography variant="span" color="textPrimary">
+              {user?user.email:''}
+            </Typography>
+          </div>
+        </div>
+        <Divider />
+        <div className="row mt-3 mb-3">
+          <div className="col-md-6 text-left">
+            <Typography variant="span" color="textSecondary">
+              Job
+            </Typography>
+          </div>
+          <div className="col-md-6 text-left ">
+            <Typography variant="span" color="textPrimary">
+              {user?user.job:''}
+            </Typography>
+          </div>
+        </div>
+        <Divider />
         <div className="row mt-3 mb-3">
           <div className="col-md-6 text-left">
             <Typography variant="span" color="textSecondary">

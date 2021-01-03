@@ -146,7 +146,8 @@ const loadingSelector = createLoadingSelector([
                           'USER_GETUSER',
                           'POSTS_POSTPOSTS',
                           "STORIES_POSTSTORIES",
-                          'POSTSTORIES'
+                          "USERS_CHANGEPASSWORD",
+
                         ]);
 export default compose(
   connect(

@@ -1,22 +1,20 @@
 import { Grid, TextField, Button } from "@material-ui/core";
 
 export function FormPassword(props) {
-  console.log(props);
   return (
     <>
       <div className={"form-group col-12"} hidden={props.isRegister || props.hide}>
         <Grid item xs={12}>
           <TextField
             variant="outlined"
-            required={!props.hide}
+            required={!props.isRegister && !props.hide}
             fullWidth
-            name="recentPassword"
+            name={props.isRegister?'':'recentpassword'}
             label="Recent Password"
             type="password"
-            id="recentPassword"
-            name="recentPassword"
-            value={props.recentPassword}
-            onChange={props.onChange}
+            id={props.isRegister?'':'recentpassword'}
+            value={props.isRegister?'':props.recentPassword}
+            onChange={props.isRegister?'':props.onChange}
             autoComplete="current-password"
           />
         </Grid>
@@ -64,7 +62,7 @@ export function FormPassword(props) {
       </div>
 
       <div className="container" hidden={props.isRegister || props.hide}>
-        <Button onClick={()=>alert('tobecontinued')} variant="contained" color="primary" className="float-left mt-2 mb-4">
+        <Button  onClick={()=>props.submitChangePassword()} variant="contained" color="primary" className="float-left mt-2 mb-4">
           Change password
         </Button>
       </div>

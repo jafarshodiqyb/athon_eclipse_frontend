@@ -28,7 +28,6 @@ export  function authentication(state = initialState, action) {
         const token =  jwt.verify(action.payload.token, '12345-67890-09876-54321', function(err, decoded) {
           if (err) {
             let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
-            console.log(params)
             if(!params.token){
               alert('Sesi habis silahkan login kembali!')
               localStorage.removeItem('token');

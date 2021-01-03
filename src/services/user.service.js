@@ -10,7 +10,8 @@ export const userService = {
     changeImage,
     updateUser,
     getUser,
-    refreshToken    
+    refreshToken,
+    changePassword    
 };
 
 function login(username, password) {
@@ -99,5 +100,17 @@ function changeImage(file){
     };
     
     return fetch(`${baseUrl}/image-upload`, requestOptions).then(handleResponse);
+      
+}
+
+function changePassword(body){
+    const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: { ...authHeader(),'Content-Type': 'application/json' },
+
+    };
+    
+    return fetch(`${baseUrl}/users/changepassword`, requestOptions).then(handleResponse);
       
 }

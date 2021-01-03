@@ -1,6 +1,7 @@
 import { userTypes } from '../type/user.type'
 
 export function users(state = {}, action) {
+  console.log(action)
   switch (action.type) {
     case userTypes.GETUSER_REQUEST:
       return {
@@ -38,6 +39,18 @@ export function users(state = {}, action) {
       return { 
         error: action.error
       };
+      case userTypes.CHANGEPASSWORD_REQUEST:
+        return {
+          loading: true
+        };
+      case userTypes.CHANGEPASSWORD_SUCCESS:
+        return {
+          ...state,item: action.payload
+        };
+      case userTypes.CHANGEPASSWORD_SUCCESS:
+        return { 
+          error: action.error
+        };
     default:
       return state
   }

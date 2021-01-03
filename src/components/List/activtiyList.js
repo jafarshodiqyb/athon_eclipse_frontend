@@ -81,7 +81,6 @@ import { DialogConfirmation } from "../Dialog/DialogConfirmation";
       } else if (where==='back') {
         body.activities.status = status==='done'?'doing':status==='doing'?'todo':'todo'
       }
-      console.log(body)
       props.updateActivity(body)
     }
     return (

@@ -40,13 +40,16 @@ const useStyles = makeStyles((theme) => ({
 function FormRegister(props) {
   const classes = useStyles();
   const [user, setUser] = React.useState({
+    id:"",
+    username: "",
     firstName: "",
     lastName: "",
-    username: "",
     password: "",
     confirmPassword: "",
     address:"",
     motto:"",
+    email :"",
+    job:"",
   });
   const [submitted, setSubmitted] = React.useState(false);
 
@@ -55,9 +58,12 @@ function FormRegister(props) {
     if (props.hide) {
       setUser((prevState) => ({
         ...prevState,
+        id: props.authentication.user._id,
+        username: props.authentication.user.username,
         firstName: props.authentication.user.firstName,
         lastName: props.authentication.user.lastName,
-        username: props.authentication.user.username,
+        email: props.authentication.user.email,
+        job: props.authentication.user.job,
         address: props.authentication.user.address,
         motto: props.authentication.user.motto,
 
@@ -71,12 +77,13 @@ function FormRegister(props) {
       ...prevState,
       [name]: value,
     }));
+    
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setSubmitted((value) => true);
+    console.log(user)
     if (
       !props.hide &&
       user.firstName &&
@@ -86,13 +93,14 @@ function FormRegister(props) {
     ) {
       props.register(user);
     } else {
-      // console.log(user);
+      setUser({...user,id:props.authentication.user._id})
+      console.log(user)
       props.updateUser(user);
 
       // putregister
     }
   };
-
+  var regex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)
   return (
     <div>
       <form
@@ -100,6 +108,24 @@ function FormRegister(props) {
         className={classes.form + " row"}
         onSubmit={handleSubmit}
       >
+         <div className={"form-group col-12"}>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              name="username"
+              value={user.username}
+              onChange={handleChange}
+              id="username"
+              label="Username "
+              name="username"
+              autoComplete="username"
+              helperText={props.hide && !user.username && "required"}
+              error={props.hide && user.username===""}
+            />
+          </Grid>
+        </div>
         <div className={"form-group col-sm-6 col-xs-12"}>
           <Grid item xs={12} sm={6} className="name">
             <TextField
@@ -136,6 +162,44 @@ function FormRegister(props) {
             />
           </Grid>
         </div>
+        <div className={"form-group col-12"}>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              name="email"
+              label="Email"
+              type="email"
+              id="email"
+              value={user.email}
+              onChange={handleChange}
+              helperText={
+                // props.confirmPassword &&
+                // props.password !== props.confirmPassword &&
+                user.email&&!regex.test(user.email) &&"Email invalid"
+              }
+              error={
+              user.email&&!regex.test(user.email)  // props.confirmPassword && props.password !== props.confirmPassword
+              }
+            />
+          </Grid>
+        </div>
+        <div className={"form-group col-12"} hidden={!props.hide}>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              name="job"
+              label="Job"
+              type="text"
+              id="job"
+              value={user.job}
+              onChange={handleChange}
+            />
+          </Grid>
+        </div>
+
         <div className={"form-group col-12"} hidden={!props.hide}>
           <Grid item xs={12}>
             <TextField
@@ -164,26 +228,8 @@ function FormRegister(props) {
             />
           </Grid>
         </div>
-        <div className={"form-group col-12"}>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              name="username"
-              value={user.username}
-              onChange={handleChange}
-              id="username"
-              label="Username "
-              name="username"
-              autoComplete="username"
-              helperText={props.hide && !user.username && "required"}
-              error={props.hide && user.username===""}
-              disabled={props.hide}
-            />
-          </Grid>
-        </div>
-        <FormPassword {...user} hide={props.hide} onChange={handleChange} isRegister={props.isRegister?props.isRegister:false}/>
+       
+        <FormPassword {...user} hide={props.hide} onChange={handleChange} isRegister={props.isRegister}/>
         <div className="form-group d-flex text-center justify-center col-12">
           {/* {registering && (
                     <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />

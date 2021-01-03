@@ -11,7 +11,8 @@ export const userActions = {
     register,
     changeImage,
     updateUser,
-    getUser
+    getUser,
+    changePassword
 };
 
 function login(username, password) {
@@ -110,6 +111,25 @@ function changeImage(file){
                 },
                 error => {
                     dispatch(dispatchSelector.failure(error, userTypes.PROFILECHANGE_SUCCESS));  
+                    dispatch(alertActions.error(error.toString()));
+                    //window.location.reload()
+                }
+            );
+    };
+}
+
+function changePassword(body){
+    return dispatch => {                    
+        dispatch(dispatchSelector.request(body,userTypes.CHANGEPASSWORD_REQUEST));
+        userService.changePassword(body)
+            .then(
+                user => { 
+                    // history.push('/login');
+                    dispatch(dispatchSelector.success(user, userTypes.CHANGEPASSWORD_SUCCESS));  
+                    dispatch(alertActions.success('Change password successfully'));
+                },
+                error => {
+                    dispatch(dispatchSelector.failure(error, userTypes.CHANGEPASSWORD_FAILURE));  
                     dispatch(alertActions.error(error.toString()));
                     //window.location.reload()
                 }

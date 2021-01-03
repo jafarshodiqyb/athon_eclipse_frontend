@@ -21,6 +21,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import LockIcon from '@material-ui/icons/Lock';
 import TableProfileOverview from "../../components/Table/TableProfileOverview";
 import { FormPassword } from "../../components/Form/FormPassword";
+import SecurityQuestions from "../../components/Form/SecurityQuestions";
 
 const styles = (theme) => ({
   root: {
@@ -52,16 +53,20 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     const data = this.props;
+    console.log(props)
     this.state = {
       username: data.authentication.user.username,
       firstName: data.authentication.user.firstName,
       lastName: data.authentication.user.lastName,
       image:  data.authentication.user.image,
       value:0,
+      recentPassword:'',
       password:'',
-      confirmPassword:''
+      confirmPassword:'',
+      email:data.authentication.user.email
     };
     this.handleChange = this.handleChange.bind(this)  
+    this.submitChangePassword = this.submitChangePassword.bind(this)
   }
 
   onChangePassword = (e) => {
@@ -71,6 +76,15 @@ class Profile extends React.Component {
       [name]: value,
     }));
   };
+
+  submitChangePassword = ()=>{
+    let body = {
+      username : this.state.username,
+      oldpassword : this.state.recentPassword,
+      newpassword : this.state.password,
+    }
+    this.props.changePassword(body)
+  }
   handleChange (event,newValue) {
     event.preventDefault();
     
@@ -79,6 +93,8 @@ class Profile extends React.Component {
   componentWillReceiveProps(nextState){
     if(nextState.authentication && nextState.authentication.user) this.setState({ image : nextState.authentication.user.image})
   }
+
+
   render() {
     const {classes } = this.props;
 
@@ -136,7 +152,7 @@ class Profile extends React.Component {
                   >
                     Account Overview
                   </Typography>
-                  <TableProfileOverview {...this.props} onChange={(e)=>this.handleChange(e)}/>
+                  <TableProfileOverview hide={true} {...this.props} onChange={(e)=>this.handleChange(e)}/>
                 </TabPanel>
                 <TabPanel value={this.state.value} index={1}>
                   <Typography
@@ -159,7 +175,8 @@ class Profile extends React.Component {
                     Change Password
                   </Typography>
                   <div className="mt-4">
-                    <FormPassword {...this.state} isRegister={false} onChange={(e)=>this.onChangePassword(e)}/>
+                    {/* <SecurityQuestions/> */}
+                    <FormPassword {...this.state} isRegister={false} onChange={(e)=>this.onChangePassword(e)} submitChangePassword={()=>this.submitChangePassword()}/>
                   </div>
                 </TabPanel>
               </Card>
@@ -178,7 +195,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps  = {
-  updateUser : userActions.updateUser
+  updateUser : userActions.updateUser,
+  changePassword:userActions.changePassword
 };
 
 export default compose(

@@ -77,15 +77,16 @@ class RegisterPage extends React.Component {
     });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-
-    this.setState({ submitted: true });
-    const { user } = this.state;
-    if (user.firstName && user.lastName && user.username && user.password) {
-      this.props.register(user);
-    }
-  }
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //   // console.log(this.)
+  //   this.setState({ submitted: true });
+  //   const { user } = this.state;
+  //   console.log(this.state.user)
+  //   if (user.firstName && user.lastName && user.username && user.password) {
+  //     this.props.register(user);
+  //   }
+  // }
 
   render() {
     // const { registering } = this.props;
@@ -115,7 +116,7 @@ class RegisterPage extends React.Component {
                     </Typography>
                   </div>
                 </div>
-                <FormRegister isRegister={true} />
+                <FormRegister isRegister={true} hide={false}  />
                 {/* isi component formRegister */}
               </div>
             </div>
