@@ -65,7 +65,6 @@ class Main extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.alert.type || nextProps.isFetching ){
-      if(!(nextProps.alert.type && nextProps.isFetching)){
         this.props.enqueueSnackbar(!nextProps.isFetching?nextProps.alert.message:'Please Wait', {
           variant: !nextProps.isFetching?nextProps.alert.type:'info',
           anchorOrigin: {
@@ -73,10 +72,16 @@ class Main extends React.Component {
             horizontal: "right",
           },
           autoHideDuration : !nextProps.isFetching? 3000 :null,
-          preventDuplicate: true
+          preventDuplicate: true,
+          onExited: ({ node, key, variant }) => {
+            setTimeout(
+              () => this.props.clearAlerts(), 
+              2000
+            );
+            
+          }
           
         });
-      }
     } else this.props.closeSnackbar()
     
     window.scrollTo(0, 0);

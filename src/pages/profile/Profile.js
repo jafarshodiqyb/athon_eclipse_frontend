@@ -70,7 +70,6 @@ class Profile extends React.Component {
       ...prevState,
       [name]: value,
     }));
-    console.log(this.state)
   };
   handleChange (event,newValue) {
     event.preventDefault();

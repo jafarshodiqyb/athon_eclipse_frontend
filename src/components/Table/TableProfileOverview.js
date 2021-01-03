@@ -3,7 +3,6 @@ import { Typography, Divider, Button } from "@material-ui/core";
 // import { DataGrid } from '@material-ui/data-grid';
 export default function TableProfileOverview(props) {
   const {user} = props.authentication
-  console.log(user)
   const moveToEdit = (e) =>{
     props.onChange(e)
   }
