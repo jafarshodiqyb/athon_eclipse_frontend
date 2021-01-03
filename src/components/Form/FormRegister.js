@@ -1,44 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import {
   Box,
   Grid,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  createSvgIcon,
-  FormControl,
-  Grow,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
-  withStyles,
 } from "@material-ui/core";
-import CreateIcon from "@material-ui/icons/Create";
-
-import clsx from "clsx";
-import IconButton from "@material-ui/core/IconButton";
-import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Copyright from "../../parts/Footer/Copyright";
 import { userActions } from "../../store/action/user.actions";
 import { connect } from "react-redux";
-import { compose } from "redux";
+import { FormPassword } from "./FormPassword";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -206,56 +179,11 @@ function FormRegister(props) {
               autoComplete="username"
               helperText={props.hide && !user.username && "required"}
               error={props.hide && user.username===""}
+              disabled={props.hide}
             />
           </Grid>
         </div>
-        <div
-          className={
-            "form-group col-12" +
-            (submitted && !user.password ? " has-error" : "")
-          }
-        >
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required={!props.hide}
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              name="password"
-              value={user.password}
-              onChange={handleChange}
-              autoComplete="current-password"
-            />
-          </Grid>
-        </div>
-        <div className={"form-group col-12"}>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required={!props.hide}
-              fullWidth
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              id="confirmPassword"
-              value={user.confirmPassword}
-              onChange={handleChange}
-              //   defaultValue={user.confirmPassword && (user.password!==user.confirmPassword)}
-              helperText={
-                user.confirmPassword &&
-                user.password !== user.confirmPassword &&
-                "Password mismatch"
-              }
-              error={
-                user.confirmPassword && user.password !== user.confirmPassword
-              }
-            />
-          </Grid>
-        </div>
-        
+        <FormPassword {...user} hide={props.hide} onChange={handleChange}/>
         <div className="form-group d-flex text-center justify-center col-12">
           {/* {registering && (
                     <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
