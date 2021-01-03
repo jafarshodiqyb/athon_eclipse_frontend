@@ -67,15 +67,21 @@ import { DialogConfirmation } from "../Dialog/DialogConfirmation";
     const handleCloseAnchor = (id) => {
       setAnchorEl({ ...anchorEl, [id]: null });
     };
-    const handleMoveStatus = (parentId,childId,activity,status) =>{
+    const handleMoveStatus = (parentId,childId,activity,status,where) =>{
       let body = {
         parentId: parentId,
         childId: childId,
         activities: {
           activity: activity,
-          status:status==='todo'?'doing':status==='doing'?'done':'done',
+          status:'',
         },
       }
+      if (where==='forward'){
+        body.activities.status = status==='todo'?'doing':status==='doing'?'done':'done'
+      } else if (where==='back') {
+        body.activities.status = status==='done'?'doing':status==='doing'?'todo':'todo'
+      }
+      console.log(body)
       props.updateActivity(body)
     }
     return (
@@ -147,7 +153,7 @@ import { DialogConfirmation } from "../Dialog/DialogConfirmation";
                       >
                         <IconButton
                         onClick={(e) =>
-                          handleMoveStatus(check.item._id, value._id,value.activity,status)
+                          handleMoveStatus(check.item._id, value._id,value.activity,status,'forward')
                         }
                         style={{color:'#22AF25'}}
                         hidden={status==='done'}
@@ -164,7 +170,8 @@ import { DialogConfirmation } from "../Dialog/DialogConfirmation";
                       >
                         <IconButton
                         onClick={(e) =>
-                          alert('tobe continued')
+                          handleMoveStatus(check.item._id, value._id,value.activity,status,'back')
+                          // alert('tobe continued')
                         }
                         style={{color:'#22AF25'}}
                         hidden={status==='todo'}
