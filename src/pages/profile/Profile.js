@@ -126,7 +126,7 @@ class Profile extends React.Component {
                 </Tabs>
               </Card>
             </div>
-            <div className="col-md-8 mt-4">
+            <div className="col-md-8 mt-4 mb-4">
               <Card className={classes.root} variant="outlined">
                 <TabPanel value={this.state.value} index={0}>
                   <Typography
