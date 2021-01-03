@@ -20,6 +20,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import EditIcon from '@material-ui/icons/Edit';
 import LockIcon from '@material-ui/icons/Lock';
 import TableProfileOverview from "../../components/Table/TableProfileOverview";
+import { FormPassword } from "../../components/Form/FormPassword";
 
 const styles = (theme) => ({
   root: {
@@ -56,12 +57,21 @@ class Profile extends React.Component {
       firstName: data.authentication.user.firstName,
       lastName: data.authentication.user.lastName,
       image:  data.authentication.user.image,
-      value:0
+      value:0,
+      password:'',
+      confirmPassword:''
     };
     this.handleChange = this.handleChange.bind(this)  
   }
 
-  
+  onChangePassword = (e) => {
+    const { name, value } = e.target;
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+    console.log(this.state)
+  };
   handleChange (event,newValue) {
     event.preventDefault();
     
@@ -141,7 +151,17 @@ class Profile extends React.Component {
                   <FormRegister hide={true} {...this.props} />
                 </TabPanel>
                 <TabPanel value={this.state.value} index={2}>
-                  Change Password
+                <Typography
+                    variant="h4"
+                    color="textPrimary"
+                    component="p"
+                    className="mt-4 text-left"
+                  >
+                    Change Password
+                  </Typography>
+                  <div className="mt-4">
+                    <FormPassword {...this.state} isRegister={false} onChange={(e)=>this.onChangePassword(e)}/>
+                  </div>
                 </TabPanel>
               </Card>
             </div>

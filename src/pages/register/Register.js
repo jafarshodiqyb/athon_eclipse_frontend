@@ -115,7 +115,7 @@ class RegisterPage extends React.Component {
                     </Typography>
                   </div>
                 </div>
-                <FormRegister />
+                <FormRegister isRegister={true} />
                 {/* isi component formRegister */}
               </div>
             </div>
