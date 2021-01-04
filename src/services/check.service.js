@@ -12,7 +12,7 @@ export const checkServices = {
 
 
 function checkin(id) {
-    let userTemp = {id : id}
+    let userTemp = {user : id}
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(),'Content-Type': 'application/json' },
@@ -33,7 +33,7 @@ function getCheckin(id) {
 
 
 function checkout(id) {
-    let userTemp = {id : id}
+    let userTemp = {user : id}
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(),'Content-Type': 'application/json' },
