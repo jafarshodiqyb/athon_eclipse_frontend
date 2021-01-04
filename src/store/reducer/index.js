@@ -15,7 +15,7 @@ import { posts } from "./posts.reducer";
 const appReducer = combineReducers({
   authentication,
   registration,
-  users,
+  // users,
   alert,
   check,
   activities,
