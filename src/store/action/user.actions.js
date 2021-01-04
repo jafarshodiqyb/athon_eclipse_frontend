@@ -90,7 +90,7 @@ function updateUser(user) {
                     dispatch(alertActions.success('Update successful'));
                 },
                 error => {
-                    dispatch(dispatchSelector.failure(error, userTypes.UPDATE_SUCCESS));  
+                    dispatch(dispatchSelector.failure(error, userTypes.UPDATE_FAILURE));  
                     dispatch(dispatchSelector.failure(error, userTypes.LOGIN_FAILURE));  
                     dispatch(alertActions.error(error.toString()));
                     //window.location.reload()
