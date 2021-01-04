@@ -53,7 +53,6 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     const data = this.props;
-    console.log(props)
     this.state = {
       username: data.authentication.payload.username,
       firstName: data.authentication.payload.firstName,

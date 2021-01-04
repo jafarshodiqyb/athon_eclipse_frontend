@@ -16,7 +16,7 @@ export const activityActions= {
 function addActivity(data) {
     return dispatch => {                    
         dispatch(dispatchSelector.request(data,activityTypes.ACTIVITY_REQUEST));
-        dispatch(dispatchSelector.request(data,checkTypes.GETCHECKIN_REQUEST));
+        dispatch(dispatchSelector.request(data.user,checkTypes.GETCHECKIN_REQUEST));
         activityService.addActivity(data)
             .then(
                 data => { 
@@ -30,8 +30,8 @@ function addActivity(data) {
                 },
                 error => {
                     // dispatch(failure(error.toString()));
-                    dispatch(dispatchSelector.error(error,activityTypes.ACTIVITY_FAILURE));
-                    dispatch(dispatchSelector.error(error,checkTypes.GETCHECKIN_FAILURE));
+                    dispatch(dispatchSelector.failure(error,activityTypes.ACTIVITY_FAILURE));
+                    dispatch(dispatchSelector.failure(error,checkTypes.GETCHECKIN_FAILURE));
 
                     // dispatch(alertActions.error(error.toString()));
                 }
@@ -54,8 +54,8 @@ function updateActivity(data) {
 
                 },
                 error => {
-                    dispatch(dispatchSelector.error(error,activityTypes.UPDATE_ACTIVITY_FAILURE));
-                    dispatch(dispatchSelector.error(error,checkTypes.GETCHECKIN_FAILURE));
+                    dispatch(dispatchSelector.failure(error,activityTypes.UPDATE_ACTIVITY_FAILURE));
+                    dispatch(dispatchSelector.failure(error,checkTypes.GETCHECKIN_FAILURE));
                     dispatch(alertActions.error(error.toString()));
                 }
             );
@@ -75,8 +75,8 @@ function deleteActivity(id) {
 
                 },
                 error => {
-                    dispatch(dispatchSelector.error(error,activityTypes.DEL_ACTIVITY_FAILURE));
-                    dispatch(dispatchSelector.error(error,checkTypes.GETCHECKIN_FAILURE));
+                    dispatch(dispatchSelector.failure(error,activityTypes.DEL_ACTIVITY_FAILURE));
+                    dispatch(dispatchSelector.failure(error,checkTypes.GETCHECKIN_FAILURE));
                     dispatch(alertActions.error(error.toString()));
                 }
             );

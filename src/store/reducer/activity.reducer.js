@@ -9,7 +9,7 @@ export function activities(state = {}, action) {
       };
     case activityTypes.ACTIVITY_SUCCESS:
       return {
-        loading: false,
+        ...state,
         activity: action.payload,
         // user: action.payload
       };

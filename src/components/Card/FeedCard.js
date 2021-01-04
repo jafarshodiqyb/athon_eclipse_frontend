@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function FeedCard(props) {
-  console.log(props)
   const classes = useStyles()
   return (
     <div>

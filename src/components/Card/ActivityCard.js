@@ -95,7 +95,7 @@ function ActivityCard(props) {
             open={open}
             onClose={(e) => handleCloseModal(e)}
             type="add"
-            username={props.user.username}
+            user={props.user._id}
           />
         </Paper>
       </Card>

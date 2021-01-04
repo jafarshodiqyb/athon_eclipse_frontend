@@ -1,6 +1,7 @@
 import { checkTypes } from "../type/check.type";
 
 export function check(state = {}, action) {
+  console.log(action)
   switch (action.type) {
     case checkTypes.CHECKIN_REQUEST:
       return {

@@ -202,7 +202,7 @@ import { DialogConfirmation } from "../Dialog/DialogConfirmation";
           onClose={(e) => handleCloseModal(data.modalType)}
           type={data.modalType}
           activity={data.activity}
-          username={props.user.username}
+          user={props.authentication.payload._id}
           ids={data.ids}
           status={status}
         />
@@ -211,7 +211,7 @@ import { DialogConfirmation } from "../Dialog/DialogConfirmation";
           onClose={(e) => handleCloseModal(data.modalType)}
           type={data.modalType}
           activity={data.activity}
-          username={props.user.username}
+          user={props.authentication.payload._id}
           ids={data.ids}
           status={status}
         />

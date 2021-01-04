@@ -16,7 +16,7 @@ function addActivity(data) {
         body: JSON.stringify(data)
     };
 
-    return fetch(`${baseUrl}/check/activity`, requestOptions).then(checkServices.getCheckin(data.username)).then(handleResponse);
+    return fetch(`${baseUrl}/check/activity`, requestOptions).then(handleResponse);
 }
 
 function updateActivity(user) {
