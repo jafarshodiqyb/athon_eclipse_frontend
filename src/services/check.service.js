@@ -11,8 +11,8 @@ export const checkServices = {
 
 
 
-function checkin(user) {
-    let userTemp = {username : user}
+function checkin(id) {
+    let userTemp = {id : id}
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(),'Content-Type': 'application/json' },
@@ -22,18 +22,18 @@ function checkin(user) {
     return fetch(`${baseUrl}/check/checkin`, requestOptions).then(handleResponse);
 }
 
-function getCheckin(user) {
+function getCheckin(id) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${baseUrl}/check/checkin/${user}`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/check/checkin/${id}`, requestOptions).then(handleResponse);
 }
 
 
-function checkout(user) {
-    let userTemp = {username : user}
+function checkout(id) {
+    let userTemp = {id : id}
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(),'Content-Type': 'application/json' },

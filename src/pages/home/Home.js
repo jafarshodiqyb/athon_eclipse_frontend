@@ -85,7 +85,7 @@ class HomePage extends React.Component {
   componentDidMount() {
     this.props.getAllStories();
     this.props.getAllposts();
-    this.props.getCheckin(this.state.user.username);
+    this.props.getCheckin(this.props.authentication.payload._id);
     this.forceUpdate()
     window.scrollTo(0, 0);
     // if(this.state.user)
@@ -96,10 +96,10 @@ class HomePage extends React.Component {
   }
 
   checkin() {
-    return (e) => this.props.checkin(this.state.user.username);
+    return (e) => this.props.checkin(this.props.authentication.payload._id);
   }
   checkout() {
-    return (e) => this.props.checkout(this.state.user.username);
+    return (e) => this.props.checkout(this.props.authentication.payload._id);
   }
 
   handleOnClose(type){
