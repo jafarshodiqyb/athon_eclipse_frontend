@@ -102,7 +102,8 @@ function Content(props) {
         image : props.user.image?props.user.image:'',
         stories:{
           image:files?files:'',
-          url:''
+          url:'',
+          storiesDate:Date()
         }
       }
       props.postStories(body)

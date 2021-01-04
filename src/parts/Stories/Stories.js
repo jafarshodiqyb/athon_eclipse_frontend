@@ -18,7 +18,7 @@ import { activityActions } from "../../store/action/activity.actions";
 import { connect } from "react-redux";
 import ReactInstaStories from "react-insta-stories";
 import { compose } from "redux";
-
+import * as moment from "moment"
 const image = {
   display: "block",
   maxWidth: "100%",
@@ -116,9 +116,14 @@ function Stories(props) {
                 </Badge>
               </IconButton>
             </label>
-              <Typography variant="h6" color="initial" className="mt-1 ml-2">
+            <div className="d-block">
+              <Typography variant="h6" color="initial" className="ml-2">
                 {props.userStories.user.username}
               </Typography>
+              <Typography variant="caption" color="initial" className="ml-2">
+                {value.storiesDate?moment(value.storiesDate).fromNow():''}
+              </Typography>
+            </div>
             </div>
           </div>
         );

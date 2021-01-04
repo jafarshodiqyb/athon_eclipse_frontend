@@ -55,7 +55,7 @@ function FeedCard(props) {
                   </IconButton>
                 }
                 title={value.user.username}
-                subheader={moment(value.lastUpdate).format("DD/MM/YYYY HH:mm")}
+                subheader={moment(value.lastUpdate).fromNow()}
                 className="text-left"
               />
               <CardContent>
