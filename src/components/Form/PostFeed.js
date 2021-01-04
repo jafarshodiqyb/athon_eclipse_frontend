@@ -68,7 +68,7 @@ function PostFeed(props) {
     const formData = new FormData();
     formData.append("file", data.image);
     let body = {
-        username : props.authentication.user.username,
+        username : props.authentication.payload.username,
         image : props.user.image?props.user.image:'',
         posts : {
             content : data.content,

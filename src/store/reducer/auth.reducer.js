@@ -16,13 +16,13 @@ const token = jwt.verify(userData, '12345-67890-09876-54321', function(err, deco
 })
 // console.log(token)
 // let token =userData && userData!=null? jwt.verify(userData, '12345-67890-09876-54321'): null
-const initialState = token ? { loggedIn: true, user : token._doc } : {}
+const initialState = token ? { loggedIn: true, payload : token._doc } : {}
 export  function authentication(state = initialState, action) {
-  switch (action.type) {
+  switch (action) {
     case userTypes.LOGIN_REQUEST:
       return {
         loggingIn: true,
-        user: action.payload
+        // user: action.payload
       };
     case userTypes.LOGIN_SUCCESS:
         const token =  jwt.verify(action.payload.token, '12345-67890-09876-54321', function(err, decoded) {
@@ -40,10 +40,10 @@ export  function authentication(state = initialState, action) {
         })
       return {
         ...state,
-        user: token._doc?token._doc:token['0']
+        payload: token._doc?token._doc:token['0']
       };
     case userTypes.LOGIN_FAILURE:
-      return {};
+      return {item:action.error};
     case userTypes.LOGOUT:
       return {};
     default:

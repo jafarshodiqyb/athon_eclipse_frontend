@@ -55,15 +55,15 @@ class Profile extends React.Component {
     const data = this.props;
     console.log(props)
     this.state = {
-      username: data.authentication.user.username,
-      firstName: data.authentication.user.firstName,
-      lastName: data.authentication.user.lastName,
-      image:  data.authentication.user.image,
+      username: data.authentication.payload.username,
+      firstName: data.authentication.payload.firstName,
+      lastName: data.authentication.payload.lastName,
+      image:  data.authentication.payload.image,
       value:0,
       recentPassword:'',
       password:'',
       confirmPassword:'',
-      email:data.authentication.user.email
+      email:data.authentication.payload.email
     };
     this.handleChange = this.handleChange.bind(this)  
     this.submitChangePassword = this.submitChangePassword.bind(this)
@@ -91,7 +91,7 @@ class Profile extends React.Component {
     this.setState({value : parseInt(event.currentTarget.getAttribute('index'))})
   }
   componentWillReceiveProps(nextState){
-    if(nextState.authentication && nextState.authentication.user) this.setState({ image : nextState.authentication.user.image})
+    if(nextState.authentication && nextState.authentication.payload) this.setState({ image : nextState.authentication.payload.image})
   }
 
 

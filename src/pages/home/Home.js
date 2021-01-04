@@ -69,7 +69,7 @@ class HomePage extends React.Component {
     super(props);
     const data = this.props;
     this.state = {
-      user: data.authentication.user,
+      user: data.authentication.payload,
       modal: false,
       modalType: "",
       activity: null,

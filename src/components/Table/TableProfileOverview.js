@@ -2,7 +2,7 @@ import * as React from "react";
 import { Typography, Divider, Button } from "@material-ui/core";
 // import { DataGrid } from '@material-ui/data-grid';
 export default function TableProfileOverview(props) {
-  const {user} = props.authentication
+  const {payload} = props.authentication
   const moveToEdit = (e) =>{
     props.onChange(e)
   }
@@ -25,7 +25,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user?user.username:''}
+              {payload?payload.username:''}
             </Typography>
           </div>
         </div>
@@ -39,7 +39,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user?user.firstName:''}
+              {payload?payload.firstName:''}
             </Typography>
           </div>
         </div>
@@ -53,7 +53,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user?user.lastName:''}
+              {payload?payload.lastName:''}
             </Typography>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user?user.email:''}
+              {payload?payload.email:''}
             </Typography>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user?user.job:''}
+              {payload?payload.job:''}
             </Typography>
           </div>
         </div>
@@ -92,7 +92,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user?user.address:''}
+              {payload?payload.address:''}
             </Typography>
           </div>
         </div>
@@ -105,7 +105,7 @@ export default function TableProfileOverview(props) {
           </div>
           <div className="col-md-6 text-left ">
             <Typography variant="span" color="textPrimary">
-              {user?user.motto:''}
+              {payload?payload.motto:''}
             </Typography>
           </div>
         </div>

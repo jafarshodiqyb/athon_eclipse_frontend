@@ -58,14 +58,14 @@ function FormRegister(props) {
     if (props.hide) {
       setUser((prevState) => ({
         ...prevState,
-        id: props.authentication.user._id,
-        username: props.authentication.user.username,
-        firstName: props.authentication.user.firstName,
-        lastName: props.authentication.user.lastName,
-        email: props.authentication.user.email,
-        job: props.authentication.user.job,
-        address: props.authentication.user.address,
-        motto: props.authentication.user.motto,
+        id: props.authentication.payload._id,
+        username: props.authentication.payload.username,
+        firstName: props.authentication.payload.firstName,
+        lastName: props.authentication.payload.lastName,
+        email: props.authentication.payload.email,
+        job: props.authentication.payload.job,
+        address: props.authentication.payload.address,
+        motto: props.authentication.payload.motto,
 
       }));
     }
@@ -93,7 +93,7 @@ function FormRegister(props) {
     ) {
       props.register(user);
     } else {
-      setUser({...user,id:props.authentication.user._id})
+      setUser({...user,id:props.authentication.payload._id})
       console.log(user)
       props.updateUser(user);
 
@@ -123,6 +123,7 @@ function FormRegister(props) {
               autoComplete="username"
               helperText={props.hide && !user.username && "required"}
               error={props.hide && user.username===""}
+              // disabled={props.hide}
             />
           </Grid>
         </div>

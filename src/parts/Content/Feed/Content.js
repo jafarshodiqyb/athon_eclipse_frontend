@@ -81,10 +81,10 @@ function Content(props) {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState({});
   const findMyStories = (props && props.stories && props.stories.user)?  props.stories.user.filter((value,i)=>{
-    return value.username === props.authentication.user.username
+    return value.username === props.authentication.payload.username
   }):[]
   const handleClickOpen = (username) => {
-    if(findMyStories.length>0 ||username !==props.authentication.user.username){
+    if(findMyStories.length>0 ||username !==props.authentication.payload.username){
       setModalOpen({ ...modalOpen, [username]: true });
     }
   };
@@ -98,7 +98,7 @@ function Content(props) {
     const files = e.target.files[0];
     // props.changeImage(formData);
       let body = {
-        username : props.authentication.user.username,
+        username : props.authentication.payload.username,
         image : props.user.image?props.user.image:'',
         stories:{
           image:files?files:'',
@@ -106,7 +106,7 @@ function Content(props) {
         }
       }
       props.postStories(body)
-      handleClose(props.authentication.user.username)
+      handleClose(props.authentication.payload.username)
   };
   return (
     <div>
