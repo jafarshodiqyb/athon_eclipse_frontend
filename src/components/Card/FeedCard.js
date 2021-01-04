@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function FeedCard(props) {
+  console.log(props)
   const classes = useStyles()
   return (
     <div>
@@ -47,14 +48,14 @@ function FeedCard(props) {
             <Card className={classes.root + " mt-4 mb-4"} variant="outlined">
               <CardHeader
                 avatar={                    
-                    <Avatar src={value.image?value.image:'person.jpg'} aria-label="recipe" className={classes.avatar}/>
+                    <Avatar src={value.user.image?value.user.image:'person.jpg'} aria-label="recipe" className={classes.avatar}/>
                 }
                 action={
                   <IconButton aria-label="settings">
                     <MoreVertIcon />
                   </IconButton>
                 }
-                title={value.username}
+                title={value.user.username}
                 subheader={moment(value.lastUpdate).format("DD/MM/YYYY HH:mm")}
                 className="text-left"
               />
