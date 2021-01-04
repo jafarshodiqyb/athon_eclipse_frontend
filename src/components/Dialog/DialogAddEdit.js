@@ -8,9 +8,9 @@ function DialogAddEdit(props) {
     
     const handleSubmit = (e) => {
       e.preventDefault();
-      const { username, open } = props;
+      const { user, open } = props;
       let body = {
-        username: username,
+        user: user,
         activities: {
           activity: activityTemp,
           status:props.status?props.status:'todo'
