@@ -1,18 +1,9 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  makeStyles,
-  Typography,
-  Hidden,
-  IconButton,
-  Avatar,
-} from "@material-ui/core";
-import { connect } from "react-redux";
-import { userActions } from "../../store/action/user.actions";
-import { Link } from "react-router-dom";
+import { Avatar, Button, Card, CardActions, CardContent, IconButton, makeStyles, Typography } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { userActions } from '../../store/action/user.actions';
+
 const styles = makeStyles((theme) => ({
   root: {
     width: "100%",

@@ -1,39 +1,16 @@
-import React, { useEffect } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import {
-  Badge,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  createSvgIcon,
-  FormControl,
-  Grow,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@material-ui/core";
-import CreateIcon from "@material-ui/icons/Create";
+import { Badge, Card } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { FeedCard } from '../../../components/Card/FeedCard';
+import { PostFeed } from '../../../components/Form/PostFeed';
+import { storiesActions } from '../../../store/action/stories.actions';
+import { userActions } from '../../../store/action/user.actions';
+import Stories from '../../Stories/Stories';
 
-import clsx from "clsx";
-import IconButton from "@material-ui/core/IconButton";
-import { red } from "@material-ui/core/colors";
-import Stories  from "../../Stories/Stories";
-import { connect } from "react-redux";
-import { storiesActions } from "../../../store/action/stories.actions";
-import { userActions } from "../../../store/action/user.actions";
-import { PostFeed } from "../../../components/Form/PostFeed";
-import { FeedCard } from "../../../components/Card/FeedCard";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",

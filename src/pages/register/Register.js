@@ -1,16 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-
 import { userActions } from "../../store/action/user.actions";
-import {
-  Avatar,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
-import "./register.css";
+import { Avatar, Typography, withStyles} from "@material-ui/core";
 import { deepOrange, green } from "@material-ui/core/colors";
-import Copyright from "../../parts/Footer/Copyright";
 import {FormRegister} from "../../components/Form/FormRegister";
 
 const styles = (theme) => ({
@@ -76,17 +69,6 @@ class RegisterPage extends React.Component {
       },
     });
   }
-
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   // console.log(this.)
-  //   this.setState({ submitted: true });
-  //   const { user } = this.state;
-  //   console.log(this.state.user)
-  //   if (user.firstName && user.lastName && user.username && user.password) {
-  //     this.props.register(user);
-  //   }
-  // }
 
   render() {
     // const { registering } = this.props;

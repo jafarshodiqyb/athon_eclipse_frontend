@@ -1,35 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
-import {
-  Box,
-  Grid,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  createSvgIcon,
-  FormControl,
-  Grow,
-  MenuItem,
-  Select,
-  TextField,
-  IconButton,
-} from "@material-ui/core";
-import CreateIcon from "@material-ui/icons/Create";
-import { userActions } from "../../store/action/user.actions";
-import { connect } from "react-redux";
-import { PhotoCamera } from "@material-ui/icons";
-import { postsActions } from "../../store/action/post.actions";
+import { Button, Card, CardActions, CardContent, CardHeader, Grow, IconButton, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import { PhotoCamera } from '@material-ui/icons';
+import CreateIcon from '@material-ui/icons/Create';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+
+import { postsActions } from '../../store/action/post.actions';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",

@@ -1,4 +1,4 @@
-import { activityTypes } from "../type/activity.type";
+import { activityTypes } from '../type/activity.type';
 
 export function activities(state = {}, action) {
   switch (action.type) {

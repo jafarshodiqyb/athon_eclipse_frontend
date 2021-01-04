@@ -1,5 +1,5 @@
-import {baseUrl} from '../utils/baseURL'
 import { authHeader } from '../utils/auth-header';
+import { baseUrl } from '../utils/baseURL';
 import { handleResponse } from '../utils/handleResponse';
 import { uploadImageService } from './uploadImage.service';
 

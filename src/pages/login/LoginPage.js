@@ -1,17 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-
-import { userActions } from "../../store/action/user.actions";
-import { Avatar, IconButton, InputAdornment, TextField, Typography, withStyles, Grid, Button, Box, Icon } from "@material-ui/core";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
-import "./login.css";
-import { compose } from "redux";
-import { deepOrange } from "@material-ui/core/colors";
-import Copyright from "../../parts/Footer/Copyright";
+import { Avatar, Box, Button, IconButton, InputAdornment, TextField, Typography, withStyles } from '@material-ui/core';
+import { deepOrange } from '@material-ui/core/colors';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import jwt from 'jsonwebtoken';
 import queryString from 'query-string';
- import jwt from 'jsonwebtoken'
-import { createLoadingSelector } from "../../store/action/loading.selector";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import Copyright from '../../parts/Footer/Copyright';
+import { userActions } from '../../store/action/user.actions';
+
 const styles = (theme) => ({
     root: {
         height: '100vh',
@@ -88,22 +86,6 @@ class LoginPage extends React.Component {
   googleLogIn(){
     window.open("http://localhost:3000/users/auth/google","_self");
   }
-  // componentDidMount(){
-  //   if(this.props.location.pathname.length>7){
-  //     let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
-  //     if(params.token){
-  //       jwt.verify(params.token, '12345-67890-09876-54321', function(err, decoded) {
-  //         if (err) {
-  //           window.open("/login","_self")            
-  //         } else if (decoded) {
-  //         localStorage.setItem('token', JSON.stringify(params.token));
-  //         window.open("/","_self")
-  //       }
-  //       });
-      
-  //     }     
-  //     }
-  // }
   componentWillMount(){
     if(this.props.location.pathname.length>7){
       let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
@@ -161,14 +143,6 @@ class LoginPage extends React.Component {
                     (submitted && !username ? " has-error" : "")
                   }
                 >
-                  {/* <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={username}
-                  onChange={this.handleChange}
-                /> */}
                   {submitted && !username && (
                     <div className="help-block">Username is required</div>
                   )}
@@ -192,14 +166,7 @@ class LoginPage extends React.Component {
                     "form-group" + (submitted && !password ? " has-error" : "")
                   }
                 >
-                  {/* <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={password}
-                  onChange={this.handleChange}
-                /> */}
+
                   {submitted && !password && (
                     <div className="help-block">Password is required</div>
                   )}
@@ -241,13 +208,7 @@ class LoginPage extends React.Component {
                   >
                     LogIn
                   </Button>
-                  {/* <button className="btn btn-primary">Login</button>
-                  {loggingIn && (
-                    <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                  )}
-                  <Link to="/register" className="btn btn-link">
-                    Register
-                  </Link> */}
+
                   <div className="container mb-4">
                     <div className="row">
                       <div className="col-md-3 offset-md-3 mt-2 ">

@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import "./App.css";
-import { BrowserRouter } from "react-router-dom";
-import Main from "./pages/main";
-import { Provider } from "react-redux";
-import { store } from "./store/configureStore";
-import { SnackbarProvider } from "notistack";
+import './App.css';
+import { SnackbarProvider } from 'notistack';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import Main from './pages/main';
+import { store } from './store/configureStore';
 
 // const store = store();
 const notistackRef = React.createRef()

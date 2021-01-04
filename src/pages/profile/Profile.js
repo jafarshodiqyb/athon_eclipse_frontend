@@ -1,27 +1,20 @@
-import {
-  Paper,
-  Tab,
-  Tabs,
-  withStyles,
-} from "@material-ui/core";
-import React from "react";
-import Typography from "@material-ui/core/Typography";
-import Card from "@material-ui/core/Card";
-import { connect } from "react-redux";
-import { userActions } from "./../../store/action/user.actions";
-import TopBar from "../../parts/Header/TopBar";
-import { compose } from "redux";
-import * as _ from "lodash";
-import ChatBar from "./../../parts/ChatBar/ChatBar";
-import {FormRegister} from "./../../components/Form/FormRegister"
-import {ProfileCard} from "../../components/Card/ProfileCard";
-import { a11yProps, TabPanel } from "../../components/Tabs/Tabs";
-import HomeIcon from '@material-ui/icons/Home';
+import { Tab, Tabs, withStyles } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
+import HomeIcon from '@material-ui/icons/Home';
 import LockIcon from '@material-ui/icons/Lock';
-import TableProfileOverview from "../../components/Table/TableProfileOverview";
-import { FormPassword } from "../../components/Form/FormPassword";
-import SecurityQuestions from "../../components/Form/SecurityQuestions";
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { ProfileCard } from '../../components/Card/ProfileCard';
+import { FormPassword } from '../../components/Form/FormPassword';
+import TableProfileOverview from '../../components/Table/TableProfileOverview';
+import { a11yProps, TabPanel } from '../../components/Tabs/Tabs';
+import TopBar from '../../parts/Header/TopBar';
+import { FormRegister } from './../../components/Form/FormRegister';
+import ChatBar from './../../parts/ChatBar/ChatBar';
+import { userActions } from './../../store/action/user.actions';
 
 const styles = (theme) => ({
   root: {

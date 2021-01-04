@@ -1,7 +1,7 @@
-import { alertActions } from './alert.actions';
-import { postsTypes } from '../type/posts.type';
 import { postsService } from '../../services/posts.service';
 import { dispatchSelector } from '../../utils/dispatchSelector';
+import { postsTypes } from '../type/posts.type';
+import { alertActions } from './alert.actions';
 
 export const postsActions = {
     postFeed,

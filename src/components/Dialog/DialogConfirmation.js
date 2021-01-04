@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
-import { activityActions } from "../../store/action/activity.actions";
-import { connect } from "react-redux";
-import { history } from "../../utils/history";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import { activityActions } from '../../store/action/activity.actions';
+import { history } from '../../utils/history';
 
 function DialogConfirmation(props) {
   const handleSubmit = () =>{

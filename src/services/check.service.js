@@ -1,6 +1,6 @@
-import {baseUrl} from '../utils/baseURL'
 import { authHeader } from '../utils/auth-header';
-import {handleResponse} from './../utils/handleResponse'
+import { baseUrl } from '../utils/baseURL';
+import { handleResponse } from './../utils/handleResponse';
 
 export const checkServices = {
     checkin,

@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
-
-import { authentication } from './auth.reducer';
-import { registration } from './register.reducer';
-import { users } from './users.reducer';
-import { alert } from './alert.reducer';
-import { check } from './check.reducer';
 import { activities } from './activity.reducer';
+import { alert } from './alert.reducer';
+import { authentication } from './auth.reducer';
+import { check } from './check.reducer';
+import { loadingReducer } from './loading.reducer';
+import { posts } from './posts.reducer';
+import { registration } from './register.reducer';
 import { stories } from './stories.reducer';
-import { loadingReducer } from "./loading.reducer";
-import { posts } from "./posts.reducer";
 
 
 

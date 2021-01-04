@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@material-ui/core";
-import { activityActions } from "../../store/action/activity.actions";
-import { connect } from "react-redux";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import { activityActions } from '../../store/action/activity.actions';
 
 function DialogAddEdit(props) {
     const [activityTemp, setActivityTemp] = React.useState(null);

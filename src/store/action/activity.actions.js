@@ -1,10 +1,8 @@
+import { activityService } from '../../services/activity.service';
+import { dispatchSelector } from '../../utils/dispatchSelector';
+import { activityTypes } from './../type/activity.type';
 import { checkTypes } from './../type/check.type';
 import { alertActions } from './alert.actions';
-import { history } from '../../utils/history';
-import { activityService } from '../../services/activity.service';
-import { activityTypes } from './../type/activity.type';
-import { checkActions } from './../action/check.actions';
-import { dispatchSelector } from '../../utils/dispatchSelector';
 
 export const activityActions= {
     addActivity,

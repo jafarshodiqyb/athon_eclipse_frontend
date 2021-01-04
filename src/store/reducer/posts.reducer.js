@@ -1,4 +1,4 @@
-import { postsTypes } from "../type/posts.type";
+import { postsTypes } from '../type/posts.type';
 
 export function posts(state = {}, action) {
   switch (action.type) {

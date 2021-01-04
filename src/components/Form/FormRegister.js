@@ -1,17 +1,14 @@
-import React, {  useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
-import {
-  Box,
-  Grid,
-  Button,
-  TextField,
-} from "@material-ui/core";
-import Copyright from "../../parts/Footer/Copyright";
-import { userActions } from "../../store/action/user.actions";
-import { connect } from "react-redux";
-import { FormPassword } from "./FormPassword";
+import { Box, Button, Grid, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import Copyright from '../../parts/Footer/Copyright';
+import { userActions } from '../../store/action/user.actions';
+import { FormPassword } from './FormPassword';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -127,7 +124,7 @@ function FormRegister(props) {
           </Grid>
         </div>
         <div className={"form-group col-sm-6 col-xs-12"}>
-          <Grid item xs={12} sm={6} className="name">
+          <Grid item xs={12}  className="name">
             <TextField
               autoComplete="fname"
               name="firstName"
@@ -146,7 +143,7 @@ function FormRegister(props) {
           </Grid>
         </div>
         <div className={"form-group col-sm-6 col-xs-12 "}>
-          <Grid item xs={12} sm={6} className="name">
+          <Grid item xs={12}  className="name">
             <TextField
               variant="outlined"
               required

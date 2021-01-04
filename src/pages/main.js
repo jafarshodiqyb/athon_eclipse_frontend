@@ -1,26 +1,22 @@
-import React from 'react';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { history } from '../utils/history';
-import { alertActions } from '../store/action/alert.actions';
-import { ProtectedRoute } from './router/ProtectedRoute';
-import  HomePage from './home/Home';
-import LoginPage  from './login/LoginPage';
-import RegisterPage  from './register/Register';
-import { LinearProgress, Snackbar, withStyles, Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import { withSnackbar } from 'notistack';
-import MuiAlert from '@material-ui/lab/Alert';
-import Profile from './profile/Profile'
-import { userActions } from '../store/action/user.actions';
-import * as _ from 'lodash'
-// import Alert from '@material-ui/lab/Alert';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
+import { PongSpinner } from 'react-spinners-kit';
 import { compose } from 'redux';
-import { PongSpinner  } from "react-spinners-kit";
+import { SpinnerWrapper } from '../components/Wrapper/Wrapper';
+import { alertActions } from '../store/action/alert.actions';
 import { createLoadingSelector } from '../store/action/loading.selector';
 import { store } from '../store/configureStore';
-import { SpinnerWrapper } from '../components/Wrapper/Wrapper';
+import { history } from '../utils/history';
+import HomePage from './home/Home';
+import LoginPage from './login/LoginPage';
+import Profile from './profile/Profile';
+import RegisterPage from './register/Register';
+import { ProtectedRoute } from './router/ProtectedRoute';
 
+// import Alert from '@material-ui/lab/Alert';
   const styles = (theme) => ({
     loading: {
       

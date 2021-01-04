@@ -1,40 +1,15 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Link,
-  makeStyles,
-  Typography,
-  Hidden,
-  CardHeader,
-  Paper,
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  IconButton,
-  ListItemSecondaryAction,
-  Tabs,
-  Tab,
-  Box,
-  MenuItem,
-  Menu,
-  Divider,
-} from "@material-ui/core";
+import { Button, Card, CardHeader, Divider, makeStyles, Paper, Tab, Tabs } from '@material-ui/core';
+import { deepOrange } from '@material-ui/core/colors';
+import AddIcon from '@material-ui/icons/Add';
+import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 
-import AddIcon from "@material-ui/icons/Add";
-import { connect } from "react-redux";
-import { userActions } from "../../store/action/user.actions";
-import * as moment from "moment";
-import { DialogAddEdit } from "../Dialog/DialogAddEdit";
-import { useEffect, useState } from "react";
-import { deepOrange } from "@material-ui/core/colors";
-import { a11yProps, TabPanel } from "../Tabs/Tabs";
-import  ActivityList  from "./../List/ActivtiyList";
-import { MockActivityList } from "../List/MockActivity";
+import { userActions } from '../../store/action/user.actions';
+import { DialogAddEdit } from '../Dialog/DialogAddEdit';
+import { MockActivityList } from '../List/MockActivity';
+import { a11yProps, TabPanel } from '../Tabs/Tabs';
+import ActivityList from './../List/ActivtiyList';
+
 function ActivityCard(props) {
   const { check } = props;
   const [value, setValue] = useState(0);

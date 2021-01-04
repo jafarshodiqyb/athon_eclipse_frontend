@@ -1,36 +1,10 @@
-import React, { useEffect } from "react";
-import {
-  Avatar,
-  Badge,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-  makeStyles,
-  TextField,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
-import { activityActions } from "../../store/action/activity.actions";
-import { connect } from "react-redux";
-import ReactInstaStories from "react-insta-stories";
-import { compose } from "redux";
-import * as moment from "moment"
-const image = {
-  display: "block",
-  maxWidth: "100%",
-  borderRadius: 4,
-};
-
-const code = {
-  background: "#eee",
-  padding: "5px 10px",
-  borderRadius: "4px",
-  color: "#333",
-};
+import { Avatar, Badge, Dialog, IconButton, makeStyles, Typography, withStyles } from '@material-ui/core';
+import * as moment from 'moment';
+import React, { useEffect } from 'react';
+import ReactInstaStories from 'react-insta-stories';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { activityActions } from '../../store/action/activity.actions';
 
 const contentStyle = {
   // background: 'salmon',
@@ -65,12 +39,6 @@ function Stories(props) {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value) => {
-    onClose(value);
-  };
-  // const addStory = () => {
-  //   alert("tes");
-  // };
   const onChange = () => {
     alert("tes");
   };

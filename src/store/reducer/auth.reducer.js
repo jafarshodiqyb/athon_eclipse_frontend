@@ -1,6 +1,5 @@
+import jwt from 'jsonwebtoken';
 import { userTypes } from './../type/user.type';
-import jwt from 'jsonwebtoken'
-import queryString from 'query-string';
 
 export  function authentication(state, action) {
   switch (action.type) {

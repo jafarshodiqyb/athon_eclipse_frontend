@@ -1,31 +1,18 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Chip,
-  createSvgIcon,
-  FormControl,
-  Grow,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@material-ui/core";
-import * as _ from "lodash";
-import { PongSpinner, RingSpinner } from "react-spinners-kit";
-import { SpinnerWrapper } from "../../../components/Wrapper/Wrapper";
+import { Card, CardActions, CardContent, CardHeader, Chip } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import * as _ from 'lodash';
+import React from 'react';
+import { RingSpinner } from 'react-spinners-kit';
+
+import { SpinnerWrapper } from '../../../components/Wrapper/Wrapper';
+
 const hashtagRegex = require("hashtag-regex");
 const useStyles = makeStyles((theme) => ({
   root: {

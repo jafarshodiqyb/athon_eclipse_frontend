@@ -1,27 +1,24 @@
 import {
-  Button,
+  Avatar,
   Card,
   CardActions,
   CardContent,
-  CardMedia,
-  makeStyles,
-  Typography,
-  Hidden,
-  IconButton,
-  Avatar,
-  Grow,
   CardHeader,
-  TextField
-} from "@material-ui/core";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { connect } from "react-redux";
-import { postsActions } from "../../store/action/post.actions";
-import { useEffect } from "react";
-import * as _ from 'lodash';
-import * as moment from 'moment'
+  CardMedia,
+  Grow,
+  IconButton,
+  makeStyles,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ShareIcon from '@material-ui/icons/Share';
+import * as moment from 'moment';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import { postsActions } from '../../store/action/post.actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {

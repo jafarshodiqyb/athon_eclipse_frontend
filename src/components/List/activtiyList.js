@@ -1,21 +1,32 @@
-import { Avatar, Box, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, makeStyles, Menu, MenuItem, Tooltip, Typography, withStyles } from "@material-ui/core";
-import PropTypes from "prop-types";
-import * as _ from 'lodash'
-import * as moment from 'moment'
-import DeleteIcon from "@material-ui/icons/Delete";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import {
+  Avatar,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  ListItemText,
+  makeStyles,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Typography,
+  withStyles,
+} from '@material-ui/core';
+import { deepOrange } from '@material-ui/core/colors';
+import DeleteIcon from '@material-ui/icons/Delete';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import * as _ from 'lodash';
+import * as moment from 'moment';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { useState } from "react";
-import { deepOrange } from "@material-ui/core/colors";
-import { DialogAddEdiit, DialogAddEdit } from "../Dialog/DialogAddEdit";
-import { compose } from "redux";
-import { activityActions } from "../../store/action/activity.actions";
-import { connect } from "react-redux";
-import { MockActivityList } from "./MockActivity";
-import { DialogConfirmation } from "../Dialog/DialogConfirmation";
+import { activityActions } from '../../store/action/activity.actions';
+import { DialogAddEdit } from '../Dialog/DialogAddEdit';
+import { DialogConfirmation } from '../Dialog/DialogConfirmation';
 
  function ActivityList(props) {
   const {check,status} = props

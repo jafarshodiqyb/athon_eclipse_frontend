@@ -1,9 +1,8 @@
-import { userTypes } from './../type/user.type';
-import { userService } from './../../services/user.service';
-import { alertActions } from './alert.actions';
-import { history } from './../../utils/history';
 import { dispatchSelector } from '../../utils/dispatchSelector';
-import { activityTypes } from '../type/activity.type';
+import { userService } from './../../services/user.service';
+import { history } from './../../utils/history';
+import { userTypes } from './../type/user.type';
+import { alertActions } from './alert.actions';
 
 export const userActions = {
     login,

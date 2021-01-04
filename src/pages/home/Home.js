@@ -1,33 +1,28 @@
-import {
-  Button,
-  withStyles,
-  Snackbar,
-} from "@material-ui/core";
-import React from "react";
-import Typography from "@material-ui/core/Typography";
+import { Button, Snackbar, withStyles } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
+import Typography from "@material-ui/core/Typography";
 import InputIcon from "@material-ui/icons/Input";
-import { connect } from "react-redux";
-import { userActions } from "./../../store/action/user.actions";
-import { checkActions } from "./../../store/action/check.actions";
-import { activityActions } from "./../../store/action/activity.actions";
-import TopBar from "../../parts/Header/TopBar";
-import { compose } from "redux";
-import * as moment from "moment";
+import Alert from "@material-ui/lab/Alert";
 import * as _ from "lodash";
-import {Content} from "./../../parts/Content/Feed/Content";
+import * as moment from "moment";
+import React from "react";
+import { connect } from "react-redux";
+import { FireworkSpinner } from "react-spinners-kit";
+import { compose } from "redux";
+import { ActivityCard } from "../../components/Card/ActivityCard";
+import { ProfileCard } from "../../components/Card/ProfileCard";
+import { DialogConfirmation } from "../../components/Dialog/DialogConfirmation";
+import { SpinnerWrapper } from "../../components/Wrapper/Wrapper";
+import TopBar from "../../parts/Header/TopBar";
+import { postsActions } from "../../store/action/post.actions";
+import { storiesActions } from "../../store/action/stories.actions";
+import ChatBar from "./../../parts/ChatBar/ChatBar";
+import { Content } from "./../../parts/Content/Feed/Content";
 import Content2 from "./../../parts/Content/Side/Content2";
 import Copyright from "./../../parts/Footer/Copyright";
-import ChatBar from "./../../parts/ChatBar/ChatBar";
-import Alert from "@material-ui/lab/Alert";
-import { ProfileCard } from "../../components/Card/ProfileCard";
-import { ActivityCard } from "../../components/Card/ActivityCard";
-import { storiesActions } from "../../store/action/stories.actions";
-import  {createLoadingSelector}  from "../../store/action/loading.selector";
-import { postsActions } from "../../store/action/post.actions";
-import { FireworkSpinner } from "react-spinners-kit";
-import { SpinnerWrapper } from "../../components/Wrapper/Wrapper";
-import { DialogConfirmation } from "../../components/Dialog/DialogConfirmation";
+import { activityActions } from "./../../store/action/activity.actions";
+import { checkActions } from "./../../store/action/check.actions";
+import { userActions } from "./../../store/action/user.actions";
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -77,22 +72,23 @@ class HomePage extends React.Component {
         parentId: "",
         childId: "",
       },
-      checkProfile:false
+      checkProfile: false,
     };
-    this.handleOnClose.bind(this)
+    this.handleOnClose.bind(this);
   }
 
   componentDidMount() {
     this.props.getAllStories();
     this.props.getAllposts();
     this.props.getCheckin(this.props.authentication.payload._id);
-    this.forceUpdate()
+    this.forceUpdate();
     window.scrollTo(0, 0);
     // if(this.state.user)
-    let cek = _.some((this.state.user),(value,i)=>{
-      if(i!='password')return ((value === undefined||value === ''||value === null))      
-    }) 
-    this.setState({checkProfile:cek})
+    let cek = _.some(this.state.user, (value, i) => {
+      if (i != "password")
+        return value === undefined || value === "" || value === null;
+    });
+    this.setState({ checkProfile: cek });
   }
 
   checkin() {
@@ -102,10 +98,10 @@ class HomePage extends React.Component {
     return (e) => this.props.checkout(this.props.authentication.payload._id);
   }
 
-  handleOnClose(type){
+  handleOnClose(type) {
     this.setState({
-      checkProfile:false
-    })
+      checkProfile: false,
+    });
   }
 
   render() {
@@ -132,8 +128,13 @@ class HomePage extends React.Component {
       title = "";
       date = "";
     }
-    let isNotCheckinToday = true 
-    if (check) isNotCheckinToday = (_.isEmpty(check) || (check && check.item && !moment(check.item.lastCheckIn).isSame(moment(), "day")))
+    let isNotCheckinToday = true;
+    if (check)
+      isNotCheckinToday =
+        _.isEmpty(check) ||
+        (check &&
+          check.item &&
+          !moment(check.item.lastCheckIn).isSame(moment(), "day"));
 
     return (
       <div>
@@ -215,11 +216,11 @@ class HomePage extends React.Component {
         </div>
         <ChatBar />
         <Copyright />
-        <DialogConfirmation 
-          open={this.state.checkProfile} 
-          onClose={()=>this.handleOnClose('updateProfile')}
+        <DialogConfirmation
+          open={this.state.checkProfile}
+          onClose={() => this.handleOnClose("updateProfile")}
           title="Your profile is not complete. Do you want to update?"
-          confirmation={{yes:"next",no:"skip"}}
+          confirmation={{ yes: "next", no: "skip" }}
           type="link"
         />
         {isNotCheckinToday && (
@@ -247,7 +248,7 @@ class HomePage extends React.Component {
 }
 
 function mapState(state) {
-  return state
+  return state;
 }
 
 const actionCreators = {

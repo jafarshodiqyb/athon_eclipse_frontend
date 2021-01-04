@@ -1,7 +1,7 @@
-import {baseUrl} from '../utils/baseURL'
 import { authHeader } from '../utils/auth-header';
-import {uploadImageService} from './uploadImage.service'
-import {handleResponse} from './../utils/handleResponse'
+import { baseUrl } from '../utils/baseURL';
+import { handleResponse } from './../utils/handleResponse';
+import { uploadImageService } from './uploadImage.service';
 
 export const postsService = {
     getAllFeed,

@@ -1,7 +1,7 @@
-import { alertActions } from './alert.actions';
-import { storiesTypes } from '../type/stories.type';
 import { storiesService } from '../../services/stories.service';
 import { dispatchSelector } from '../../utils/dispatchSelector';
+import { storiesTypes } from '../type/stories.type';
+import { alertActions } from './alert.actions';
 
 export const storiesActions = {
     getAllStories,
