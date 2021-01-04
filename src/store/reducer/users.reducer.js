@@ -1,7 +1,6 @@
 import { userTypes } from '../type/user.type'
 
 export function users(state = {}, action) {
-  console.log(action)
   switch (action.type) {
     case userTypes.GETUSER_REQUEST:
       return {
@@ -24,18 +23,6 @@ export function users(state = {}, action) {
         ...state,loading:false,items: action.payload[0]
       };
     case userTypes.PROFILECHANGE_FAILURE:
-      return { 
-        error: action.error
-      };
-      case userTypes.UPDATE_REQUEST:
-      return {
-        loading: true
-      };
-    case userTypes.UPDATE_SUCCESS:
-      return {
-        ...state,items: action.payload
-      };
-    case userTypes.UPDATE_FAILURE:
       return { 
         error: action.error
       };

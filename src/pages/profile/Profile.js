@@ -63,7 +63,8 @@ class Profile extends React.Component {
       recentPassword:'',
       password:'',
       confirmPassword:'',
-      email:data.authentication.payload.email
+      email:data.authentication.payload.email,
+      id:data.authentication.payload._id
     };
     this.handleChange = this.handleChange.bind(this)  
     this.submitChangePassword = this.submitChangePassword.bind(this)
@@ -91,7 +92,7 @@ class Profile extends React.Component {
     this.setState({value : parseInt(event.currentTarget.getAttribute('index'))})
   }
   componentWillReceiveProps(nextState){
-    if(nextState.authentication && nextState.authentication.payload) this.setState({ image : nextState.authentication.payload.image})
+    if(nextState.users && nextState.users.payload) this.setState({ image : nextState.authentication.payload.image})
   }
 
 
@@ -104,7 +105,7 @@ class Profile extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-4 mt-4">
-              <ProfileCard {...this.state} readOnly={false} />
+              <ProfileCard {...this.props} readOnly={false} />
               <Card className="mt-4" variant="outlined" square>
                 <Tabs
                   value={this.state.value}

@@ -39,11 +39,12 @@ const styles = makeStyles((theme) => ({
 }));
 function ProfileCard(props) {
   const classes = styles();
-
+  const {payload} = props.authentication
   const onChange = (e) => {
     const files = e.target.files[0];
     let body = {
-      username: props.username,
+      id:payload?payload._id:'',
+      username: payload?payload.username:'',
       image: files ? files : "",
     };
     props.updateUser(body);
@@ -58,7 +59,7 @@ function ProfileCard(props) {
         to="/profile"
       >
         <Avatar
-          src={props.image ? props.image : "person.jpg"}
+          src={payload ? payload.image : "person.jpg"}
           className={classes.photoprofile}
         />
       </IconButton>
@@ -79,10 +80,10 @@ function ProfileCard(props) {
       </div>
       <CardContent>
         <Typography variant="h4" color="textPrimary" component="span">
-          {props.firstName}
+          {payload?payload.firstName:''}
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          {props.motto}
+          {payload?payload.job:''}
         </Typography>
       </CardContent>
       <CardActions></CardActions>

@@ -83,7 +83,6 @@ function FormRegister(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted((value) => true);
-    console.log(user)
     if (
       !props.hide &&
       user.firstName &&
@@ -94,7 +93,6 @@ function FormRegister(props) {
       props.register(user);
     } else {
       setUser({...user,id:props.authentication.payload._id})
-      console.log(user)
       props.updateUser(user);
 
       // putregister
