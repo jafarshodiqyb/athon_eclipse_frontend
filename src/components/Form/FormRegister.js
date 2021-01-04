@@ -44,7 +44,7 @@ function FormRegister(props) {
     username: "",
     firstName: "",
     lastName: "",
-    password: "",
+    recentPassword: "",
     confirmPassword: "",
     address:"",
     motto:"",
@@ -93,6 +93,7 @@ function FormRegister(props) {
       props.register(user);
     } else {
       setUser({...user,id:props.authentication.payload._id})
+      
       props.updateUser(user);
 
       // putregister

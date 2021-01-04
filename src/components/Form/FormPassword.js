@@ -9,10 +9,10 @@ export function FormPassword(props) {
             variant="outlined"
             required={!props.isRegister && !props.hide}
             fullWidth
-            name={props.isRegister?'':'recentpassword'}
+            name={props.isRegister?'':'recentPassword'}
             label="Recent Password"
             type="password"
-            id={props.isRegister?'':'recentpassword'}
+            id={props.isRegister?'':'recentPassword'}
             value={props.isRegister?'':props.recentPassword}
             onChange={props.isRegister?'':props.onChange}
             autoComplete="current-password"
