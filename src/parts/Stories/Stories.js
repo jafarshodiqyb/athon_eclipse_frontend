@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
 function Stories(props) {
   const classes = useStyles()
   const { onClose, selectedValue, open } = props;
-
   const handleClose = () => {
     onClose(selectedValue);
   };
@@ -139,7 +138,7 @@ function Stories(props) {
         defaultInterval={1500}
         width={432}
         height={768}
-        // onAllStoriesEnd={handleClose}
+        onAllStoriesEnd={handleClose}
         keyboardNavigation={true}
         // onStoryEnd={(s, st) => console.log('story ended', s, st)}
       />
