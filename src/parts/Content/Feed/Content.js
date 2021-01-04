@@ -81,7 +81,7 @@ function Content(props) {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = React.useState({});
   const findMyStories = (props && props.stories && props.stories.user)?  props.stories.user.filter((value,i)=>{
-    return value.username === props.authentication.payload.username
+    return value.user.username === props.authentication.payload.username
   }):[]
   const handleClickOpen = (username) => {
     if(findMyStories.length>0 ||username !==props.authentication.payload.username){
@@ -98,7 +98,7 @@ function Content(props) {
     const files = e.target.files[0];
     // props.changeImage(formData);
       let body = {
-        username : props.authentication.payload.username,
+        user : props.authentication.payload._id,
         image : props.user.image?props.user.image:'',
         stories:{
           image:files?files:'',
@@ -166,11 +166,11 @@ function Content(props) {
                 <div
                   style={{ display: "inline-grid" }}
                   key={i}
-                  hidden={value.username === props.user.username}
+                  hidden={value.user.username === props.user.username}
                 >
                   <IconButton
                     className="p-0"
-                    onClick={() => handleClickOpen(value.username)}
+                    onClick={() => handleClickOpen(value.user.username)}
                     key={i}
                   >
                     <Avatar
@@ -179,11 +179,11 @@ function Content(props) {
                     />
                   </IconButton>
                   <Typography variant="caption" color="initial" className="mb-2">
-                    {value.username}
+                    {value.user.username}
                   </Typography>
                   <Stories
-                    open={modalOpen[value.username]}
-                    onClose={() => handleClose(value.username)}
+                    open={modalOpen[value.user.username]}
+                    onClose={() => handleClose(value.user.username)}
                     userStories={value}
                   />
                 </div>
