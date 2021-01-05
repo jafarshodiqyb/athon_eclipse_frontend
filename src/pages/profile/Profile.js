@@ -15,7 +15,7 @@ import TopBar from '../../parts/Header/TopBar';
 import { FormRegister } from './../../components/Form/FormRegister';
 import ChatBar from './../../parts/ChatBar/ChatBar';
 import { userActions } from './../../store/action/user.actions';
-
+import * as _  from "lodash"
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -72,11 +72,17 @@ class Profile extends React.Component {
 
   submitChangePassword = ()=>{
     let body = {
-      username : this.state.username,
+      id : this.props.authentication.payload._id,
       oldpassword : this.state.recentPassword,
       newpassword : this.state.password,
     }
-    this.props.changePassword(body)
+    if(!body.oldpassword && (!this.props.authentication.payload.salt && !this.props.authentication.payload.hash))
+    {
+      body.isSetPassword = true
+      this.props.setPassword(body)
+    } else if(!_.some(body, _.isEmpty)){ 
+      this.props.changePassword(body)
+    }
   }
   handleChange (event,newValue) {
     event.preventDefault();
@@ -169,7 +175,7 @@ class Profile extends React.Component {
                   </Typography>
                   <div className="mt-4">
                     {/* <SecurityQuestions/> */}
-                    <FormPassword {...this.state} isRegister={false} onChange={(e)=>this.onChangePassword(e)} submitChangePassword={()=>this.submitChangePassword()}/>
+                    <FormPassword {...this.state} {...this.props.authentication} isRegister={false} onChange={(e)=>this.onChangePassword(e)} submitChangePassword={()=>this.submitChangePassword()}/>
                   </div>
                 </TabPanel>
               </Card>
@@ -189,7 +195,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps  = {
   updateUser : userActions.updateUser,
-  changePassword:userActions.changePassword
+  changePassword:userActions.changePassword,
+  setPassword:userActions.setPassword
+
 };
 
 export default compose(

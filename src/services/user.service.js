@@ -88,7 +88,7 @@ async function updateUser(user) {
     return fetch(`${baseUrl}/users/update-user`, requestOptions)
         .then(handleResponse)
         .then(data=>{
-            return refreshToken(data.username)
+            return refreshToken(data._id)
         })
 }
 
@@ -112,7 +112,8 @@ function changePassword(body){
 
     };
     
-    return fetch(`${baseUrl}/users/changepassword`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/users/changepassword`, requestOptions).then(handleResponse)
+           
       
 }
 
@@ -124,6 +125,10 @@ function setPassword(body){
 
     };
     
-    return fetch(`${baseUrl}/users/setpassword`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/users/setpassword`, requestOptions)
+        .then(handleResponse)
+        .then(data=>{
+            return refreshToken(body.id)
+        });;
       
 }

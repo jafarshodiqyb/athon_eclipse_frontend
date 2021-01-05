@@ -3,18 +3,18 @@ import { Button, Grid, TextField } from '@material-ui/core';
 export function FormPassword(props) {
   return (
     <>
-      <div className={"form-group col-12"} hidden={props.isRegister || props.hide}>
+      <div className={"form-group col-12"} hidden={(props.isRegister || props.hide) || (props.payload&&!props.payload.isSetPassword)}>
         <Grid item xs={12}>
           <TextField
             variant="outlined"
             required={!props.isRegister && !props.hide}
             fullWidth
-            name={props.isRegister?'':'recentPassword'}
+            name={props.isRegister && props.payload && props.payload.salt && props.payload.hash?'':'recentPassword'}
             label="Recent Password"
             type="password"
-            id={props.isRegister?'':'recentPassword'}
-            value={props.isRegister?'':props.recentPassword}
-            onChange={props.isRegister?'':props.onChange}
+            id={props.isRegister && props.payload && props.payload.salt && props.payload.hash?'':'recentPassword'}
+            value={props.isRegister && props.payload && props.payload.salt && props.payload.hash?'':props.recentPassword}
+            onChange={props.isRegister && props.payload && props.payload.salt && props.payload.hash?'':props.onChange}
             autoComplete="current-password"
           />
         </Grid>

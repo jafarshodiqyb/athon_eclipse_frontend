@@ -140,15 +140,19 @@ function changePassword(body){
 function setPassword(body){
     return dispatch => {                    
         dispatch(dispatchSelector.request(body,userTypes.SETPASSWORD_REQUEST));
+        dispatch(dispatchSelector.request(body,userTypes.LOGIN_REQUEST));
         userService.setPassword(body)
             .then(
                 user => { 
                     // history.push('/login');
+                    console.log(user)
                     dispatch(dispatchSelector.success(user, userTypes.SETPASSWORD_SUCCESS));  
-                    dispatch(alertActions.success(user.message));
+                    dispatch(dispatchSelector.success(user, userTypes.LOGIN_SUCCESS)); 
+                    dispatch(alertActions.success('Your password has been set successfully'));
                 },
                 error => {
                     dispatch(dispatchSelector.failure(error, userTypes.SETPASSWORD_FAILURE));  
+                    dispatch(dispatchSelector.failure(error, userTypes.LOGIN_FAILURE));
                     dispatch(alertActions.error(error.toString()));
                     //window.location.reload()
                 }
