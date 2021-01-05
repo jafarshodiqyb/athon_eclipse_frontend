@@ -145,7 +145,6 @@ function setPassword(body){
             .then(
                 user => { 
                     // history.push('/login');
-                    console.log(user)
                     dispatch(dispatchSelector.success(user, userTypes.SETPASSWORD_SUCCESS));  
                     dispatch(dispatchSelector.success(user, userTypes.LOGIN_SUCCESS)); 
                     dispatch(alertActions.success('Your password has been set successfully'));

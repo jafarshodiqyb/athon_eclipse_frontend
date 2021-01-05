@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import { userTypes } from "./../type/user.type";
 
 export function authentication(state, action) {
-  console.log(state,action)
   switch (action.type) {
     case userTypes.LOGIN_REQUEST:
       return {

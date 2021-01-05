@@ -85,8 +85,8 @@ class HomePage extends React.Component {
     window.scrollTo(0, 0);
     // if(this.state.user)
     let cek = _.some(this.state.user, (value, i) => {
-      if (i != "password")
-        return value === undefined || value === "" || value === null;
+      // console.log(this.state.user['isSetPassword'])
+        return value === undefined || value === "" || value === null || !this.state.user['isSetPassword'];
     });
     this.setState({ checkProfile: cek });
   }
