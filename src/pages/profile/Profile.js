@@ -147,7 +147,7 @@ class Profile extends React.Component {
                     variant="h4"
                     color="textPrimary"
                     component="p"
-                    className="mt-4 text-left"
+                    className="mt-4 text-left p-4"
                   >
                     Account Overview
                   </Typography>
@@ -158,7 +158,7 @@ class Profile extends React.Component {
                     variant="h4"
                     color="textPrimary"
                     component="p"
-                    className="mt-4 text-left"
+                    className="mt-4 p-4 text-left"
                   >
                     Edit Profile
                   </Typography>
@@ -169,7 +169,7 @@ class Profile extends React.Component {
                     variant="h4"
                     color="textPrimary"
                     component="p"
-                    className="mt-4 text-left"
+                    className="mt-4 p-4 text-left"
                   >
                     Change Password
                   </Typography>

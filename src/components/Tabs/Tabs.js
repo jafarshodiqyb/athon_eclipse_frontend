@@ -11,11 +11,10 @@ export function TabPanel(props) {
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
         {...other}
+        className="w-100"
       >
         {value === index && (
-          <Box p={3}>
-            <Typography>{children}</Typography>
-          </Box>
+            <div>{children}</div>
         )}
       </div>
     );

@@ -8,7 +8,7 @@ export default function TableProfileOverview(props) {
     props.onChange(e)
   }
   return (
-    <div>
+    <div className="p-4">
       <Typography
         variant="h6"
         color="textPrimary"
