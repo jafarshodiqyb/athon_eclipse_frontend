@@ -207,7 +207,7 @@ class HomePage extends React.Component {
               <ActivityCard {...this.state} />
             </div>
             <div className="col-md-6 mt-4">
-              <Content {...this.state} />
+              <Content {...this.state} {...this.props} />
             </div>
             <div className="col-md-3 mt-4">
               <Content2 {...this.props} />

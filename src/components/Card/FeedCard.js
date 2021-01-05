@@ -17,8 +17,9 @@ import ShareIcon from '@material-ui/icons/Share';
 import * as moment from 'moment';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-
+import ReactHashtag from "react-hashtag";
 import { postsActions } from '../../store/action/post.actions';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 function FeedCard(props) {
   const classes = useStyles()
+  console.log(props)
+  // if(props.query)
   return (
     <div>
       {props.posts &&props.posts.user && props.posts.user.map((value, i) => {
@@ -43,8 +46,12 @@ function FeedCard(props) {
           <Grow in={true}>
             <Card className={classes.root + " mt-4 mb-4"} variant="outlined">
               <CardHeader
-                avatar={                    
-                    <Avatar src={value.user.image?value.user.image:'person.jpg'} aria-label="recipe" className={classes.avatar}/>
+                avatar={
+                  <Avatar
+                    src={value.user.image ? value.user.image : "person.jpg"}
+                    aria-label="recipe"
+                    className={classes.avatar}
+                  />
                 }
                 action={
                   <IconButton aria-label="settings">
@@ -56,13 +63,29 @@ function FeedCard(props) {
                 className="text-left"
               />
               <CardContent>
-                <Typography variant="h5" color="textPrimary" component="p" align="left">
-                  {value.posts.content}
+                <Typography
+                  variant="h5"
+                  color="textPrimary"
+                  component="p"
+                  align="left"
+                >
+                  <ReactHashtag
+                    renderHashtag={(hashtagValue) => (
+                      <Typography variant="h5" className="d-inline">
+                        <Link to={`/${hashtagValue}`} >
+                          {hashtagValue}
+                        </Link>
+                      </Typography>
+                      // <Link className="hashtag">{hashtagValue}</div>
+                    )}
+                  >
+                    {value.posts.content}
+                  </ReactHashtag>
                 </Typography>
               </CardContent>
               <CardMedia
-                className={value.posts.image?classes.media:""}
-                image={value.posts.image?value.posts.image:""}
+                className={value.posts.image ? classes.media : ""}
+                image={value.posts.image ? value.posts.image : ""}
                 title={value.posts.content}
                 square
               />
