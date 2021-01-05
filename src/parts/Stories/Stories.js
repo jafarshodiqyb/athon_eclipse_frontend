@@ -111,7 +111,7 @@ function Stories(props) {
         defaultInterval={1500}
         width={432}
         height={768}
-        onAllStoriesEnd={handleClose}
+        // onAllStoriesEnd={handleClose}
         keyboardNavigation={true}
         // onStoryEnd={(s, st) => console.log('story ended', s, st)}
       />
