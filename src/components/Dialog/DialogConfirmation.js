@@ -3,7 +3,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { activityActions } from '../../store/action/activity.actions';
 import { history } from '../../utils/history';
+import { profileCheck } from '../../utils/profile-checker';
 import * as _ from "lodash"
+
 function DialogConfirmation(props) {
   const handleSubmit = () =>{
     if(props.type=='link'){
@@ -26,11 +28,11 @@ function DialogConfirmation(props) {
           <DialogContent hidden={props.type=='delete'}>
             Incomplete Profile:
             <DialogContentText>
-            {_.map(props.authentication.payload, (value, i) =>{
-              if(value === undefined || value === "" || value === null || (i=='isSetPassword' && !value))
+            {_.map(profileCheck, (value, i) =>{
+              if(props.authentication.payload[value] === undefined || props.authentication.payload[value] === "" || props.authentication.payload[value] === null || (value=='isSetPassword' && !props.authentication.payload[value]))
               return (
                 <Typography variant="h6" color="initial" className="ml-3">
-                  {_.upperFirst(i=='isSetPassword'?'password':i)}
+                  {_.upperFirst(value=='isSetPassword'?'password':value)}
                 </Typography>
               )
             } )}
