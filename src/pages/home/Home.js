@@ -219,7 +219,7 @@ class HomePage extends React.Component {
         <DialogConfirmation
           open={this.state.checkProfile}
           onClose={() => this.handleOnClose("updateProfile")}
-          title="Your profile is not complete. Do you want to update?"
+          dialogTitle="Your profile is not complete. Do you want to update?"
           confirmation={{ yes: "next", no: "skip" }}
           type="link"
         />
