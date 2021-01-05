@@ -11,7 +11,8 @@ export const userActions = {
     changeImage,
     updateUser,
     getUser,
-    changePassword
+    changePassword,
+    setPassword
 };
 
 function login(username, password) {
@@ -125,10 +126,29 @@ function changePassword(body){
                 user => { 
                     // history.push('/login');
                     dispatch(dispatchSelector.success(user, userTypes.CHANGEPASSWORD_SUCCESS));  
-                    dispatch(alertActions.success('Change password successfully'));
+                    dispatch(alertActions.success(user.message));
                 },
                 error => {
                     dispatch(dispatchSelector.failure(error, userTypes.CHANGEPASSWORD_FAILURE));  
+                    dispatch(alertActions.error(error.toString()));
+                    //window.location.reload()
+                }
+            );
+    };
+}
+
+function setPassword(body){
+    return dispatch => {                    
+        dispatch(dispatchSelector.request(body,userTypes.SETPASSWORD_REQUEST));
+        userService.setPassword(body)
+            .then(
+                user => { 
+                    // history.push('/login');
+                    dispatch(dispatchSelector.success(user, userTypes.SETPASSWORD_SUCCESS));  
+                    dispatch(alertActions.success(user.message));
+                },
+                error => {
+                    dispatch(dispatchSelector.failure(error, userTypes.SETPASSWORD_FAILURE));  
                     dispatch(alertActions.error(error.toString()));
                     //window.location.reload()
                 }

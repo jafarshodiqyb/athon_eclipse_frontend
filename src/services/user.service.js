@@ -11,7 +11,8 @@ export const userService = {
     updateUser,
     getUser,
     refreshToken,
-    changePassword    
+    changePassword,
+    setPassword    
 };
 
 function login(username, password) {
@@ -112,5 +113,17 @@ function changePassword(body){
     };
     
     return fetch(`${baseUrl}/users/changepassword`, requestOptions).then(handleResponse);
+      
+}
+
+function setPassword(body){
+    const requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: { ...authHeader(),'Content-Type': 'application/json' },
+
+    };
+    
+    return fetch(`${baseUrl}/users/setpassword`, requestOptions).then(handleResponse);
       
 }
