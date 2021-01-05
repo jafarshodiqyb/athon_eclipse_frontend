@@ -21,7 +21,7 @@ function Content(props) {
   } else {
     //render hashtagpost
     content = <div>
-      
+      tobecontinued
     </div>;
   }
   return <div>{content}</div>;
