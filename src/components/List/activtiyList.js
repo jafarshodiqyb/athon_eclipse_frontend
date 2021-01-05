@@ -95,7 +95,6 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
       props.updateActivity(body)
     }
     return (
-      <div>
 
       <List className="pt-0 mt-0">
         {check.item &&
@@ -115,7 +114,7 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
                 >
             <Tooltip title="Diarium" placement="left">
 
-                  <ListItemAvatar style={{ marginLeft: "-2em" }}>
+                  <ListItemAvatar>
                     <Avatar
                       variant="square"
                       className={classes.square + " mr-2"}
@@ -138,7 +137,7 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
                   </ListItemText>
 
                   <ListItemSecondaryAction
-                    style={{ display: "flex", left: "10em" }}
+                    style={{ display: "flex"}}
                   >
                     <IconButton
                       aria-label="more"
@@ -227,7 +226,6 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
           status={status}
         />
       </List>
-      </div>
     );
   }
   const styles = makeStyles((theme) => ({
@@ -237,8 +235,8 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
       backgroundColor: theme.palette.background.paper,
     },
     tab: {
-      minWidth: "6em",
-      width: "6em",
+      minWidth: "auto",
+      width: "auto",
     },
     square: {
       color: theme.palette.getContrastText(deepOrange[500]),
@@ -247,7 +245,7 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
     },
     elipsis: {
       whiteSpace: "nowrap",
-      width: "8em",
+      width: "auto",
       overflow: "hidden",
       textOverflow: "ellipsis",
       display:"block"

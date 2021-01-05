@@ -29,13 +29,14 @@ function ActivityCard(props) {
     <div>
       <Card className={classes.root + " mt-4"} variant="outlined">
         <CardHeader title="Activity" />
-        <Divider/>
+        <Divider />
         <Paper square>
           <Tabs
             value={value}
             onChange={handleChange}
             aria-label="simple tabs example"
             indicatorColor="primary"
+            variant="fullWidth"
           >
             <Tab className={classes.tab} label="TO DO" {...a11yProps(0)} />
             <Tab className={classes.tab} label="DOING" {...a11yProps(1)} />
@@ -46,7 +47,7 @@ function ActivityCard(props) {
             value={value}
             index={0}
           >
-        <MockActivityList/>
+            <MockActivityList />
 
             <ActivityList {...props} status="todo" />
           </TabPanel>

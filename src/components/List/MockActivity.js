@@ -1,11 +1,25 @@
-import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, makeStyles, Menu, MenuItem,Tooltip, Typography} from '@material-ui/core';
-import { deepOrange } from '@material-ui/core/colors';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import * as moment from 'moment';
-import { useState } from 'react';
+import {
+  Avatar,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+  makeStyles,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
+import { deepOrange } from "@material-ui/core/colors";
+import DeleteIcon from "@material-ui/icons/Delete";
+import FlightTakeoffIcon from "@material-ui/icons/FlightTakeoff";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import * as moment from "moment";
+import { useState } from "react";
 
 export function MockActivityList() {
   const [anchorEl, setAnchorEl] = useState({});
@@ -21,7 +35,7 @@ export function MockActivityList() {
     <List className="pb-0 mb-0">
       <ListItem button>
         <Tooltip title="NDE" placement="left">
-          <ListItemAvatar style={{ marginLeft: "-2em" }}>
+          <ListItemAvatar>
             <Avatar variant="square" className={classes.square + " mr-2"}>
               N
             </Avatar>
@@ -45,7 +59,7 @@ export function MockActivityList() {
           </Typography>
         </ListItemText>
 
-        <ListItemSecondaryAction style={{ display: "flex", left: "10em" }}>
+        <ListItemSecondaryAction>
           <IconButton
             aria-label="more"
             aria-controls="long-menu"
@@ -85,7 +99,7 @@ export function MockActivityList() {
 
       <ListItem button>
         <Tooltip title="SPPD" placement="left">
-          <ListItemAvatar style={{ marginLeft: "-2em" }}>
+          <ListItemAvatar>
             <Avatar variant="square" className={classes.square + " mr-2"}>
               <FlightTakeoffIcon />
             </Avatar>
@@ -111,7 +125,7 @@ export function MockActivityList() {
           </Typography>
         </ListItemText>
 
-        <ListItemSecondaryAction style={{ display: "flex", left: "10em" }}>
+        <ListItemSecondaryAction>
           <IconButton
             aria-label="more"
             aria-controls="long-menu"
@@ -160,7 +174,7 @@ const styles = makeStyles((theme) => ({
   },
   elipsis: {
     whiteSpace: "nowrap",
-    width: "8em",
+    minWidth: "auto",
     overflow: "hidden",
     textOverflow: "ellipsis",
     display: "block",
