@@ -37,11 +37,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 function FeedCard(props) {
   const classes = useStyles()
-  console.log(props)
-  // if(props.query)
   return (
     <div>
-      {props.posts &&props.posts.user && props.posts.user.map((value, i) => {
+      {props.feed && props.feed.map((value, i) => {
         return (
           <Grow in={true}>
             <Card className={classes.root + " mt-4 mb-4"} variant="outlined">

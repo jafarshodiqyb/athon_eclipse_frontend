@@ -6,23 +6,30 @@ import { PostFeed } from "../../../components/Form/PostFeed";
 import { storiesActions } from "../../../store/action/stories.actions";
 import { userActions } from "../../../store/action/user.actions";
 import queryString from "query-string";
-
+import * as _ from "lodash";
+import { SearchBar } from "../../../components/Search/SearchBar";
 function Content(props) {
   let params = props.location.hash;
   let content;
+  let feed = props.posts.user
   if (!params) {
     content = (
       <div>
         <StoriesFeed {...props} />
         <PostFeed {...props} />
-        <FeedCard {...props} />
+        <FeedCard feed={feed} />
       </div>
     );
-  } else {
-    //render hashtagpost
-    content = <div>
-      tobecontinued
-    </div>;
+  } else if (props.posts && params) {
+    const filterHashtag = _.filter(props.posts.user, function (item) {
+      return item.posts.content.indexOf(params) > -1;
+    });
+    content = (
+      <div>
+        <SearchBar value={params} {...props}/>
+        <FeedCard feed={filterHashtag} />
+      </div>
+    );
   }
   return <div>{content}</div>;
 }
