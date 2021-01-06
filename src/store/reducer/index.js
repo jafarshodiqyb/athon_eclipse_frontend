@@ -7,6 +7,7 @@ import { loadingReducer } from './loading.reducer';
 import { posts } from './posts.reducer';
 import { registration } from './register.reducer';
 import { stories } from './stories.reducer';
+import { hashtag } from './hashtag.reducer';
 
 
 
@@ -19,7 +20,8 @@ const appReducer = combineReducers({
   activities,
   stories,
   loadingReducer,
-  posts
+  posts,
+  hashtag
 });
 
 const rootReducer = (state, action) => {
