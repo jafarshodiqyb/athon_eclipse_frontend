@@ -32,7 +32,6 @@ function afterfound(posts) {
                 while ((match = regex.exec(value.posts.content))) {
                   const hashtag = match[0];
                   let index = _.findIndex(find,function(o) { return o.hashtag == hashtag; })
-                  console.log(index)
                   if (index !== -1 ) {
                     find[index].count = find[index].count + 1;
                     // find[hashtag].count = find[hashtag].count++;

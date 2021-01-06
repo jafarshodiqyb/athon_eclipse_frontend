@@ -46,7 +46,6 @@ const styles = (theme) => ({
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props)
     const data = this.props;
     this.state = {
       username: data.authentication.payload.username,
@@ -103,7 +102,6 @@ class Profile extends React.Component {
 
   render() {
     const {classes } = this.props;
-    console.log(this.props)
     return (
       <div>
         {this.props.hashtag && <TopBar {...this.props} />}
