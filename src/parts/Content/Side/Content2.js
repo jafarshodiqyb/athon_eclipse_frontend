@@ -39,28 +39,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Content2(props) {
   const classes = useStyles();
-  const regex = hashtagRegex();
-  let match;
-  let find = {};
-  if(props.posts && props.posts.user){
-    props.posts.user.map((value, i) => {
-      while ((match = regex.exec(value.posts.content))) {
-        const hashtag = match[0];
-        if (!_.isEmpty(find) && find[hashtag]) {
-          find[hashtag].count = find[hashtag].count + 1;
-          // find[hashtag].count = find[hashtag].count++;
-        } else {
-          find[hashtag] = {
-            hashtag: hashtag,
-            count: 1,
-          };
-        }
-      }
-    });
-    
-  }
   let data = []
-    data = _.slice(_.orderBy(_.toArray(_.forOwn(find)), ['count'], ['desc']),0,5);
+    data = _.slice(_.orderBy((_.forOwn(props.hashtag.item)), ['count'], ['desc']),0,5);
   return (
     <div>
       <Card className={classes.root + "d-flex"} variant="outlined">
@@ -75,7 +55,7 @@ export default function Content2(props) {
                     color="primary"
                     label={value.hashtag}
                     component="a"
-                    href="#"
+                    href={value.hashtag}
                     clickable
                   />
                 );
