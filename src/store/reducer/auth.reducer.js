@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 
 import { userTypes } from "./../type/user.type";
-
 export function authentication(state, action) {
   switch (action.type) {
     case userTypes.LOGIN_REQUEST:
@@ -58,10 +57,10 @@ function verifyToken(data) {
     data,
     "12345-67890-09876-54321",
     function (err, decoded) {
-      if (err) {
+      if (err &&data) {
         // let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
         // if(!params.token){
-        // alert('Sesi habis silahkan login kembali!')
+        alert('Sesi habis silahkan login kembali!')
         localStorage.removeItem("token");
         // }
       } else if (decoded) {
