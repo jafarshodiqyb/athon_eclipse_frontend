@@ -17,43 +17,63 @@ import SearchIcon from "@material-ui/icons/Search";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Autocomplete } from "@material-ui/lab";
 import { useState } from "react";
-import * as _ from 'lodash'
+import * as _ from "lodash";
 import { history } from "../../utils/history";
 
 export function SearchBar(props) {
-  const classes = useStyles()
+  const classes = useStyles();
   const [value, setValue] = useState(props.value);
   const [inputValue, setInputValue] = useState("");
   return (
     <div className={classes.search}>
-      <IconButton hidden={props.hide} onClick={()=>history.push('/')} aria-label="add to favorites" className="mr-4">
-        <ArrowBackIcon  />
+      <IconButton
+        hidden={props.hide}
+        onClick={() => history.push("/")}
+        aria-label="add to favorites"
+        className="mr-4"
+      >
+        <ArrowBackIcon />
       </IconButton>
       <Autocomplete
         value={value}
-        onChange={(event, newValue,reason) => {
-          setValue(newValue)
-          console.log(newValue,reason)
-          if(reason==='select-option' ){
-            history.push("/"+newValue)
-          }   
+        onChange={(event, newValue, reason) => {
+          setValue(newValue);
+          if (reason === "select-option") {
+            history.push("/" + newValue);
+          }
         }}
-        // inputValue={inputValue}
-        // onInputChange={(event, newInputValue,reason) => {
-        //   setInputValue(newInputValue)
-        //   console.log('i',newInputValue,reason)
-        //   if(reason==='select-option'){
-        //     history.push("/"+inputValue)
-        //   }   
-        // }}
         id="controllable-states-demo"
-        options={_.map(props.hashtag.item, 'hashtag')}
-        // options={options}
-        // style={{ width: 300 }}
+        options={_.map(props.hashtag.item, "hashtag")}
         fullWidth
-        renderInput={(params) => (
-          <TextField {...params} label="Search" variant="outlined" />
-        )}
+        renderInput={(params) =>
+          props.hide ? (
+            <div ref={params.InputProps.ref}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                {...params.inputProps}
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
+            </div>
+          ) : (
+            <TextField
+              {...params}
+              color="primary"
+              label="Search"
+              variant={props.hide ? "filled" : "outlined"}
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+            />
+          )
+        }
       />
     </div>
   );
@@ -61,16 +81,17 @@ export function SearchBar(props) {
 
 const useStyles = makeStyles((theme) => ({
   search: {
-    display : 'flex',
+    display: "flex",
     position: "relative",
-    borderRadius: theme.shape.borderRadius,
+    // borderRadius: theme.shape.borderRadius,
+    color: "white",
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
     marginLeft: 0,
-    width: "100%",
+    // width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
       width: "auto",
