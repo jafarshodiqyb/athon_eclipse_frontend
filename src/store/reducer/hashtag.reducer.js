@@ -2,7 +2,6 @@ import { hashtagTypes } from '../type/hashtag.type';
 import { alertTypes } from './../type/alert.type';
 
 export function hashtag(state = {}, action) {
-    console.log(state,action)
   switch (action.type) {
     case hashtagTypes.HASHTAG_REQUEST:
       return {
