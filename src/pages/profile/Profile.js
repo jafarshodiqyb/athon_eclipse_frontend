@@ -16,6 +16,7 @@ import { FormRegister } from './../../components/Form/FormRegister';
 import ChatBar from './../../parts/ChatBar/ChatBar';
 import { userActions } from './../../store/action/user.actions';
 import * as _  from "lodash"
+import { postsActions } from '../../store/action/post.actions';
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -45,6 +46,7 @@ const styles = (theme) => ({
 class Profile extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props)
     const data = this.props;
     this.state = {
       username: data.authentication.payload.username,
@@ -93,13 +95,18 @@ class Profile extends React.Component {
     if(nextState.users && nextState.users.payload) this.setState({ image : nextState.authentication.payload.image})
   }
 
+  componentDidMount() {
+    this.props.getAllposts();
+    this.forceUpdate();
+    window.scrollTo(0, 0);
+  }
 
   render() {
     const {classes } = this.props;
-
+    console.log(this.props)
     return (
       <div>
-        <TopBar />
+        {this.props.hashtag && <TopBar {...this.props} />}
         <div className="container">
           <div className="row">
             <div className="col-md-4 mt-4">
@@ -188,15 +195,15 @@ class Profile extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  authentication: state.authentication,
-  users: state.users,
-});
+function mapStateToProps(state) {
+  return state;
+}
 
 const mapDispatchToProps  = {
   updateUser : userActions.updateUser,
   changePassword:userActions.changePassword,
-  setPassword:userActions.setPassword
+  setPassword:userActions.setPassword,
+  getAllposts: postsActions.getAllposts,
 
 };
 

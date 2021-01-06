@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { userActions } from '../../store/action/user.actions';
+import { history } from '../../utils/history';
 
 const styles = makeStyles((theme) => ({
   root: {
@@ -46,8 +47,7 @@ function ProfileCard(props) {
         className="p-0"
         color="primary"
         aria-label="upload picture"
-        component={Link}
-        to="/profile"
+        onClick={()=> history.push('/profile')}
       >
         <Avatar
           src={payload ? payload.image : "person.jpg"}

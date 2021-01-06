@@ -138,7 +138,7 @@ class HomePage extends React.Component {
 
     return (
       <div>
-        <TopBar />
+        <TopBar {...this.props} />
         <div className="container">
           <div className="row">
             <div className="col-md-3 mt-4">
