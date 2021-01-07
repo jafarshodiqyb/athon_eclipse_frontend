@@ -86,6 +86,10 @@ class LoginPage extends React.Component {
   googleLogIn(){
     window.open("http://localhost:3000/users/auth/google","_self");
   }
+
+  facebookLogin(){
+    window.open("http://localhost:3000/users/auth/facebook","_self");
+  }
   componentWillMount(){
     if(this.props.location.pathname.length>7){
       let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
@@ -244,7 +248,7 @@ class LoginPage extends React.Component {
                       variant="text"
                       // size="small"
                       color="default"
-                      // onClick={this.googleLogIn}
+                      onClick={this.facebookLogin}
                       className="mt-2"
                     >
                       <Avatar src="facebook.png" />
@@ -253,7 +257,7 @@ class LoginPage extends React.Component {
                       variant="text"
                       // size="small"
                       color="default"
-                      // onClick={this.googleLogIn}
+                      // onClick={this.facebookLogin}
                       className="mt-2"
                       >
                     
