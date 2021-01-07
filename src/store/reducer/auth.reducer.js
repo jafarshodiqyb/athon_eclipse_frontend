@@ -68,5 +68,5 @@ function verifyToken(data) {
       }
     }
   );
-  return data ? (token._doc ? token._doc : token[0]) : {};
+  return (typeof token !="undefined" && data) ? (token._doc ? token._doc : token[0]) : {};
 }
