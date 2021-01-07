@@ -75,12 +75,9 @@ class HomePage extends React.Component {
       checkProfile: false,
     };
     this.handleOnClose.bind(this);
-    this.handleScroll.bind(this);
   }
 
   componentDidMount() {
-    console.log(window.document.getElementById("sticky-top"))
-    window.document.getElementById("sticky-top").addEventListener("scroll", this.handleScroll);
     this.props.getAllStories();
     this.props.getAllposts();
     this.props.getCheckin(this.props.authentication.payload._id);
@@ -98,16 +95,7 @@ class HomePage extends React.Component {
     });
     this.setState({ checkProfile: cek });
   }
-  componentWillUnmount() {
-    window.document.getElementById("sticky-top").removeEventListener("scroll", this.handleScroll);
-  }
-
-  handleScroll(event) {
-    console.log(event)
-    let scrollTop = event,
-      itemTranslate = Math.min(0, scrollTop / 3 - 60);
-
-  }
+ 
   checkin() {
     return (e) => this.props.checkin(this.props.authentication.payload._id);
   }
@@ -156,10 +144,10 @@ class HomePage extends React.Component {
     return (
       <div>
         <TopBar {...this.props} />
-        <div className="container" style={{ marginTop: "4em" }}  id="sticky-top">
+        <div className="container" style={{marginTop:'5em'}}>
           <div className="row">
             <div className="col-md-3 mt-4">
-              <div className="sticky-top">
+              <div>
                 <ProfileCard {...user} readOnly={true} />
                 <Card className={" mt-4"} variant="outlined">
                   <div className="pl-4 pt-2">
