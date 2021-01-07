@@ -94,7 +94,10 @@ function PostFeed(props) {
               name="content"
               value={data.content}
               onChange={handleChange}
+              multiline
               fullWidth
+              rows={3}
+              rowsMax={7}
             />
           </CardContent>
           <CardActions className="mb-2 d-block">
@@ -113,28 +116,28 @@ function PostFeed(props) {
               <MenuItem value={20}>Private</MenuItem>
             </Select>
           </FormControl> */}
-          <div className="float-left mb-2">
-            <input
-              accept="image/*"
-              className="d-none"
-              id="icon-button-file-upload"
-              type="file"
-              onChange={selectImage}
-            />
-            <label htmlFor="icon-button-file-upload">
-              <IconButton
-                color="primary"
-                aria-label="upload picture post"
-                component="span"
-              disabled={data.content===""}
-              >
-                <PhotoCamera />
-              </IconButton>
-            </label>
-            <Typography variant="caption" color="initial">
-              {data.image?data.image.name:''}
-            </Typography>
-          </div>
+            <div className="float-left mb-2">
+              <input
+                accept="image/*"
+                className="d-none"
+                id="icon-button-file-upload"
+                type="file"
+                onChange={selectImage}
+              />
+              <label htmlFor="icon-button-file-upload">
+                <IconButton
+                  color="primary"
+                  aria-label="upload picture post"
+                  component="span"
+                  disabled={data.content === ""}
+                >
+                  <PhotoCamera />
+                </IconButton>
+              </label>
+              <Typography variant="caption" color="initial">
+                {data.image ? data.image.name : ""}
+              </Typography>
+            </div>
             <Button
               //   onClick={this.handleSubmit}
               variant="contained"
@@ -142,7 +145,7 @@ function PostFeed(props) {
               startIcon={<CreateIcon />}
               className="float-right mb-2"
               onClick={handlePost}
-              disabled={data.content===""}
+              disabled={data.content === ""}
             >
               Post
             </Button>
