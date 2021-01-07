@@ -34,15 +34,18 @@ function getAllposts() {
 function postFeed(body) {
     return dispatch => {                    
         dispatch(dispatchSelector.request(body,postsTypes.POSTPOSTS_REQUEST));
+        dispatch(dispatchSelector.request(null,hashtagTypes.HASHTAG_REQUEST));
         postsService.postFeed(body)
             .then(
                 posts => { 
                     dispatch(dispatchSelector.success(posts,postsTypes.POSTPOSTS_SUCCESS));
+                    dispatch(dispatchSelector.success(posts,hashtagTypes.HASHTAG_SUCCESS));
                     dispatch(alertActions.success('Post feed successful'));
 
                 },
                 error => {
-                    dispatch(dispatchSelector.failure(error,postsTypes.POSTPOSTS_FAILURE));                    
+                    dispatch(dispatchSelector.failure(error,postsTypes.POSTPOSTS_FAILURE));   
+                    dispatch(dispatchSelector.failure(error,hashtagTypes.HASHTAG_FAILURE));
                     dispatch(alertActions.error(error.toString()));
                 }
             );
