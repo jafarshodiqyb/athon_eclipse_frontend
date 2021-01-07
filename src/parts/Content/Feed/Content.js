@@ -22,7 +22,7 @@ function Content(props) {
     );
   } else if (props.posts && params) {
     const filterHashtag = _.filter(props.posts.user, function (item) {
-      return item.posts.content.indexOf(params) > -1;
+      return item.posts.content.toLowerCase().indexOf(params.toLowerCase()) > -1;
     });
     content = (
       <div>
