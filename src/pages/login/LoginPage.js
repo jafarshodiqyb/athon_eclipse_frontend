@@ -253,7 +253,7 @@ class LoginPage extends React.Component {
                     >
                       <Avatar src="facebook.png" />
                     </IconButton>
-                    <IconButton
+                    {/* <IconButton
                       variant="text"
                       // size="small"
                       color="default"
@@ -262,7 +262,7 @@ class LoginPage extends React.Component {
                       >
                     
                       <Avatar src="twitter.png" />
-                    </IconButton>
+                    </IconButton> */}
                   </div>
                   <Box mt={5}>
                     <Copyright />
