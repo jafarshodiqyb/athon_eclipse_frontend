@@ -19,7 +19,8 @@ export function posts(state = {}, action) {
         // user: action.payload
       };
     case postsTypes.POSTPOSTS_SUCCESS:
-      return Object.assign({}, state, { user: action.payload })
+      return { ...state,
+        user: action.payload}
     case postsTypes.POSTPOSTS_FAILURE:
       return {};
     default:
