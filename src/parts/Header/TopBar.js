@@ -180,8 +180,8 @@ export default function PrimarySearchAppBar(props) {
   );
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="static">
+    <div className={classes.grow + " mb-4"} >
+      <AppBar position="fixed">
         <Toolbar>
           {/* <IconButton
             edge="start"

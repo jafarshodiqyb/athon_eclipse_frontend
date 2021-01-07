@@ -42,7 +42,7 @@ export default function Content2(props) {
   let data = []
     data = _.slice(_.orderBy((_.forOwn(props.hashtag.item)), ['count'], ['desc']),0,5);
   return (
-    <div>
+    <div className="sticky-top">
       <Card className={classes.root + "d-flex"} variant="outlined">
         <CardHeader title="Trending #Hashtags" />
         <Divider/>

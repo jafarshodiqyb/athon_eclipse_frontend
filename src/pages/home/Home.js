@@ -75,9 +75,12 @@ class HomePage extends React.Component {
       checkProfile: false,
     };
     this.handleOnClose.bind(this);
+    this.handleScroll.bind(this);
   }
 
   componentDidMount() {
+    console.log(window.document.getElementById("sticky-top"))
+    window.document.getElementById("sticky-top").addEventListener("scroll", this.handleScroll);
     this.props.getAllStories();
     this.props.getAllposts();
     this.props.getCheckin(this.props.authentication.payload._id);
@@ -86,11 +89,25 @@ class HomePage extends React.Component {
     // if(this.state.user)
     let cek = _.some(this.state.user, (value, i) => {
       // console.log(this.state.user['isSetPassword'])
-        return value === undefined || value === "" || value === null || !this.state.user['isSetPassword'];
+      return (
+        value === undefined ||
+        value === "" ||
+        value === null ||
+        !this.state.user["isSetPassword"]
+      );
     });
     this.setState({ checkProfile: cek });
   }
+  componentWillUnmount() {
+    window.document.getElementById("sticky-top").removeEventListener("scroll", this.handleScroll);
+  }
 
+  handleScroll(event) {
+    console.log(event)
+    let scrollTop = event,
+      itemTranslate = Math.min(0, scrollTop / 3 - 60);
+
+  }
   checkin() {
     return (e) => this.props.checkin(this.props.authentication.payload._id);
   }
@@ -139,72 +156,80 @@ class HomePage extends React.Component {
     return (
       <div>
         <TopBar {...this.props} />
-        <div className="container">
+        <div className="container" style={{ marginTop: "4em" }}  id="sticky-top">
           <div className="row">
             <div className="col-md-3 mt-4">
-              <ProfileCard {...user} readOnly={true} />
-              <Card className={" mt-4"} variant="outlined">
-                <div className="pl-4 pt-2">
-                  <Typography component="h6" variant="h6" align="left">
-                    {title}
-                  </Typography>
-                  <Typography
-                    variant="subtitle2"
-                    color="textSecondary"
-                    align="left"
-                  >
-                    {date}
-                  </Typography>
-                </div>
-                {/* <InfoTitle>50 Days of Premium!</InfoTitle>
+              <div className="sticky-top">
+                <ProfileCard {...user} readOnly={true} />
+                <Card className={" mt-4"} variant="outlined">
+                  <div className="pl-4 pt-2">
+                    <Typography component="h6" variant="h6" align="left">
+                      {title}
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      color="textSecondary"
+                      align="left"
+                    >
+                      {date}
+                    </Typography>
+                  </div>
+                  {/* <InfoTitle>50 Days of Premium!</InfoTitle>
                     <InfoSubtitle>Get it before 01.01.2020</InfoSubtitle> */}
-                <div className="float-right pr-2 pb-2 mt-2">
-                  <SpinnerWrapper
-                    style={{
-                      position: "absolute",
-                      zIndex: "1",
-                      paddingLeft: "8%",
-                      "margin-top": "-5%",
-                    }}
-                  >
-                    <FireworkSpinner
-                      size={60}
-                      color="red"
-                      loading={isNotCheckinToday}
-                    />
-                  </SpinnerWrapper>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    className={classes.button}
-                    startIcon={<InputIcon />}
-                    size="small"
-                    style={{ zIndex: 2 }}
-                    onClick={
-                      _.isEmpty(check) ||
+                  <div className="float-right pr-2 pb-2 mt-2">
+                    <SpinnerWrapper
+                      style={{
+                        position: "absolute",
+                        zIndex: "1",
+                        paddingLeft: "8%",
+                        "margin-top": "-5%",
+                      }}
+                    >
+                      <FireworkSpinner
+                        size={60}
+                        color="red"
+                        loading={isNotCheckinToday}
+                      />
+                    </SpinnerWrapper>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      className={classes.button}
+                      startIcon={<InputIcon />}
+                      size="small"
+                      style={{ zIndex: 2 }}
+                      onClick={
+                        _.isEmpty(check) ||
+                        (check &&
+                          check.item &&
+                          !moment(check.item.lastCheckIn).isSame(
+                            moment(),
+                            "day"
+                          ))
+                          ? this.checkin()
+                          : this.checkout()
+                      }
+                      disabled={
+                        check.item &&
+                        moment(check.item.lastCheckIn).isSame(
+                          moment(),
+                          "day"
+                        ) &&
+                        moment(check.item.lastCheckOut).isSame(moment(), "day")
+                      }
+                    >
+                      {_.isEmpty(check) ||
                       (check &&
                         check.item &&
                         !moment(check.item.lastCheckIn).isSame(moment(), "day"))
-                        ? this.checkin()
-                        : this.checkout()
-                    }
-                    disabled={
-                      check.item &&
-                      moment(check.item.lastCheckIn).isSame(moment(), "day") &&
-                      moment(check.item.lastCheckOut).isSame(moment(), "day")
-                    }
-                  >
-                    {_.isEmpty(check) ||
-                    (check &&
-                      check.item &&
-                      !moment(check.item.lastCheckIn).isSame(moment(), "day"))
-                      ? "CHECKIN"
-                      : "CHECKOUT"}
-                  </Button>
-                </div>
-              </Card>
+                        ? "CHECKIN"
+                        : "CHECKOUT"}
+                    </Button>
+                  </div>
+                </Card>
 
-              <ActivityCard {...this.state} />
+                <ActivityCard {...this.state} />
+              </div>
             </div>
             <div className="col-md-6 mt-4">
               <Content {...this.state} {...this.props} />
