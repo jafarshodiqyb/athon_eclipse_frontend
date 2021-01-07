@@ -96,7 +96,7 @@ function PostFeed(props) {
               onChange={handleChange}
               multiline
               fullWidth
-              rows={3}
+              // rows={3}
               rowsMax={7}
             />
           </CardContent>
