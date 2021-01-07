@@ -65,6 +65,7 @@ function FeedCard(props) {
                   variant="h5"
                   color="textPrimary"
                   component="p"
+                  style={{whiteSpace: 'pre-line'}}
                   align="left"
                 >
                   <ReactHashtag
