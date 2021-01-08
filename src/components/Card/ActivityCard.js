@@ -8,7 +8,7 @@ import { userActions } from '../../store/action/user.actions';
 import { DialogAddEdit } from '../Dialog/DialogAddEdit';
 import { MockActivityList } from '../List/MockActivity';
 import { a11yProps, TabPanel } from '../Tabs/Tabs';
-import ActivityList from './../List/ActivtiyList'
+import ActivityList from '../List/ActivtiyLists'
 function ActivityCard(props) {
   const { check } = props;
   const [value, setValue] = useState(0);
