@@ -1,6 +1,7 @@
-import {baseUrl} from '../helpers/baseURL'
-import { authHeader } from '../helpers/auth-header';
-import {userService} from './user.service'
+import { authHeader } from '../utils/auth-header';
+import { baseUrl } from '../utils/baseURL';
+import { handleResponse } from './../utils/handleResponse';
+
 export const checkServices = {
     checkin,
     getCheckin,
@@ -10,54 +11,34 @@ export const checkServices = {
 
 
 
-function checkin(user) {
-    let userTemp = {username : user}
+function checkin(id) {
+    let userTemp = {user : id}
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(),'Content-Type': 'application/json' },
         body: JSON.stringify(userTemp)
     };
 
-    return fetch(`${baseUrl}/check/checkin`, requestOptions).then(userService.handleResponse);
+    return fetch(`${baseUrl}/check/checkin`, requestOptions).then(handleResponse);
 }
 
-function getCheckin(user) {
+function getCheckin(id) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${baseUrl}/check/checkin/${user}`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/check/checkin/${id}`, requestOptions).then(handleResponse);
 }
 
 
-function checkout(user) {
-    let userTemp = {username : user}
+function checkout(id) {
+    let userTemp = {user : id}
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(),'Content-Type': 'application/json' },
         body: JSON.stringify(userTemp)
     };
 
-    return fetch(`${baseUrl}/check/checkout`, requestOptions).then(userService.handleResponse);
-}
-
-function handleResponse(response) {
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
-        if (!response.ok) {
-            if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                userService.logout();
-                //window.location.reload();
-                
-                // location.reload(true);
-            }
-
-            const error = (data &&  data.message) || data.err.message || response.statusText;
-            return Promise.reject(error);
-        }
-        
-        return data;
-    });
+    return fetch(`${baseUrl}/check/checkout`, requestOptions).then(handleResponse);
 }
