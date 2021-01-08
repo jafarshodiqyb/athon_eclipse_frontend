@@ -91,20 +91,21 @@ class LoginPage extends React.Component {
     window.open(process.env.REACT_APP_SERVER_URL+"http://localhost:3000/users/auth/facebook","_self");
   }
   componentWillMount(){
-    if(this.props.location.pathname.length>7){
-      let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
-      if(params.token){
-        jwt.verify(params.token, '12345-67890-09876-54321', function(err, decoded) {
-          if (err) {
-            window.open("/login","_self")            
-          } else if (decoded) {
-          localStorage.setItem('token', JSON.stringify(params.token));
-          window.open("/","_self")
-        }
-        });
+    console.log(this.props)
+    // if(this.props.location.pathname.length>7){
+    //   let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
+    //   if(params.token){
+    //     jwt.verify(params.token, '12345-67890-09876-54321', function(err, decoded) {
+    //       if (err) {
+    //         window.open("/login","_self")            
+    //       } else if (decoded) {
+    //       localStorage.setItem('token', JSON.stringify(params.token));
+    //       window.open("/","_self")
+    //     }
+    //     });
       
-      }     
-    } else this.props.logout();
+    //   }     
+    // } else this.props.logout();
   }
 
   handleClickShowPassword(e) {
