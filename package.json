@@ -25,7 +25,7 @@
     "react-insta-stories": "^2.1.2",
     "react-redux": "^4.4.8",
     "react-router": "^v4.1.1",
-    "react-router-dom": "^v4.1.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "4.0.1",
     "react-spinners-kit": "^1.9.1",
     "react-window": "^1.8.6",
