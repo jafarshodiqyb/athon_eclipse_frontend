@@ -46,7 +46,7 @@ export function authentication(state, action) {
     default:
       return {
         ...state,
-        payload: verifyToken(JSON.parse(localStorage.getItem("token")|| [])),
+        payload: verifyToken(JSON.parse(localStorage.getItem("token")||null)),
       };
   }
 }
