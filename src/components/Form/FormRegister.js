@@ -49,22 +49,22 @@ function FormRegister(props) {
   });
   const [submitted, setSubmitted] = React.useState(false);
 
-  useEffect(() => {
-    if (props.hide) {
-      setUser((prevState) => ({
-        ...prevState,
-        id: props.authentication.payload._id,
-        username: props.authentication.payload.username,
-        firstName: props.authentication.payload.firstName,
-        lastName: props.authentication.payload.lastName,
-        email: props.authentication.payload.email,
-        job: props.authentication.payload.job,
-        address: props.authentication.payload.address,
-        motto: props.authentication.payload.motto,
+  // useEffect(() => {
+  //   if (props.hide) {
+  //     setUser((prevState) => ({
+  //       ...prevState,
+  //       id: props.authentication.payload._id,
+  //       username: props.authentication.payload.username,
+  //       firstName: props.authentication.payload.firstName,
+  //       lastName: props.authentication.payload.lastName,
+  //       email: props.authentication.payload.email,
+  //       job: props.authentication.payload.job,
+  //       address: props.authentication.payload.address,
+  //       motto: props.authentication.payload.motto,
 
-      }));
-    }
-  }, []);
+  //     }));
+  //   }
+  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
