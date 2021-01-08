@@ -84,11 +84,11 @@ class LoginPage extends React.Component {
     }
   }
   googleLogIn(){
-    window.open("http://localhost:3000/users/auth/google","_self");
+    window.open(process.env.REACT_APP_SERVER_URL+"/users/auth/google","_self");
   }
 
   facebookLogin(){
-    window.open("http://localhost:3000/users/auth/facebook","_self");
+    window.open(process.env.REACT_APP_SERVER_URL+"http://localhost:3000/users/auth/facebook","_self");
   }
   componentWillMount(){
     if(this.props.location.pathname.length>7){
