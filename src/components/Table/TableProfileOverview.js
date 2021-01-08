@@ -1,7 +1,6 @@
 import { Button, Divider, Typography } from '@material-ui/core';
 import * as React from 'react';
 
-// import { DataGrid } from '@material-ui/data-grid';
 export default function TableProfileOverview(props) {
   const {payload} = props.authentication
   const moveToEdit = (e) =>{

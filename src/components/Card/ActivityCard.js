@@ -80,12 +80,11 @@ function ActivityCard(props) {
 const styles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    //   maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
     borderRadius: "50%",
     margin: "22%",
     marginTop: "10%",

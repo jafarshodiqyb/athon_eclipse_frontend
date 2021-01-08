@@ -38,7 +38,7 @@ const styles = (theme) => ({
         backgroundColor: theme.palette.secondary.main,
       },
       form: {
-        width: '100%', // Fix IE 11 issue.
+        width: '100%', 
         marginTop: theme.spacing(1),
       },
       submit: {
@@ -55,7 +55,6 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
-    // reset login status
     this.state = {
       username: "",
       password: "",
@@ -111,7 +110,6 @@ class LoginPage extends React.Component {
     this.setState({
       showPassword: !this.state.showPassword,
     });
-    // setValues({ ...values, showPassword: !values.showPassword });
   }
 
   handleMouseDownPassword(event) {
@@ -151,11 +149,9 @@ class LoginPage extends React.Component {
                     <div className="help-block">Username is required</div>
                   )}
                   <TextField
-                    //   variant="outlined"
                     className={classes.textField}
                     margin="normal"
                     required
-                    // fullWidth
                     id="username"
                     label="Username"
                     name="username"
@@ -177,14 +173,12 @@ class LoginPage extends React.Component {
                   <TextField
                     margin="normal"
                     required
-                    // fullWidth
                     className={classes.textField}
                     label="Password"
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={password}
                     onChange={this.handleChange}
-                    // fullWidth={true}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -199,13 +193,11 @@ class LoginPage extends React.Component {
                         </InputAdornment>
                       ),
                     }}
-                    // labelWidth={70}
                   />
                 </div>
                 <div className="form-group">
                   <Button
                     type="submit"
-                    // fullWidth
                     variant="contained"
                     color="primary"
                     className={classes.submit}
@@ -237,7 +229,6 @@ class LoginPage extends React.Component {
                   <div className="container">
                     <IconButton
                       variant="text"
-                      // size="small"
                       color="default"
                       onClick={this.googleLogIn}
                       className="mt-2"
@@ -246,23 +237,13 @@ class LoginPage extends React.Component {
                     </IconButton>
                     <IconButton
                       variant="text"
-                      // size="small"
                       color="default"
                       onClick={this.facebookLogin}
                       className="mt-2"
                     >
                       <Avatar src="facebook.png" />
                     </IconButton>
-                    {/* <IconButton
-                      variant="text"
-                      // size="small"
-                      color="default"
-                      // onClick={this.facebookLogin}
-                      className="mt-2"
-                      >
-                    
-                      <Avatar src="twitter.png" />
-                    </IconButton> */}
+
                   </div>
                   <Box mt={5}>
                     <Copyright />
@@ -288,8 +269,7 @@ const mapDispatchToProps = {
 export default compose(
     connect(
       mapStateToProps,
-      // mapStateToPropsToProps,
-      mapDispatchToProps // or put null here if you do not have actions to dispatch
+      mapDispatchToProps 
     ),
     withStyles(styles)
   )(LoginPage);

@@ -7,8 +7,7 @@ import { compose } from 'redux';
 import { activityActions } from '../../store/action/activity.actions';
 
 const contentStyle = {
-  // background: 'salmon',
-  // width: "100%",
+
   padding: 20,
   color: "white",
   backgroundRepeat: "no-repeat",
@@ -20,7 +19,6 @@ const SmallAvatar = withStyles((theme) => ({
   root: {
     width: 15,
     height: 15,
-    // border: `2px solid ${theme.palette.background.paper}`,
   },
 }))(Avatar);
 
@@ -59,7 +57,6 @@ function Stories(props) {
                 className="p-0"
                 aria-label="upload picture" 
                 component="span"
-                // onClick={addStory}
                 key={i}
                 style={{ zIndex: 1000 }}
                 disabled={
@@ -105,15 +102,12 @@ function Stories(props) {
       open={open}
     >
       <ReactInstaStories
-        // stories={props.userStories.stories}
         loop
         stories={stories}
         defaultInterval={1500}
         width={432}
         height={768}
-        // onAllStoriesEnd={handleClose}
         keyboardNavigation={true}
-        // onStoryEnd={(s, st) => console.log('story ended', s, st)}
       />
     </Dialog>
   );
@@ -128,13 +122,11 @@ const mapDispatchToProps = {
   deleteActivity: activityActions.deleteActivity,
 };
 
-// const connectedDialog = connect(mapStateToProps, mapDispatchToProps)(Stories);
-// export { connectedDialog as Stories };
+
 export default compose(
   connect(
     mapStateToProps,
-    // mapStateToProps,
-    mapDispatchToProps// or put null here if you do not have actions to dispatch
+    mapDispatchToProps
   ),
   withStyles(useStyles)
 )(Stories);

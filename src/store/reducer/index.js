@@ -14,7 +14,6 @@ import { hashtag } from './hashtag.reducer';
 const appReducer = combineReducers({
   authentication,
   registration,
-  // users,
   alert,
   check,
   activities,
@@ -25,7 +24,6 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  // when a logout action is dispatched it will reset redux state
   if (action.type === 'USERS_LOGOUT') {
     state = undefined;
   }

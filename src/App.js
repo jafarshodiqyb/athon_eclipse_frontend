@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom';
 import Main from './pages/main';
 import { store } from './store/configureStore';
 
-// const store = store();
 const notistackRef = React.createRef()
 class App extends Component {
   constructor(props) {

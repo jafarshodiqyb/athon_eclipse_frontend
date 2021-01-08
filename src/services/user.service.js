@@ -25,7 +25,6 @@ function login(username, password) {
     return fetch(`${baseUrl}/users/login`, requestOptions)
         .then(handleResponse)
         .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('token', JSON.stringify(user.token));
 
             return user;
@@ -33,7 +32,6 @@ function login(username, password) {
 }
 
 function logout() {
-    // remove user from local storage to log user out
     localStorage.removeItem('token');
 }
 function refreshToken(user){
@@ -45,7 +43,6 @@ function refreshToken(user){
     return fetch(`${baseUrl}/users/refresh-token/${user}`, requestOptions)
         .then(handleResponse)
         .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.removeItem("token");
             localStorage.setItem('token', JSON.stringify(user.token));
 
@@ -96,7 +93,6 @@ function changeImage(file){
     const requestOptions = {
         method: 'POST',
         body: file,
-        // headers: { ...authHeader(),'Content-Type': 'application/json' },
 
     };
     

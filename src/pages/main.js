@@ -16,7 +16,6 @@ import Profile from './profile/Profile';
 import RegisterPage from './register/Register';
 import { ProtectedRoute } from './router/ProtectedRoute';
 
-// import Alert from '@material-ui/lab/Alert';
   const styles = (theme) => ({
     loading: {
       
@@ -40,7 +39,6 @@ import { ProtectedRoute } from './router/ProtectedRoute';
             height: '100%',
             backgroundColor: 'rgba(52, 52, 52, 0.8)',
           
-            // background: '-webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.8))',
       }
     },
     spinner:{
@@ -53,7 +51,6 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     history.listen((location, action) => {
-      // clear alert on location change
       this.props.clearAlerts();
     });
   }
@@ -80,12 +77,10 @@ class Main extends React.Component {
         });
     } else this.props.closeSnackbar()
     
-    // window.scrollTo(0, 0);
     this.forceUpdate.bind(this)
   }
   componentDidMount(){
     store.subscribe( this.forceUpdate.bind(this) );
-    // window.scrollTo(0, 0);
 }
   render() {
     const { isFetching,classes } = this.props;
@@ -127,9 +122,6 @@ const mapDispatchToProps = {
 };
 
 const loadingSelector = createLoadingSelector([
-                          // 'STORIES_GETSTORIES', 
-                          // 'CHECKIN_GETCHECKIN',
-                          // 'POSTS_GETPOSTS',
                           'CHECKIN',
                           'CHECKOUT',
                           'ACTIVITY',
@@ -148,8 +140,7 @@ const loadingSelector = createLoadingSelector([
 export default compose(
   connect(
     mapStateToProps,
-    // mapStateToPropsToProps,
-    mapDispatchToProps // or put null here if you do not have actions to dispatch
+    mapDispatchToProps 
   ),
   withStyles(styles),
   withSnackbar 

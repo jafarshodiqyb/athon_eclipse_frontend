@@ -25,7 +25,7 @@ const styles = (theme) => ({
   tab: {
     textAlign: "right",
     margin: "0 auto",
-    minWidth: '25em', // a number of your choice
+    minWidth: '25em', 
     width: '25em',
     "& .MuiTab-wrapper": {
       display: 'block',
@@ -34,9 +34,7 @@ const styles = (theme) => ({
     },
     "& :hover": {
       color:'blue',
-      // ".MuiTabs-indicator": {
-      //   color:'red'
-      // },
+
     },
   },
   icon: {
@@ -208,7 +206,7 @@ const mapDispatchToProps  = {
 export default compose(
   connect(
     mapStateToProps,
-    mapDispatchToProps  // or put null here if you do not have actions to dispatch
+    mapDispatchToProps 
   ),
   withStyles(styles)
 )(Profile);

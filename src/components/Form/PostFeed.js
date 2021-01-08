@@ -11,7 +11,6 @@ import { postsActions } from '../../store/action/post.actions';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    // maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -19,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(3),
     marginRight: 0,
     marginLeft: 0,
@@ -60,7 +59,6 @@ function PostFeed(props) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // const()
     setData((prevState) => ({
         ...prevState,
           [name]: value,
@@ -96,26 +94,10 @@ function PostFeed(props) {
               onChange={handleChange}
               multiline
               fullWidth
-              // rows={3}
               rowsMax={7}
             />
           </CardContent>
           <CardActions className="mb-2 d-block">
-            {/* <FormControl className={classes.formControl}>
-            <Select
-              labelId="demo-simple-select-placeholder-label-label"
-              id="demo-simple-select-placeholder-label"
-              value={10}
-              displayEmpty
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Public</MenuItem>
-              <MenuItem value={30}>Close Friends</MenuItem>
-              <MenuItem value={20}>Private</MenuItem>
-            </Select>
-          </FormControl> */}
             <div className="float-left mb-2">
               <input
                 accept="image/*"
@@ -139,7 +121,6 @@ function PostFeed(props) {
               </Typography>
             </div>
             <Button
-              //   onClick={this.handleSubmit}
               variant="contained"
               color="primary"
               startIcon={<CreateIcon />}

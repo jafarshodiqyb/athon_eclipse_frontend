@@ -17,7 +17,6 @@ const hashtagRegex = require("hashtag-regex");
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    // maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%", 
   },
   chips: {
     display: "flex",
@@ -121,7 +120,6 @@ export default function Content2(props) {
           <RingSpinner  className="ml-2" size={25} color="#D4232C" loading={true} />
         </SpinnerWrapper>
         <Typography
-          // component="span"
           variant="h5"
           className={classes.inline + " ml-2"}
           color="textPrimary"

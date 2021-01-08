@@ -26,7 +26,6 @@ import { userActions } from "./../../store/action/user.actions";
 const styles = (theme) => ({
   root: {
     width: "100%",
-    //   maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -83,9 +82,7 @@ class HomePage extends React.Component {
     this.props.getCheckin(this.props.authentication.payload._id);
     this.forceUpdate();
     window.scrollTo(0, 0);
-    // if(this.state.user)
     let cek = _.some(this.state.user, (value, i) => {
-      // console.log(this.state.user['isSetPassword'])
       return (
         value === undefined ||
         value === "" ||
@@ -246,14 +243,11 @@ class HomePage extends React.Component {
             }
             autoHideDuration={1500}
             style={{ zIndex: 1 }}
-            // onClose={this.handleSnackBar}
           >
             <Alert onClose={this.handleSnackBar} severity="error">
               Hari ini anda belum Check In. Silahkan Check In terlebih dahulu!
             </Alert>
-            {/* {alert.message} */}
           </Snackbar>
-          //   <div className={`alert ${alert.type}`}>{alert.message}</div>
         )}
       </div>
     );
@@ -276,14 +270,11 @@ const actionCreators = {
   deleteActivity: activityActions.deleteActivity,
 };
 
-// Show loading when any of GET_TODOS_REQUEST, GET_USER_REQUEST is active
-// const connectedHomePage = connect(mapState, actionCreators)(HomePage);
-// export { connectedHomePage as HomePage };
+
 export default compose(
   connect(
     mapState,
-    // mapStateToProps,
-    actionCreators // or put null here if you do not have actions to dispatch
+    actionCreators 
   ),
   withStyles(styles)
 )(HomePage);

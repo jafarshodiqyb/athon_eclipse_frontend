@@ -27,8 +27,6 @@ function login(username, password) {
                 error => {
                     dispatch(dispatchSelector.failure(error, userTypes.LOGIN_FAILURE));
                     dispatch(alertActions.error(error.toString()));
-                    // history.push('/login');
-                    //window.location.reload()
 
                 }
             );
@@ -53,7 +51,6 @@ function register(user) {
                 error => {
                     dispatch(dispatchSelector.failure(error, userTypes.REGISTER_SUCCESS)); 
                     dispatch(alertActions.error(error.toString()));
-                    //window.location.reload()
                 }
             );
     };
@@ -65,13 +62,11 @@ function getUser(user) {
             .then(
                 user => { 
                     dispatch(dispatchSelector.success(user, userTypes.GETUSER_SUCCESS)); 
-                    // history.push('/login');
                     dispatch(alertActions.success('Get User Succesfull'));
                 },
                 error => {
                     dispatch(dispatchSelector.error(user, userTypes.GETUSER_FAILURE)); 
                     dispatch(alertActions.error(error.toString()));
-                    //window.location.reload()
                 }
             );
     };
@@ -86,14 +81,12 @@ function updateUser(user) {
                 user => {
                     dispatch(dispatchSelector.success(user, userTypes.UPDATE_SUCCESS));  
                     dispatch(dispatchSelector.success(user, userTypes.LOGIN_SUCCESS));  
-                    // history.push('/login');
                     dispatch(alertActions.success('Update successful'));
                 },
                 error => {
                     dispatch(dispatchSelector.failure(error, userTypes.UPDATE_FAILURE));  
                     dispatch(dispatchSelector.failure(error, userTypes.LOGIN_FAILURE));  
                     dispatch(alertActions.error(error.toString()));
-                    //window.location.reload()
                 }
             );
     };
@@ -105,14 +98,12 @@ function changeImage(file){
         userService.changeImage(file)
             .then(
                 user => { 
-                    // history.push('/login');
                     dispatch(dispatchSelector.success(user, userTypes.PROFILECHANGE_SUCCESS));  
                     dispatch(alertActions.success('Image uploaded'));
                 },
                 error => {
                     dispatch(dispatchSelector.failure(error, userTypes.PROFILECHANGE_SUCCESS));  
                     dispatch(alertActions.error(error.toString()));
-                    //window.location.reload()
                 }
             );
     };
@@ -124,14 +115,12 @@ function changePassword(body){
         userService.changePassword(body)
             .then(
                 user => { 
-                    // history.push('/login');
                     dispatch(dispatchSelector.success(user, userTypes.CHANGEPASSWORD_SUCCESS));  
                     dispatch(alertActions.success(user.message));
                 },
                 error => {
                     dispatch(dispatchSelector.failure(error, userTypes.CHANGEPASSWORD_FAILURE));  
                     dispatch(alertActions.error(error.toString()));
-                    //window.location.reload()
                 }
             );
     };
@@ -144,7 +133,6 @@ function setPassword(body){
         userService.setPassword(body)
             .then(
                 user => { 
-                    // history.push('/login');
                     dispatch(dispatchSelector.success(user, userTypes.SETPASSWORD_SUCCESS));  
                     dispatch(dispatchSelector.success(user, userTypes.LOGIN_SUCCESS)); 
                     dispatch(alertActions.success('Your password has been set successfully'));
@@ -153,7 +141,6 @@ function setPassword(body){
                     dispatch(dispatchSelector.failure(error, userTypes.SETPASSWORD_FAILURE));  
                     dispatch(dispatchSelector.failure(error, userTypes.LOGIN_FAILURE));
                     dispatch(alertActions.error(error.toString()));
-                    //window.location.reload()
                 }
             );
     };

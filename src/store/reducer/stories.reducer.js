@@ -11,12 +11,9 @@ export function stories(state = {}, action) {
       };
     case storiesTypes.GETSTORIES_FAILURE:
       return {};
-    // case checkTypes.LOGOUT:
-    //   return {};
     case storiesTypes.POSTSTORIES_REQUEST:
       return {
         gettingstories: true,
-        // user: action.payload
       };
     case storiesTypes.POSTSTORIES_SUCCESS:
       return Object.assign({}, state, { user: action.payload })

@@ -59,7 +59,7 @@ const AccordionDetails = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing.unit, // You might not need this now
+    margin: theme.spacing.unit,
     position: "fixed",
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 3,

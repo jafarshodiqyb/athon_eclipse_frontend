@@ -9,7 +9,6 @@ function uploadImage(file){
     const requestOptions = {
         method: 'POST',
         body: file,
-        // headers: { ...authHeader(),'Content-Type': 'application/json' },
 
     };
     

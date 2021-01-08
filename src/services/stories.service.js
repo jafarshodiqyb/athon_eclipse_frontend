@@ -14,7 +14,6 @@ export const storiesService = {
 function getAllStories() {
     const requestOptions = {
         method: 'GET',
-        // headers: authHeader()
         headers: { ...authHeader(),'Content-Type': 'application/json' },
 
     };

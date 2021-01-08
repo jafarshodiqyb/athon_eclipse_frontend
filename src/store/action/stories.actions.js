@@ -16,7 +16,6 @@ function getAllStories() {
             .then(
                 stories => { 
                     dispatch(dispatchSelector.success(stories, storiesTypes.GETSTORIES_SUCCESS));  
-                    // dispatch(alertActions.success('Get Stories successful'));
 
                 },
                 error => {

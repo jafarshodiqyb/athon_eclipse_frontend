@@ -24,7 +24,6 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    // maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%",
   },
 }));
 function FeedCard(props) {
@@ -75,7 +74,6 @@ function FeedCard(props) {
                           {hashtagValue}
                         </Link>
                       </Typography>
-                      // <Link className="hashtag">{hashtagValue}</div>
                     )}
                   >
                     {value.posts.content}
@@ -104,8 +102,6 @@ function FeedCard(props) {
                   label="Add a comment.."
                   type="comment"
                   name="comment"
-                  //   value={activity}
-                  //   onChange={this.handleChange}
                   fullWidth
                 />
               </div>

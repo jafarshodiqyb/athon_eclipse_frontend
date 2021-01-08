@@ -5,13 +5,11 @@ export function activities(state = {}, action) {
     case activityTypes.ACTIVITY_REQUEST:
       return {
         loading: true,
-        // user: action.payload
       };
     case activityTypes.ACTIVITY_SUCCESS:
       return {
         ...state,
         activity: action.payload,
-        // user: action.payload
       };
     case activityTypes.ACTIVITY_FAILURE:
       return {
@@ -21,7 +19,6 @@ export function activities(state = {}, action) {
       return {};
     case activityTypes.DEL_ACTIVITY_SUCCESS:
       return {
-        // items: state.items.filter(user => user.id !== action.id)
       };
     case activityTypes.DEL_ACTIVITY_FAILURE:
       return {};

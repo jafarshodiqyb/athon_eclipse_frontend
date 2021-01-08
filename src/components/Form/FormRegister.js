@@ -12,7 +12,6 @@ import { FormPassword } from './FormPassword';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    // maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -20,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%", 
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%", 
     marginTop: theme.spacing(3),
     marginRight: 0,
     marginLeft: 0,
@@ -51,7 +50,6 @@ function FormRegister(props) {
   const [submitted, setSubmitted] = React.useState(false);
 
   useEffect(() => {
-    // Update the document title using the browser API
     if (props.hide) {
       setUser((prevState) => ({
         ...prevState,
@@ -93,7 +91,6 @@ function FormRegister(props) {
       
       props.updateUser(user);
 
-      // putregister
     }
   };
   var regex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i)
@@ -119,7 +116,6 @@ function FormRegister(props) {
               autoComplete="username"
               helperText={props.hide && !user.username && "required"}
               error={props.hide && user.username===""}
-              // disabled={props.hide}
             />
           </Grid>
         </div>
@@ -138,7 +134,6 @@ function FormRegister(props) {
               autoFocus
               helperText={props.hide && !user.firstName && "required"}
               error={props.hide && user.firstName===""}
-            //   defaultValue="tes"
             />
           </Grid>
         </div>
@@ -172,12 +167,10 @@ function FormRegister(props) {
               value={user.email}
               onChange={handleChange}
               helperText={
-                // props.confirmPassword &&
-                // props.password !== props.confirmPassword &&
                 user.email&&!regex.test(user.email) &&"Email invalid"
               }
               error={
-              user.email&&!regex.test(user.email)  // props.confirmPassword && props.password !== props.confirmPassword
+              user.email&&!regex.test(user.email)  
               }
             />
           </Grid>
@@ -228,9 +221,6 @@ function FormRegister(props) {
        
         <FormPassword {...user} hide={props.hide} onChange={handleChange} isRegister={props.isRegister}/>
         <div className="form-group d-flex text-center justify-center col-12">
-          {/* {registering && (
-                    <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                  )} */}
           <div className="col-12">
             <Grid container justify="flex-end">
               <Grid item>

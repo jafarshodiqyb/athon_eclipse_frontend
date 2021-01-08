@@ -6,15 +6,6 @@ import api from './middleware'
 
 const loggerMiddleware = createLogger();
 
-// export const store = createStore(
-//     rootReducer,
-//     applyMiddleware(
-//         thunkMiddleware,
-//         loggerMiddleware,
-//         api
-//     )
-// );
-
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware,loggerMiddleware, api)(createStore)
 

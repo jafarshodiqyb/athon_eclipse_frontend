@@ -6,17 +6,14 @@ export function hashtag(state = {}, action) {
   switch (action.type) {
     case hashtagTypes.HASHTAG_REQUEST:
       return {
-        // user: action.payload
       };
     case hashtagTypes.HASHTAG_SUCCESS:
       return {
-        // checkin: true,
         ...state,item: afterfound(action.payload)
       };
     case hashtagTypes.HASHTAG_FAILURE:
       return {};
-    // case checkTypes.LOGOUT:
-    //   return {};
+
     default:
       return state
   }
@@ -26,7 +23,6 @@ function afterfound(posts) {
     const regex = hashtagRegex();
     let match;
     let find = [];
-    // return new Promise((resolve,reject)=>{
         if(posts){
             posts.map((value, i) => {
                 while ((match = regex.exec(value.posts.content))) {
@@ -34,7 +30,6 @@ function afterfound(posts) {
                   let index = _.findIndex(find,function(o) { return o.hashtag.toLowerCase() == hashtag.toLowerCase(); })
                   if (index !== -1 ) {
                     find[index].count = find[index].count + 1;
-                    // find[hashtag].count = find[hashtag].count++;
                   } else {
                     find.push({
                       hashtag: hashtag,
@@ -44,5 +39,4 @@ function afterfound(posts) {
                 });
         }
           return(find)
-    // })
 }

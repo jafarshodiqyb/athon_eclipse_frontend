@@ -48,7 +48,6 @@ export function FormPassword(props) {
             id="confirmPassword"
             value={props.confirmPassword}
             onChange={props.onChange}
-            //   defaultValue={props.confirmPassword && (props.password!==props.confirmPassword)}
             helperText={
               props.confirmPassword &&
               props.password !== props.confirmPassword &&

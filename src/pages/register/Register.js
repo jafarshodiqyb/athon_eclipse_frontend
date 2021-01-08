@@ -44,7 +44,7 @@ const styles = (theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -71,8 +71,7 @@ class RegisterPage extends React.Component {
   }
 
   render() {
-    // const { registering } = this.props;
-    // const { user, submitted } = this.state;
+
     const { classes } = this.props;
     return (
       <div>
@@ -118,12 +117,10 @@ const mapDispatchToProps = {
   register: userActions.register,
 };
 
-// const connectedRegisterPage = connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
 export default compose(
   connect(
     mapStateToProps,
-    mapDispatchToProps // or put null here if you do not have actions to dispatch
+    mapDispatchToProps 
   ),
   withStyles(styles)
 )(RegisterPage);
-// export { connectedRegisterPage as RegisterPage };

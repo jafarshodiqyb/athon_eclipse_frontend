@@ -14,7 +14,6 @@ export const postsService = {
 function getAllFeed() {
     const requestOptions = {
         method: 'GET',
-        // headers: authHeader()
         headers: { ...authHeader(),'Content-Type': 'application/json' },
 
     };

@@ -77,7 +77,6 @@ export function MockActivityList() {
           >
             <MenuItem
               key={1}
-              // selected={option === "Pyxis"}
               onClick={() => handleCloseAnchor(1)}
             >
               <IconButton disabled>
@@ -86,7 +85,6 @@ export function MockActivityList() {
             </MenuItem>
             <MenuItem
               key={1}
-              // selected={option === "Pyxis"}
               onClick={() => handleCloseAnchor(1)}
             >
               <IconButton disabled>
@@ -107,7 +105,6 @@ export function MockActivityList() {
         </Tooltip>
 
         <ListItemText
-        // style={{ overflowWrap: "anywhere" }}
         >
           <Typography
             variant="body"
@@ -143,7 +140,6 @@ export function MockActivityList() {
           >
             <MenuItem
               key={1}
-              // selected={option === "Pyxis"}
               onClick={() => handleCloseAnchor(1)}
             >
               <IconButton disabled>
@@ -152,7 +148,6 @@ export function MockActivityList() {
             </MenuItem>
             <MenuItem
               key={1}
-              // selected={option === "Pyxis"}
               onClick={() => handleCloseAnchor(1)}
             >
               <IconButton disabled>

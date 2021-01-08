@@ -19,13 +19,11 @@ export default function SecurityQuestions() {
     const [option, setOption] = React.useState([]);
   
     const handleChange = (event) => {
-    //   setOption(event.target.value);
     const { name, value } = event.target;        
       setOption((prevState) => ({
         ...prevState,
         [name]: value,
       }));
-    //   
     console.log(option)
       
     };

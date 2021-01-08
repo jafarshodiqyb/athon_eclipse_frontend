@@ -8,12 +8,11 @@ import { history } from '../../utils/history';
 const styles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    //   maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "56.25%", 
     borderRadius: "50%",
     margin: "22%",
     marginTop: "10%",
@@ -26,7 +25,6 @@ const styles = makeStyles((theme) => ({
     margin: "2em",
     width: "8em",
     height: "8em",
-    // border:"5px solid"
   },
 }));
 function ProfileCard(props) {
@@ -59,7 +57,6 @@ function ProfileCard(props) {
           accept="image/*"
           className={classes.input}
           id="contained-button-file"
-          // multiple
           type="file"
           onChange={onChange}
         />

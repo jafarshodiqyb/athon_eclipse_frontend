@@ -6,7 +6,6 @@ export function authentication(state, action) {
     case userTypes.LOGIN_REQUEST:
       return {
         loggingIn: true,
-        // user: action.payload
       };
     case userTypes.LOGIN_SUCCESS:
       return {
@@ -58,11 +57,8 @@ function verifyToken(data) {
     "12345-67890-09876-54321",
     function (err, decoded) {
       if (err &&data) {
-        // let params = queryString.parse(this.props.location.pathname.substr(7,this.props.location.pathname.length));
-        // if(!params.token){
         alert('Sesi habis silahkan login kembali!')
         localStorage.removeItem("token");
-        // }
       } else if (decoded) {
         return decoded;
       }

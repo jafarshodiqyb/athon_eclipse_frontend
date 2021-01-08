@@ -19,7 +19,6 @@ function getAllposts() {
                 posts => { 
                     dispatch(dispatchSelector.success(posts, postsTypes.GETPOSTS_SUCCESS));
                     dispatch(dispatchSelector.success(posts,hashtagTypes.HASHTAG_SUCCESS));
-                    // dispatch(alertActions.success('Get posts successful'));
 
                 },
                 error => {

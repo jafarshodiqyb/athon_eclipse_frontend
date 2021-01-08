@@ -68,7 +68,6 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
     if (check.item) {
       listActivities = _.filter(check.item.activities,(value,i)=>{
         return value.status === status
-        // check.item.activities_.pickBy(check.item.activities,props.status);
       }) 
     }
     const handleClickAnchor = (event, id) => {
@@ -156,9 +155,7 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
                     >
                       <MenuItem
                         key={value._id}
-                        // selected={option === "Pyxis"}
                         onClick={() => handleCloseAnchor(value._id)}
-                        // style={{background:status=='done'?'rgba(52, 52, 52, 0.2)':''}}
                       >
                         <IconButton
                         onClick={(e) =>
@@ -166,21 +163,17 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
                         }
                         style={{color:'#22AF25'}}
                         hidden={status==='done'}
-                        // disabled={status==='done'}
                         >
                           <NavigateNextIcon />
                         </IconButton>
                       </MenuItem>
                       <MenuItem
                         key={value._id}
-                        // selected={option === "Pyxis"}
                         onClick={() => handleCloseAnchor(value._id)}
-                        // style={{background:status=='done'?'rgba(52, 52, 52, 0.2)':''}}
                       >
                         <IconButton
                         onClick={(e) =>
                           handleMoveStatus(check.item._id, value._id,value.activity,status,'back')
-                          // alert('tobe continued')
                         }
                         style={{color:'#22AF25'}}
                         hidden={status==='todo'}
@@ -190,7 +183,6 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
                       </MenuItem>
                       <MenuItem
                         key={value._id}
-                        // selected={option === "Pyxis"}
                         onClick={() => handleCloseAnchor(value._id)}
                       >
                         <IconButton
@@ -231,7 +223,6 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
   const styles = makeStyles((theme) => ({
     root: {
       width: "100%",
-      //   maxWidth: '36ch',
       backgroundColor: theme.palette.background.paper,
     },
     tab: {
@@ -261,8 +252,7 @@ import { DialogConfirmation } from '../Dialog/DialogConfirmation';
   export default compose(
     connect(
       mapStateToProps,
-      // mapStateToPropsToProps,
-      mapDispatchToProps // or put null here if you do not have actions to dispatch
+      mapDispatchToProps 
     ),
     withStyles(styles)
   )(ActivityList);

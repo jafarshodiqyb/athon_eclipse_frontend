@@ -11,12 +11,9 @@ export function posts(state = {}, action) {
       };
     case postsTypes.GETPOSTS_FAILURE:
       return {};
-    // case checkTypes.LOGOUT:
-    //   return {};
     case postsTypes.POSTPOSTS_REQUEST:
       return {
         gettingposts: true,
-        // user: action.payload
       };
     case postsTypes.POSTPOSTS_SUCCESS:
       return { ...state,

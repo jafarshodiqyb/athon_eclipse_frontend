@@ -21,7 +21,6 @@ export function StoriesFeed(props) {
     const onChange = (e) => {
       e.preventDefault();
       const files = e.target.files[0];
-      // props.changeImage(formData);
         let body = {
           user : props.authentication.payload._id,
           image : props.user.image?props.user.image:'',
@@ -123,7 +122,6 @@ export function StoriesFeed(props) {
 const useStyles = makeStyles((theme) => ({
     root: {
       width: "100%",
-      // maxWidth: '36ch',
       backgroundColor: theme.palette.background.paper,
     },
     inline: {
@@ -131,14 +129,13 @@ const useStyles = makeStyles((theme) => ({
     },
     media: {
       height: 0,
-      paddingTop: "56.25%", // 16:9
+      paddingTop: "56.25%",
     },
     input: {
       display: "none",
     },
     storiesWrap:{
       display: "flex",
-      // justifyContent: space-around,
       minWidth: '35em',
       position: "relative",
       overflowX: "auto",
@@ -148,7 +145,6 @@ const useStyles = makeStyles((theme) => ({
       margin: "10px",
       width: "60px",
       height: "60px",
-      // border:"5px solid"
     },
     storiesBorder: {
       border: "3px solid",

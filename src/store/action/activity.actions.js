@@ -18,20 +18,15 @@ function addActivity(data) {
         activityService.addActivity(data)
             .then(
                 data => { 
-                    // dispatch(success(data));
                     dispatch(dispatchSelector.success(data,activityTypes.ACTIVITY_SUCCESS));
                     dispatch(dispatchSelector.success(data,checkTypes.GETCHECKIN_SUCCESS));
                     dispatch(alertActions.success('Add activity successful'));
-                    // history.push('/');
-                    // window.location.reload()
 
                 },
                 error => {
-                    // dispatch(failure(error.toString()));
                     dispatch(dispatchSelector.failure(error,activityTypes.ACTIVITY_FAILURE));
                     dispatch(dispatchSelector.failure(error,checkTypes.GETCHECKIN_FAILURE));
 
-                    // dispatch(alertActions.error(error.toString()));
                 }
             );
     };
@@ -47,8 +42,6 @@ function updateActivity(data) {
                     dispatch(dispatchSelector.success(data,activityTypes.UPDATE_ACTIVITY_SUCCESS));
                     dispatch(dispatchSelector.success(data,checkTypes.GETCHECKIN_SUCCESS));
                     dispatch(alertActions.success('Edit activity successful'));
-                    // history.push('/');
-                    // window.location.reload()
 
                 },
                 error => {
@@ -69,7 +62,6 @@ function deleteActivity(id) {
                     dispatch(dispatchSelector.success(id,activityTypes.DEL_ACTIVITY_SUCCESS));
                     dispatch(dispatchSelector.success(id,checkTypes.GETCHECKIN_SUCCESS));
                     dispatch(alertActions.success('Delete activity successful'));
-                    // window.location.reload()
 
                 },
                 error => {
