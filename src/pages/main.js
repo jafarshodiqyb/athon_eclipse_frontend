@@ -20,7 +20,7 @@ import { ProtectedRoute } from './router/ProtectedRoute';
     loading: {
       
         position: 'fixed',
-        zIndex: 999,
+        zIndex: 1400,
         height: '2em',
         width: '2em',
         overflow: 'show',
@@ -87,7 +87,7 @@ class Main extends React.Component {
     return (
       <div>
         <div className={isFetching?classes.loading:''}>
-          <SpinnerWrapper style={{ left: "-10em", top: "-5em",position:"relative",zIndex:1000}}>
+          <SpinnerWrapper style={{ left: "-10em", top: "-5em",position:"relative",zIndex:1400}}>
           <PongSpinner
             size={350}
             color="white"
@@ -124,6 +124,7 @@ const mapDispatchToProps = {
 const loadingSelector = createLoadingSelector([
                           'CHECKIN',
                           'CHECKOUT',
+                          'CHECKIN_GETCHECKIN',
                           'ACTIVITY',
                           'DEL_ACTIVITY',
                           'UPDATE_ACTIVITY',
@@ -133,7 +134,9 @@ const loadingSelector = createLoadingSelector([
                           'USERS_PROFILECHANGE',
                           'USER_GETUSER',
                           'POSTS_POSTPOSTS',
+                          'POSTS_GETPOSTS',
                           "STORIES_POSTSTORIES",
+                          "STORIES_GETSTORIES",
                           "USERS_CHANGEPASSWORD",
                           "USERS_SETPASSWORD"
                         ]);
