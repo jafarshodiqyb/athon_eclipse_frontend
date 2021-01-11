@@ -52,17 +52,7 @@ export function authentication(state, action) {
 }
 
 function verifyToken(data) {
-  // const jwt_Token_decoded = Jwt_Decode(localStorage.getItem("JWT_Token"));
-  // console.log(jwt_Token_decoded.exp * 1000);
-  // console.log(Date.now());
-  // if (jwt_Token_decoded.exp * 1000 < Date.now()) {
-  //     localStorage.clear(); // this runs only when I refresh the page or reload on route change it dosent work
-  // } else {
-  //     initialstate.user = jwt_Token_decoded;
-  // }
-
   const token = jwt.verify(data, "12345-67890-09876-54321", (err, decoded)=> {
-      console.log(err)
       if (err && !err.message.includes('jwt must be provided')) {
         localStorage.removeItem("token");
       } else if(decoded && decoded.exp * 1000 < Date.now()){

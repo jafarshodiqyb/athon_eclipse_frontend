@@ -141,6 +141,29 @@ class HomePage extends React.Component {
     return (
       <div>
         <TopBar {...this.props} />
+         <DialogConfirmation
+          open={this.state.checkProfile}
+          onClose={() => this.handleOnClose("updateProfile")}
+          dialogTitle="Your profile is not complete. Do you want to update?"
+          confirmation={{ yes: "next", no: "skip" }}
+          type="link"
+        />
+        {isNotCheckinToday && (
+          <Snackbar
+            open={
+              _.isEmpty(check) ||
+              (check &&
+                check.item &&
+                !moment(check.item.lastCheckIn).isSame(moment(), "day"))
+            }
+            autoHideDuration={1500}
+            style={{ zIndex: 1 }}
+          >
+            <Alert onClose={this.handleSnackBar} severity="error">
+              Hari ini anda belum Check In. Silahkan Check In terlebih dahulu!
+            </Alert>
+          </Snackbar>
+        )}
         <div className="container" style={{marginTop:'5em'}}>
           <div className="row">
             <div className="col-md-3 mt-4">
@@ -159,8 +182,7 @@ class HomePage extends React.Component {
                       {date}
                     </Typography>
                   </div>
-                  {/* <InfoTitle>50 Days of Premium!</InfoTitle>
-                    <InfoSubtitle>Get it before 01.01.2020</InfoSubtitle> */}
+
                   <div className="float-right pr-2 pb-2 mt-2">
                     <SpinnerWrapper
                       style={{
@@ -226,29 +248,7 @@ class HomePage extends React.Component {
         </div>
         <ChatBar />
         <Copyright />
-        <DialogConfirmation
-          open={this.state.checkProfile}
-          onClose={() => this.handleOnClose("updateProfile")}
-          dialogTitle="Your profile is not complete. Do you want to update?"
-          confirmation={{ yes: "next", no: "skip" }}
-          type="link"
-        />
-        {isNotCheckinToday && (
-          <Snackbar
-            open={
-              _.isEmpty(check) ||
-              (check &&
-                check.item &&
-                !moment(check.item.lastCheckIn).isSame(moment(), "day"))
-            }
-            autoHideDuration={1500}
-            style={{ zIndex: 1 }}
-          >
-            <Alert onClose={this.handleSnackBar} severity="error">
-              Hari ini anda belum Check In. Silahkan Check In terlebih dahulu!
-            </Alert>
-          </Snackbar>
-        )}
+       
       </div>
     );
   }
