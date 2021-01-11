@@ -1,13 +1,17 @@
 import { Avatar, Badge, Card, IconButton, makeStyles, Typography, withStyles } from "@material-ui/core";
 import { useState } from "react";
 import Stories from "../../parts/Stories/Stories";
+import * as _ from "lodash";
 
 export function StoriesFeed(props) {
     const classes = useStyles();
     const [modalOpen, setModalOpen] = useState({});
-    const findMyStories = (props && props.stories && props.stories.user)?  props.stories.user.filter((value,i)=>{
-      return value.user.username === props.authentication.payload.username
-    }):[]
+    let findMyStories = []
+    if(!_.some(props.loadingReducer) && props && props.stories && props.stories.user) {
+      findMyStories = props.stories.user.filter((value,i)=>{
+        return value.user.username === props.authentication.payload.username
+      })
+    } 
     const handleClickOpen = (username) => {
       if(findMyStories.length>0 ||username !==props.authentication.payload.username){
         setModalOpen({ ...modalOpen, [username]: true });
@@ -23,7 +27,6 @@ export function StoriesFeed(props) {
       const files = e.target.files[0];
         let body = {
           user : props.authentication.payload._id,
-          image : props.user.image?props.user.image:'',
           stories:{
             image:files?files:'',
             url:'',

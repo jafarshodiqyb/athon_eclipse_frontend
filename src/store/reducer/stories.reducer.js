@@ -13,7 +13,7 @@ export function stories(state = {}, action) {
       return {};
     case storiesTypes.POSTSTORIES_REQUEST:
       return {
-        gettingstories: true,
+        // gettingstories: true,
       };
     case storiesTypes.POSTSTORIES_SUCCESS:
       return {...state,  user: action.payload }

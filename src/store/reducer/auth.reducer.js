@@ -13,7 +13,7 @@ export function authentication(state, action) {
         payload: verifyToken(action.payload.token),
       };
     case userTypes.LOGIN_FAILURE:
-      return { item: action.error };
+      return {};
     case userTypes.UPDATE_REQUEST:
       return {
         loading: true,
@@ -24,9 +24,7 @@ export function authentication(state, action) {
         payload: verifyToken(action.payload.token),
       };
     case userTypes.UPDATE_FAILURE:
-      return {
-        error: action.error,
-      };
+      return {};
     case userTypes.SETPASSWORD_REQUEST:
       return {
         loading: true,
@@ -37,7 +35,7 @@ export function authentication(state, action) {
         payload: verifyToken(action.payload.token)
         
       };
-    case userTypes.SETPASSWORD_REQUEST:
+    case userTypes.SETPASSWORD_ERROR:
       return {
         error: action.error,
       };

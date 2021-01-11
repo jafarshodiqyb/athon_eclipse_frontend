@@ -100,6 +100,7 @@ class Profile extends React.Component {
 
   render() {
     const {classes } = this.props;
+    console.log(this.props)
     return (
       <div>
         {this.props.hashtag && <TopBar {...this.props} />}
@@ -137,7 +138,7 @@ class Profile extends React.Component {
                     selected={this.state.value}
                     index={2}
                     className={classes.tab}
-                    label="Change Password"
+                    label={!_.some(this.props.loadingReducer) && this.props.authentication && this.props.authentication.payload? this.props.authentication.payload.isSetPassword?"Change Password":"Set Password":''}
                     {...a11yProps(2)}
                   />
                 </Tabs>
@@ -174,7 +175,7 @@ class Profile extends React.Component {
                     component="p"
                     className="mt-4 p-4 text-left"
                   >
-                    Change Password
+                    {!_.some(this.props.loadingReducer) && this.props.authentication && this.props.authentication.payload? this.props.authentication.payload.isSetPassword?"Change Password":"Set Password":''}
                   </Typography>
                   <div className="mt-4">
                     {/* <SecurityQuestions/> */}

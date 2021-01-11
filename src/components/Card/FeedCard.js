@@ -45,7 +45,7 @@ function FeedCard(props) {
               <CardHeader
                 avatar={
                   <Avatar
-                    src={value.user.image ? value.user.image : "person.jpg"}
+                    src={value.user ? value.user.image : "person.jpg"}
                     aria-label="recipe"
                     className={classes.avatar}
                   />
@@ -55,7 +55,7 @@ function FeedCard(props) {
                     <MoreVertIcon />
                   </IconButton>
                 }
-                title={value.user.username}
+                title={value.user? value.user.username:''}
                 subheader={moment(value.lastUpdate).fromNow()}
                 className="text-left"
               />
