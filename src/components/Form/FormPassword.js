@@ -61,8 +61,8 @@ export function FormPassword(props) {
       </div>
 
       <div className="container" hidden={props.isRegister || props.hide}>
-        <Button  onClick={()=>props.submitChangePassword()} variant="contained" color="primary" className="float-left mt-2 mb-4">
-          Change password
+        <Button disabled={!props.password} onClick={()=>props.submitChangePassword()} variant="contained" color="primary" className="float-left mt-2 mb-4">
+        {props.payload && props.payload.isSetPassword?"Change Password":"Set Password"}
         </Button>
       </div>
     </>

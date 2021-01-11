@@ -258,8 +258,7 @@ function FormRegister(props) {
   );
 }
 function mapStateToProps(state) {
-  const { registering } = state.registration;
-  return { registering };
+  return state;
 }
 
 const mapDispatchToProps = {
