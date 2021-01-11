@@ -8,7 +8,6 @@ export const userActions = {
     login,
     logout,
     register,
-    changeImage,
     updateUser,
     getUser,
     changePassword,
@@ -86,23 +85,6 @@ function updateUser(user) {
                 error => {
                     dispatch(dispatchSelector.failure(error, userTypes.UPDATE_FAILURE));  
                     dispatch(dispatchSelector.failure(error, userTypes.LOGIN_FAILURE));  
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-    };
-}
-
-function changeImage(file){
-    return dispatch => {                    
-        dispatch(dispatchSelector.request(file,userTypes.PROFILECHANGE_REQUEST));
-        userService.changeImage(file)
-            .then(
-                user => { 
-                    dispatch(dispatchSelector.success(user, userTypes.PROFILECHANGE_SUCCESS));  
-                    dispatch(alertActions.success('Image uploaded'));
-                },
-                error => {
-                    dispatch(dispatchSelector.failure(error, userTypes.PROFILECHANGE_SUCCESS));  
                     dispatch(alertActions.error(error.toString()));
                 }
             );

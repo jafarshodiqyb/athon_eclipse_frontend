@@ -63,5 +63,5 @@ function verifyToken(data) {
       }
     }
   );
-  return (typeof token !="undefined" && data) ?token._doc  : null 
+  return (typeof token !="undefined" && data)?(token._doc ? token._doc : token[0]) : null 
 }

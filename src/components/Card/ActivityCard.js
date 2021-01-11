@@ -108,7 +108,6 @@ function mapStateToProps(state) {
   return state;
 }
 const mapDispatchToProps = {
-  changeImage: userActions.changeImage,
   updateUser: userActions.updateUser,
 };
 

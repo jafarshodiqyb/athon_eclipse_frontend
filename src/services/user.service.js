@@ -7,7 +7,6 @@ export const userService = {
     login,
     logout,
     register,
-    changeImage,
     updateUser,
     getUser,
     refreshToken,
@@ -89,16 +88,6 @@ async function updateUser(user) {
         })
 }
 
-function changeImage(file){
-    const requestOptions = {
-        method: 'POST',
-        body: file,
-
-    };
-    
-    return fetch(`${baseUrl}/image-upload`, requestOptions).then(handleResponse);
-      
-}
 
 function changePassword(body){
     const requestOptions = {

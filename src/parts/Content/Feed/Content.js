@@ -39,7 +39,6 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   getAllStories: storiesActions.getAllStories,
-  changeImage: userActions.changeImage,
   postStories: storiesActions.postStories,
 };
 
