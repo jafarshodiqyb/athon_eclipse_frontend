@@ -3,7 +3,7 @@ import { storiesTypes } from "../type/stories.type";
 export function stories(state = {}, action) {
   switch (action.type) {
     case storiesTypes.GETSTORIES_REQUEST:
-      return Object.assign({}, state)
+      return {}
     case storiesTypes.GETSTORIES_SUCCESS:
       return {
         ...state,
@@ -16,7 +16,7 @@ export function stories(state = {}, action) {
         gettingstories: true,
       };
     case storiesTypes.POSTSTORIES_SUCCESS:
-      return Object.assign({}, state, { user: action.payload })
+      return {...state,  user: action.payload }
     case storiesTypes.POSTSTORIES_FAILURE:
       return {};
     default:
