@@ -23,6 +23,7 @@ import Copyright from "./../../parts/Footer/Copyright";
 import { activityActions } from "./../../store/action/activity.actions";
 import { checkActions } from "./../../store/action/check.actions";
 import { userActions } from "./../../store/action/user.actions";
+import { profileCheck } from './../../utils/profile-checker';
 const styles = (theme) => ({
   root: {
     width: "100%",
@@ -82,12 +83,21 @@ class HomePage extends React.Component {
     this.props.getCheckin(this.props.authentication.payload._id);
     this.forceUpdate();
     window.scrollTo(0, 0);
-    let cek = _.some(this.state.user, (value, i) => {
+    let cek = _.some(profileCheck, (value, i) =>{
+      console.log(value,i)
       return (
-        value === undefined ||
-        value === "" ||
-        value === null ||
-        !this.state.user["isSetPassword"]
+        this.state.user[value] === undefined || 
+        this.state.user[value] === "" || 
+        this.state.user[value] === null || 
+        (i=='isSetPassword' && 
+        !this.state.user[value])||
+        (i=='verifyToken' && 
+        !this.state.user[value])
+        // value === undefined ||
+        // value === "" ||
+        // value === null ||
+        // i!=='verifyToken'||
+        // !this.state.user["isSetPassword"]
       );
     });
     this.setState({ checkProfile: cek });
