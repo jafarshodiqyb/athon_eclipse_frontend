@@ -40,7 +40,7 @@ export function StoriesFeed(props) {
 
     <Card variant="outlined" className={" mb-4"}>
     <div className={classes.storiesWrap + " float-left"}>
-      <div style={{ display: "inline-grid" }}>
+      <div className="ml-2" style={{ display: "inline-grid" }}>
         <input
           accept="image/*"
           className={classes.input}
@@ -82,7 +82,7 @@ export function StoriesFeed(props) {
           </IconButton>
         </label>
 
-        <Typography variant="caption" color="initial" className="mb-2">
+        <Typography variant="caption" color="initial" component="p" className={classes.storiesUserName + " mb-2"}>
           {props.user.username}
         </Typography>
       </div>
@@ -102,11 +102,11 @@ export function StoriesFeed(props) {
                 key={i}
               >
                 <Avatar
-                  src={value.image ? value.image : "person.jpg"}
+                  src={value.user ? value.user.image : "person.jpg"}
                   className={[classes.stories, classes.storiesBorder]}
                 />
               </IconButton>
-              <Typography variant="caption" color="initial" className="mb-2">
+              <Typography component="p" variant="caption" color="initial" className={classes.storiesUserName + " mb-2"} >
                 {value.user.username}
               </Typography>
               <Stories
@@ -115,7 +115,7 @@ export function StoriesFeed(props) {
                 userStories={value}
               />
             </div>
-          );
+          )
         })}
     </div>
   </Card>
@@ -153,6 +153,12 @@ const useStyles = makeStyles((theme) => ({
       border: "3px solid",
       borderColor: "#3F51B5",
     },
+    storiesUserName:{
+      'width': '75px',
+      height:'35px',
+      'white-space': 'pre-line',
+      'word-break': 'break-all'
+    }
   }));
   
   const SmallAvatar = withStyles((theme) => ({

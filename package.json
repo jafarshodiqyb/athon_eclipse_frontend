@@ -2,7 +2,6 @@
   "name": "frontend-ta",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://jafarshodiqyb.github.io/athon_eclipse_frontend",
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/data-grid": "^4.0.0-alpha.14",
