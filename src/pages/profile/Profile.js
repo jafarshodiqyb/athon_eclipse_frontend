@@ -100,7 +100,6 @@ class Profile extends React.Component {
 
   render() {
     const {classes } = this.props;
-    console.log(this.props)
     return (
       <div>
         {this.props.hashtag && <TopBar {...this.props} />}

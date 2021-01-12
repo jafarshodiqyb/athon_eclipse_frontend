@@ -84,7 +84,6 @@ class HomePage extends React.Component {
     this.forceUpdate();
     window.scrollTo(0, 0);
     let cek = _.some(profileCheck, (value, i) =>{
-      console.log(value,i)
       return (
         this.state.user[value] === undefined || 
         this.state.user[value] === "" || 
